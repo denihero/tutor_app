@@ -1,4 +1,4 @@
-import 'dart:html';
+import 'package:flutter/material.dart';
 
 class Lesson {
   String title, videoUrl, definition;
@@ -64,9 +64,10 @@ class Lesson {
 }
 
 class Course {
-  ImageData image;
+  ImageProvider image;
   String title;
-  int rating, views, likes;
+  double rating;
+  int views, likes;
   List<Lesson> lessons;
 
 //<editor-fold desc="Data Methods">
@@ -114,9 +115,9 @@ class Course {
   }
 
   Course copyWith({
-    ImageData? image,
+    ImageProvider? image,
     String? title,
-    int? rating,
+    double? rating,
     int? views,
     int? likes,
     List<Lesson>? lessons,
@@ -144,14 +145,16 @@ class Course {
 
   factory Course.fromMap(Map<String, dynamic> map) {
     return Course(
-      image: map['image'] as ImageData,
+      image: map['image'] as ImageProvider,
       title: map['title'] as String,
-      rating: map['rating'] as int,
+      rating: map['rating'] as double,
       views: map['views'] as int,
       likes: map['likes'] as int,
-      lessons: map['lessons'] as List<Lesson>,
+      lessons: (map['lessons'] as List).map((lesson) => Lesson.fromMap(lesson))
+          as List<Lesson>,
     );
   }
 
+  int get lessonsCount  => lessons.length;
 //</editor-fold>
 }

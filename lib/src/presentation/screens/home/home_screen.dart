@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:tutor_app/src/ui/screens/home/pages/favorite_page.dart';
-import 'package:tutor_app/src/ui/screens/home/pages/home_page.dart';
-import 'package:tutor_app/src/ui/screens/home/pages/profile_page.dart';
+import 'package:tutor_app/src/presentation/components/appbars/transparent_appbar.dart';
+import 'package:tutor_app/src/presentation/components/custom_search.dart';
+import 'package:tutor_app/src/presentation/screens/home/pages/favorite_page.dart';
+import 'package:tutor_app/src/presentation/screens/home/pages/home_page.dart';
+import 'package:tutor_app/src/presentation/screens/home/pages/profile_page.dart';
+import 'package:tutor_app/src/presentation/screens/settings_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -28,6 +31,55 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
+      appBar: [
+        TransparentAppBar(
+          title: Padding(
+            padding: EdgeInsets.symmetric(horizontal: 30),
+            child: CustomSearch(),
+          ),
+        ),
+        TransparentAppBar(
+          title: Text(
+            "Избранное",
+            style: TextStyle(
+              color: Colors.black,
+              fontSize: 18,
+              fontWeight: FontWeight.w600,
+              letterSpacing: 1.04,
+            ),
+          ),
+        ),
+        TransparentAppBar(
+          title: Text(
+            "Профиль",
+            style: TextStyle(
+              color: Colors.black,
+              fontSize: 18,
+              fontWeight: FontWeight.w600,
+              letterSpacing: 1.04,
+            ),
+          ),
+          action: Padding(
+            padding: EdgeInsets.only(right: 22),
+            child: IconButton(
+              icon: Icon(
+                Icons.settings,
+                color: Color(0xFFFE793D),
+                size: 30,
+              ),
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => SettingsScreen(),
+                  ),
+                );
+              },
+            ),
+          ),
+        ),
+      ][_currentIndex],
       body: SafeArea(
         child: PageView(
           controller: _pageController,
@@ -39,18 +91,35 @@ class _HomeScreenState extends State<HomeScreen> {
           ],
         ),
       ),
-      bottomNavigationBar: BottomNavigationBar(
-        showSelectedLabels: false,
-        showUnselectedLabels: false,
-        selectedItemColor: Color(0xFFFE793D),
-        unselectedItemColor: Colors.black,
-        currentIndex: _currentIndex,
-        onTap: (index) => onBottomNavBarTap(index),
-        items: [
-          navBarIcon(Icons.home),
-          navBarIcon(Icons.favorite),
-          navBarIcon(Icons.person_sharp),
-        ],
+      bottomNavigationBar: Container(
+        clipBehavior: Clip.antiAliasWithSaveLayer,
+        decoration: BoxDecoration(
+          boxShadow: [
+            BoxShadow(
+              color: Color(0xFFC2D1E5),
+              offset: Offset(0, -1),
+              blurRadius: 11,
+            )
+          ],
+          borderRadius: BorderRadius.only(
+            topRight: Radius.circular(26),
+            topLeft: Radius.circular(26),
+          ),
+        ),
+        child: BottomNavigationBar(
+          elevation: 0,
+          showSelectedLabels: false,
+          showUnselectedLabels: false,
+          selectedItemColor: Color(0xFFFE793D),
+          unselectedItemColor: Colors.black,
+          currentIndex: _currentIndex,
+          onTap: (index) => onBottomNavBarTap(index),
+          items: [
+            navBarIcon(Icons.home),
+            navBarIcon(Icons.favorite),
+            navBarIcon(Icons.person_sharp),
+          ],
+        ),
       ),
     );
   }

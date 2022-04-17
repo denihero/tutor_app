@@ -2,9 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:tutor_app/src/presentation/screens/home/home_screen.dart';
 import 'package:tutor_app/src/presentation/screens/login_screen.dart';
+import 'package:tutor_app/src/presentation/screens/registration_screen.dart';
 
-class Application extends StatelessWidget {
-  const Application({Key? key}) : super(key: key);
+class App extends StatelessWidget {
+  const App({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
