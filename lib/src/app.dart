@@ -16,7 +16,7 @@ class App extends StatelessWidget {
           Theme.of(context).textTheme,
         ),
       ),
-      home: LoginScreen(),
+      home: const HomeScreen(),
     );
   }
 }

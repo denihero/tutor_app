@@ -9,10 +9,10 @@ class SettingsScreen extends StatelessWidget {
     return Scaffold(
       appBar: TransparentAppBar(
         leading: Padding(
-          padding: EdgeInsets.only(left: 22),
+          padding: const EdgeInsets.only(left: 22),
           child: IconButton(
             padding: EdgeInsets.zero,
-            icon: Icon(
+            icon: const Icon(
               Icons.arrow_back_ios,
               color: Colors.black,
             ),
@@ -21,7 +21,7 @@ class SettingsScreen extends StatelessWidget {
             },
           ),
         ),
-        title: Text(
+        title: const Text(
           "Настройки",
           style: TextStyle(
             color: Colors.black,
@@ -33,7 +33,7 @@ class SettingsScreen extends StatelessWidget {
       ),
       body: SafeArea(
         child: Padding(
-          padding: EdgeInsets.only(left: 30),
+          padding: const EdgeInsets.only(left: 30),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -46,14 +46,14 @@ class SettingsScreen extends StatelessWidget {
                     decoration: BoxDecoration(
                         color: Colors.white,
                         borderRadius: BorderRadius.circular(360),
-                        boxShadow: [
+                        boxShadow: const [
                           BoxShadow(
                             color: Color(0xFFC2D1E5),
                             offset: Offset(0, -1),
                             blurRadius: 11,
                           )
                         ]),
-                    child: Center(
+                    child: const Center(
                       child: Image(
                         image: NetworkImage(
                             "https://i.pinimg.com/originals/d9/56/9b/d9569bbed4393e2ceb1af7ba64fdf86a.jpg"),
@@ -70,7 +70,7 @@ class SettingsScreen extends StatelessWidget {
                       decoration: BoxDecoration(
                           color: Colors.white,
                           borderRadius: BorderRadius.circular(360),
-                          boxShadow: [
+                          boxShadow: const [
                             BoxShadow(
                               color: Color(0xFFC2D1E5),
                               offset: Offset(0, -1),
@@ -79,7 +79,7 @@ class SettingsScreen extends StatelessWidget {
                           ]),
                       child: IconButton(
                         padding: EdgeInsets.zero,
-                        icon: Icon(
+                        icon: const Icon(
                           Icons.edit,
                           size: 20,
                         ),
@@ -90,19 +90,19 @@ class SettingsScreen extends StatelessWidget {
                   ),
                 ],
               ),
-              SizedBox(height: 43),
+              const SizedBox(height: 43),
               titleWithDetailes("Меня зовут", "Имя Фамилие"),
               Padding(
-                padding: EdgeInsets.symmetric(vertical: 49),
+                padding: const EdgeInsets.symmetric(vertical: 49),
                 child: titleWithDetailes("Обо мне", "Расскажите что нибудь"),
               ),
               titleWithDetailes("Email", "uomuraliev09@gmail.com"),
-              Spacer(),
+              const Spacer(),
               Row(
                 children: [
                   IconButton(
                     padding: EdgeInsets.zero,
-                    icon: Icon(
+                    icon: const Icon(
                       Icons.exit_to_app_rounded,
                       color: Colors.black,
                       size: 30,
@@ -110,8 +110,8 @@ class SettingsScreen extends StatelessWidget {
                     onPressed: () {},
                     splashRadius: 20,
                   ),
-                  SizedBox(width: 6),
-                  Text(
+                  const SizedBox(width: 6),
+                  const Text(
                     "Выход",
                     style: TextStyle(
                       fontSize: 18,
@@ -120,7 +120,7 @@ class SettingsScreen extends StatelessWidget {
                   ),
                 ],
               ),
-              SizedBox(height: 12),
+              const SizedBox(height: 12),
             ],
           ),
         ),
@@ -133,16 +133,16 @@ class SettingsScreen extends StatelessWidget {
     children: [
       Text(
         title,
-        style: TextStyle(
+        style: const TextStyle(
           fontSize: 18,
           fontWeight: FontWeight.w600,
           letterSpacing: 1.04,
         ),
       ),
-      SizedBox(height: 15),
+      const SizedBox(height: 15),
       Text(
         details,
-        style: TextStyle(
+        style: const TextStyle(
           fontSize: 10,
           fontWeight: FontWeight.w500,
           letterSpacing: 1.04,

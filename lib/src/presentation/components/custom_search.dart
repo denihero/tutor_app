@@ -36,7 +36,7 @@ class CustomSearch extends StatelessWidget {
             padding: const EdgeInsets.only(left: 6),
             child: CircleAvatar(
                 radius: 10,
-                backgroundColor: Color(0xFFFE793D),
+                backgroundColor: const Color(0xFFFE793D),
                 child: IconButton(
                   icon: const Icon(Icons.search),
                   color: Colors.white,

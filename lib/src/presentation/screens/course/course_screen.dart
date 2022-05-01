@@ -18,7 +18,7 @@ class _CourseScreenState extends State<CourseScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: TransparentAppBar(
-        title: Text(
+        title: const Text(
           "Детали видео урока",
           style: TextStyle(
             color: Colors.black,
@@ -28,13 +28,13 @@ class _CourseScreenState extends State<CourseScreen> {
           ),
         ),
         leading: Padding(
-          padding: EdgeInsets.only(left: 22),
+          padding: const EdgeInsets.only(left: 22),
           child: IconButton(
             padding: EdgeInsets.zero,
             onPressed: () {
               Navigator.pop(context);
             },
-            icon: Icon(
+            icon: const Icon(
               Icons.home_rounded,
               color: Colors.black,
               size: 30,
@@ -44,12 +44,12 @@ class _CourseScreenState extends State<CourseScreen> {
       ),
       body: SafeArea(
         child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 30),
+          padding: const EdgeInsets.symmetric(horizontal: 30),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               CoursePresentation(course: widget.course),
-              Padding(
+              const Padding(
                 padding: EdgeInsets.only(top: 30, bottom: 6.5),
                 child: Text(
                   "Видео уроки",

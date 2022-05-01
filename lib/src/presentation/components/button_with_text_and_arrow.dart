@@ -33,7 +33,7 @@ class ButtonWithTextAndArrow extends StatelessWidget {
         child: InkWell(
           onTap: onTap!(),
           child: Padding(
-            padding: EdgeInsets.symmetric(
+            padding: const EdgeInsets.symmetric(
               horizontal: 20,
               vertical: 14,
             ),
@@ -50,7 +50,7 @@ class ButtonWithTextAndArrow extends StatelessWidget {
                     letterSpacing: 1.04,
                   ),
                 ),
-                SizedBox(width: 8),
+                const SizedBox(width: 8),
                 Icon(
                   icon ?? Icons.arrow_forward_rounded,
                   color: isActive

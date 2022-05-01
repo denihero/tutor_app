@@ -14,7 +14,7 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  PageController _pageController = PageController();
+  final PageController _pageController = PageController();
   int _currentIndex = 0;
 
   void onBottomNavBarTap(int index) {
@@ -23,7 +23,7 @@ class _HomeScreenState extends State<HomeScreen> {
       _pageController.animateToPage(
         index,
         curve: Curves.decelerate,
-        duration: Duration(milliseconds: 300),
+        duration: const Duration(milliseconds: 300),
       );
     });
   }
@@ -33,13 +33,13 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: [
-        TransparentAppBar(
+        const TransparentAppBar(
           title: Padding(
             padding: EdgeInsets.symmetric(horizontal: 30),
             child: CustomSearch(),
           ),
         ),
-        TransparentAppBar(
+        const TransparentAppBar(
           title: Text(
             "Избранное",
             style: TextStyle(
@@ -51,7 +51,7 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
         ),
         TransparentAppBar(
-          title: Text(
+          title: const Text(
             "Профиль",
             style: TextStyle(
               color: Colors.black,
@@ -61,9 +61,9 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
           ),
           action: Padding(
-            padding: EdgeInsets.only(right: 22),
+            padding: const EdgeInsets.only(right: 22),
             child: IconButton(
-              icon: Icon(
+              icon: const Icon(
                 Icons.settings,
                 color: Color(0xFFFE793D),
                 size: 30,
@@ -72,7 +72,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => SettingsScreen(),
+                    builder: (context) => const SettingsScreen(),
                   ),
                 );
               },
@@ -83,8 +83,8 @@ class _HomeScreenState extends State<HomeScreen> {
       body: SafeArea(
         child: PageView(
           controller: _pageController,
-          physics: NeverScrollableScrollPhysics(),
-          children: [
+          physics: const NeverScrollableScrollPhysics(),
+          children: const [
             HomePage(),
             FavoritePage(),
             ProfilePage(),
@@ -93,7 +93,7 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
       bottomNavigationBar: Container(
         clipBehavior: Clip.antiAliasWithSaveLayer,
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
           boxShadow: [
             BoxShadow(
               color: Color(0xFFC2D1E5),
@@ -110,7 +110,7 @@ class _HomeScreenState extends State<HomeScreen> {
           elevation: 0,
           showSelectedLabels: false,
           showUnselectedLabels: false,
-          selectedItemColor: Color(0xFFFE793D),
+          selectedItemColor: const Color(0xFFFE793D),
           unselectedItemColor: Colors.black,
           currentIndex: _currentIndex,
           onTap: (index) => onBottomNavBarTap(index),
