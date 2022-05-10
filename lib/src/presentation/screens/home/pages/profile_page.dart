@@ -19,7 +19,7 @@ class _ProfilePageState extends State<ProfilePage> {
           width: 200,
           clipBehavior: Clip.antiAliasWithSaveLayer,
           decoration: BoxDecoration(
-            color: Colors.white,
+              color: Colors.white,
               borderRadius: BorderRadius.circular(360),
               boxShadow: [
                 BoxShadow(

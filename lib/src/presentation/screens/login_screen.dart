@@ -16,7 +16,8 @@ class _LoginScreenState extends State<LoginScreen> {
     FocusNode(),
   ];
 
-  final TextEditingController _loginTEController = TextEditingController();
+  final TextEditingController usernameController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -49,13 +50,14 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                   const SizedBox(height: 50),
                   TextFormWithBoxShadow(
-                    textEditingController: _loginTEController,
+                    textEditingController: usernameController,
                     icon: Icons.email_outlined,
                     hintText: "EMAIL",
                     focusNode: _focusNodes[0],
                   ),
                   const SizedBox(height: 40),
                   TextFormWithBoxShadow(
+                    textEditingController: passwordController,
                     icon: Icons.lock_rounded,
                     hintText: "PASSWORD",
                     focusNode: _focusNodes[1],
@@ -67,10 +69,8 @@ class _LoginScreenState extends State<LoginScreen> {
                       const Spacer(),
                       ButtonWithTextAndArrow(
                         text: "Login",
-                        onTap: () {
-
-                        },
-                        isActive: _loginTEController.value.text.isNotEmpty,
+                        onTap: () {},
+                        isActive: usernameController.value.text.isNotEmpty,
                       ),
                     ],
                   ),
@@ -81,11 +81,13 @@ class _LoginScreenState extends State<LoginScreen> {
                       Text("Don`t have an account? "),
                       TextButton(
                           onPressed: () {
-                            Navigator.push(context, MaterialPageRoute(builder: (_) => const RegistrationScreen()));
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (_) =>
+                                        const RegistrationScreen()));
                           },
-                          child: const Text(
-                              'Sign up'
-                          )),
+                          child: const Text('Sign up')),
                       Spacer(),
                     ],
                   ),

@@ -155,6 +155,6 @@ class Course {
     );
   }
 
-  int get lessonsCount  => lessons.length;
+  int get lessonsCount => lessons.length;
 //</editor-fold>
 }

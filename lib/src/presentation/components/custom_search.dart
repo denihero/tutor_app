@@ -31,7 +31,7 @@ class CustomSearch extends StatelessWidget {
             borderSide: BorderSide(color: Color(0xFFFE793D)),
           ),
           filled: true,
-          fillColor: Colors.grey.withOpacity(0.02),
+          fillColor: Colors.grey.withOpacity(0.2),
           suffixIcon: Padding(
             padding: const EdgeInsets.only(left: 6),
             child: CircleAvatar(
@@ -60,9 +60,7 @@ class CustomSearch extends StatelessWidget {
 class CustomSearchDelegate extends SearchDelegate {
   @override
   List<Widget>? buildActions(BuildContext context) {
-    return [
-
-    ];
+    return [];
   }
 
   @override
@@ -82,7 +80,6 @@ class CustomSearchDelegate extends SearchDelegate {
     // TODO: implement buildSuggestions
     throw UnimplementedError();
   }
-
 }
 
 //

@@ -34,7 +34,8 @@ class _LessonCardState extends State<LessonCard> {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => LessonScreen(id: widget.id, lesson: widget.lesson),
+            builder: (context) =>
+                LessonScreen(id: widget.id, lesson: widget.lesson),
           ),
         );
       },

@@ -129,25 +129,25 @@ class SettingsScreen extends StatelessWidget {
   }
 
   Widget titleWithDetailes(String title, String details) => Column(
-    crossAxisAlignment: CrossAxisAlignment.start,
-    children: [
-      Text(
-        title,
-        style: const TextStyle(
-          fontSize: 18,
-          fontWeight: FontWeight.w600,
-          letterSpacing: 1.04,
-        ),
-      ),
-      const SizedBox(height: 15),
-      Text(
-        details,
-        style: const TextStyle(
-          fontSize: 10,
-          fontWeight: FontWeight.w500,
-          letterSpacing: 1.04,
-        ),
-      )
-    ],
-  );
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            title,
+            style: const TextStyle(
+              fontSize: 18,
+              fontWeight: FontWeight.w600,
+              letterSpacing: 1.04,
+            ),
+          ),
+          const SizedBox(height: 15),
+          Text(
+            details,
+            style: const TextStyle(
+              fontSize: 10,
+              fontWeight: FontWeight.w500,
+              letterSpacing: 1.04,
+            ),
+          )
+        ],
+      );
 }
