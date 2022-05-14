@@ -21,14 +21,14 @@ class _ProfilePageState extends State<ProfilePage> {
           decoration: BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.circular(360),
-              boxShadow: [
+              boxShadow: const [
                 BoxShadow(
                   color: Color(0xFFC2D1E5),
                   offset: Offset(0, -1),
                   blurRadius: 11,
                 )
               ]),
-          child: Image(
+          child: const Image(
             image: NetworkImage(
                 "https://i.pinimg.com/originals/d9/56/9b/d9569bbed4393e2ceb1af7ba64fdf86a.jpg"),
           ),

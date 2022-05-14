@@ -7,15 +7,13 @@ class ButtonWithTextAndArrow extends StatelessWidget {
     this.icon,
     this.buttonColor,
     this.textAndArrowColor,
-    this.onTap,
-    this.isActive = true,
+    required this.onTap,
   }) : super(key: key);
 
   final String? text;
   final IconData? icon;
   final Color? buttonColor, textAndArrowColor;
-  final Function? onTap;
-  final bool isActive;
+  final Function() onTap;
 
   @override
   Widget build(BuildContext context) {
@@ -25,13 +23,13 @@ class ButtonWithTextAndArrow extends StatelessWidget {
     return Container(
       clipBehavior: Clip.antiAliasWithSaveLayer,
       decoration: BoxDecoration(
-        color: isActive ? _buttonColor : _buttonColor.withOpacity(0.5),
+        color: _buttonColor,
         borderRadius: BorderRadius.circular(30),
       ),
       child: Material(
         color: Colors.transparent,
         child: InkWell(
-          onTap: onTap!(),
+          onTap: onTap,
           child: Padding(
             padding: const EdgeInsets.symmetric(
               horizontal: 20,
@@ -42,21 +40,15 @@ class ButtonWithTextAndArrow extends StatelessWidget {
                 Text(
                   text ?? "Button",
                   style: TextStyle(
-                    color: isActive
-                        ? _textAndArrowColor
-                        : _textAndArrowColor.withOpacity(0.5),
+                    color: _textAndArrowColor,
                     fontSize: 16,
                     fontWeight: FontWeight.bold,
                     letterSpacing: 1.04,
                   ),
                 ),
                 const SizedBox(width: 8),
-                Icon(
-                  icon ?? Icons.arrow_forward_rounded,
-                  color: isActive
-                      ? _textAndArrowColor
-                      : _textAndArrowColor.withOpacity(0.5),
-                ),
+                Icon(icon ?? Icons.arrow_forward_rounded,
+                    color: _textAndArrowColor),
               ],
             ),
           ),

@@ -13,8 +13,10 @@ class CustomSearch extends StatelessWidget {
             context: context,
             delegate: CustomSearchDelegate(),
           );
+          FocusManager.instance.primaryFocus?.unfocus();
         },
         cursorHeight: 16,
+        autofocus: false,
         style: const TextStyle(
           fontSize: 10,
           fontWeight: FontWeight.w500,
@@ -60,138 +62,34 @@ class CustomSearch extends StatelessWidget {
 class CustomSearchDelegate extends SearchDelegate {
   @override
   List<Widget>? buildActions(BuildContext context) {
-    return [];
+    return [
+      IconButton(
+          onPressed: () {
+            query = '';
+          },
+          icon: const Icon(Icons.remove))
+    ];
   }
 
   @override
   Widget? buildLeading(BuildContext context) {
-    // TODO: implement buildLeading
-    throw UnimplementedError();
+    return IconButton(
+        onPressed: () {
+          close(context, null);
+          FocusManager.instance.primaryFocus?.unfocus();
+        },
+        icon: const Icon(Icons.arrow_back_outlined));
   }
 
   @override
   Widget buildResults(BuildContext context) {
-    // TODO: implement buildResults
-    throw UnimplementedError();
+    return Column(
+      children: const [],
+    );
   }
 
   @override
   Widget buildSuggestions(BuildContext context) {
-    // TODO: implement buildSuggestions
-    throw UnimplementedError();
+    return Column();
   }
 }
-
-//
-// class CustomSearchDelegate extends SearchDelegate {
-//   @override
-//   List<Widget> buildActions(BuildContext context) {
-//     return [
-//       IconButton(
-//         icon: Icon(Icons.clear),
-//         onPressed: () {
-//           query = '';
-//         },
-//       ),
-//     ];
-//   }
-//
-//   @override
-//   Widget buildLeading(BuildContext context) {
-//     return IconButton(
-//       icon: Icon(Icons.arrow_back),
-//       onPressed: () {
-//         close(context, null);
-//       },
-//     );
-//   }
-//
-//   @override
-//   Widget buildResults(BuildContext context) {
-//     if (query.length < 3) {
-//       return Column(
-//         mainAxisAlignment: MainAxisAlignment.center,
-//         children: <Widget>[
-//           Center(
-//             child: Text(
-//               "Search term must be longer than two letters.",
-//             ),
-//           )
-//         ],
-//       );
-//     }
-//
-//     //Add the search term to the searchBloc.
-//     //The Bloc will then handle the searching and add the results to the searchResults stream.
-//     //This is the equivalent of submitting the search term to whatever search service you are using
-//     InheritedBlocs.of(context).searchBloc.searchTerm.add(query);
-//
-//     return Column(
-//       children: <Widget>[
-//         //Build the results based on the searchResults stream in the searchBloc
-//         StreamBuilder(
-//           stream: InheritedBlocs.of(context).searchBloc.searchResults,
-//           builder: (context, AsyncSnapshot<List<Result>> snapshot) {
-//             if (!snapshot.hasData) {
-//               return Column(
-//                 crossAxisAlignment: CrossAxisAlignment.center,
-//                 mainAxisAlignment: MainAxisAlignment.center,
-//                 children: <Widget>[
-//                   Center(child: CircularProgressIndicator()),
-//                 ],
-//               );
-//             } else if (snapshot.data.length == 0) {
-//               return Column(
-//                 children: <Widget>[
-//                   Text(
-//                     "No Results Found.",
-//                   ),
-//                 ],
-//               );
-//             } else {
-//               var results = snapshot.data;
-//               return ListView.builder(
-//                 itemCount: results.length,
-//                 itemBuilder: (context, index) {
-//                   var result = results[index];
-//                   return ListTile(
-//                     title: Text(result.title),
-//                   );
-//                 },
-//               );
-//             }
-//           },
-//         ),
-//       ],
-//     );
-//   }
-//
-//   @override
-//   Widget buildSuggestions(BuildContext context) {
-//     // This method is called everytime the search term changes.
-//     // If you want to add search suggestions as the user enters their search term, this is the place to do that.
-//     return Column();
-//   }
-// }
-
-//
-// class InheritedBlocs extends InheritedWidget {
-//   InheritedBlocs(
-//       {Key? key,
-//         this.searchBloc,
-//         required this.child})
-//       : super(key: key, child: child);
-//
-//   final Widget child;
-//   final SearchBloc searchBloc;
-//
-//   static InheritedBlocs of(BuildContext context) {
-//     return (context.inheritFromWidgetOfExactType(InheritedBlocs)
-//     as InheritedBlocs);
-//   }
-//
-//   @override
-//   bool updateShouldNotify(InheritedBlocs oldWidget) {
-//     return true;
-//   }
-// }

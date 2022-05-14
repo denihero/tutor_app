@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:dio/dio.dart';
 import 'package:http/http.dart' as http;
 
+import '../../../models/category.dart';
 import '../../constant/api.dart';
 
 Future<String> login(String username, String password) async {
@@ -71,10 +72,10 @@ Future<bool> confirmPassword(String username, String code) async {
   return false;
 }
 
-/*Future<Map<String, String>> get_categories(String token) async {
-  var response =
-  await http.get(Uri.parse("${Api.tutorApi}/categories/"), headers: {
-    "Authorization": "Token be4f6b0ae5a8b387b98a96ddb5a33ab0ba8b48b1",
+Future<Map<String, String>> get_categories(String token) async {
+  var response = await http
+      .get(Uri.parse("${Api.tutorApi}/category/category-list/"), headers: {
+    "Authorization": "Token a14f55cd5dcf4d33e564973225fe9fc344237bab",
   });
   print("token:$token");
   print("Response :${response.body}");
@@ -84,7 +85,7 @@ Future<bool> confirmPassword(String username, String code) async {
   return Categories.fromJson(
     jsonDecode(utf8.decode(response.bodyBytes)),
   ).categories;
-}*/
+}
 
 /*get_survey_via_id(int id, String token) async {
   var response =

@@ -1,5 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tutor_app/src/presentation/components/appbars/transparent_appbar.dart';
+import 'package:tutor_app/src/presentation/screens/widgets/profile_edit_icon.dart';
+
+import '../../logic/blocs/authetication/authentication_bloc.dart';
+import 'login_screen.dart';
 
 class SettingsScreen extends StatelessWidget {
   const SettingsScreen({Key? key}) : super(key: key);
@@ -39,55 +44,9 @@ class SettingsScreen extends StatelessWidget {
             children: [
               Stack(
                 children: [
-                  Container(
-                    height: 66,
-                    width: 66,
-                    clipBehavior: Clip.antiAliasWithSaveLayer,
-                    decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(360),
-                        boxShadow: const [
-                          BoxShadow(
-                            color: Color(0xFFC2D1E5),
-                            offset: Offset(0, -1),
-                            blurRadius: 11,
-                          )
-                        ]),
-                    child: const Center(
-                      child: Image(
-                        image: NetworkImage(
-                            "https://i.pinimg.com/originals/d9/56/9b/d9569bbed4393e2ceb1af7ba64fdf86a.jpg"),
-                      ),
-                    ),
-                  ),
-                  Positioned(
-                    right: -3,
-                    bottom: 3,
-                    child: Container(
-                      height: 30,
-                      width: 30,
-                      clipBehavior: Clip.antiAliasWithSaveLayer,
-                      decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(360),
-                          boxShadow: const [
-                            BoxShadow(
-                              color: Color(0xFFC2D1E5),
-                              offset: Offset(0, -1),
-                              blurRadius: 11,
-                            )
-                          ]),
-                      child: IconButton(
-                        padding: EdgeInsets.zero,
-                        icon: const Icon(
-                          Icons.edit,
-                          size: 20,
-                        ),
-                        onPressed: () {},
-                        splashRadius: 25,
-                      ),
-                    ),
-                  ),
+                  BlocBuilder<AuthBloc, AuthState>(builder: (context, state) {
+                    return const ProfileEditIcon();
+                  }),
                 ],
               ),
               const SizedBox(height: 43),
@@ -107,7 +66,13 @@ class SettingsScreen extends StatelessWidget {
                       color: Colors.black,
                       size: 30,
                     ),
-                    onPressed: () {},
+                    onPressed: () {
+                      BlocProvider.of<AuthBloc>(context).add(AuthLogout());
+                      Navigator.of(context).pushAndRemoveUntil(
+                          MaterialPageRoute(
+                              builder: (_) => const LoginScreen()),
+                          (route) => false);
+                    },
                     splashRadius: 20,
                   ),
                   const SizedBox(width: 6),

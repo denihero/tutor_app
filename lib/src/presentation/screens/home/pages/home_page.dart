@@ -1,6 +1,8 @@
 import 'dart:core';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:tutor_app/src/logic/categories_cubit.dart';
 import 'package:tutor_app/src/models/models.dart';
 import 'package:tutor_app/src/presentation/screens/home/pages/widgets/course_card.dart';
 
@@ -13,24 +15,26 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   int? choiceIndex;
-  List<String> name = ['Математика', 'Будни'];
+  List<String> name = [];
   @override
   Widget build(BuildContext context) {
-    print(name.length);
     return Column(
       children: [
         Container(
           height: 41,
           margin: const EdgeInsets.only(left: 17, bottom: 43),
-          child: ListView.builder(
-              scrollDirection: Axis.horizontal,
-              itemCount: name.length - name.length + 1,
-              itemBuilder: (BuildContext context, int index) => Padding(
-                  padding: const EdgeInsets.only(left: 10),
-                  child: Wrap(
-                    spacing: 10,
-                    children: techChips(index),
-                  ))),
+          child: BlocBuilder<CategoriesCubit, Cat>(builder: (context, state) {
+            name = state.categories.keys.toList();
+            return ListView.builder(
+                scrollDirection: Axis.horizontal,
+                itemCount: name.length - name.length + 1,
+                itemBuilder: (BuildContext context, int index) => Padding(
+                    padding: const EdgeInsets.only(left: 10),
+                    child: Wrap(
+                      spacing: 10,
+                      children: techChips(index),
+                    )));
+          }),
         ),
         Expanded(
           child: ListView.builder(
