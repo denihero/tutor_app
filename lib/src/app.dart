@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:sizer/sizer.dart';
+import 'package:tutor_app/src/logic/cubit/course__cubit.dart';
 import 'package:tutor_app/src/presentation/screens/home/home_screen.dart';
 import 'package:tutor_app/src/presentation/screens/login_screen.dart';
 import 'package:tutor_app/src/presentation/screens/registration_screen.dart';
@@ -22,6 +23,9 @@ class App extends StatelessWidget {
         ),
         BlocProvider<CategoriesCubit>(
           create: (context) => CategoriesCubit(),
+        ),
+        BlocProvider<SurveyCubit>(
+          create: (context) => SurveyCubit(),
         ),
       ],
       child: Sizer(

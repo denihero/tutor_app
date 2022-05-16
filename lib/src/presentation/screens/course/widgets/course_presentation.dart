@@ -14,7 +14,7 @@ class CoursePresentation extends StatelessWidget {
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(20),
-        boxShadow: [
+        boxShadow: const [
           BoxShadow(
             color: Color(0xFFC2D1E5),
             offset: Offset(0, -1),
@@ -34,25 +34,25 @@ class CoursePresentation extends StatelessWidget {
                   borderRadius: BorderRadius.circular(20),
                 ),
                 child: Image(
-                  image: course.image,
+                  image: course.image!,
                   fit: BoxFit.cover,
                 ),
               ),
-              SizedBox(height: 14),
+              const SizedBox(height: 14),
               Padding(
-                padding: EdgeInsets.only(left: 20),
+                padding: const EdgeInsets.only(left: 20),
                 child: Text(
-                  course.title,
-                  style: TextStyle(
+                  course.title!,
+                  style: const TextStyle(
                     fontSize: 18,
                     fontWeight: FontWeight.w700,
                     letterSpacing: 1.04,
                   ),
                 ),
               ),
-              SizedBox(height: 23),
+              const SizedBox(height: 23),
               Padding(
-                padding: EdgeInsets.only(left: 23),
+                padding: const EdgeInsets.only(left: 23),
                 child: Row(
                   children: [
                     iconWithText(Icons.star_rounded, course.rating.toString()),
@@ -72,8 +72,8 @@ class CoursePresentation extends StatelessWidget {
                 borderRadius: BorderRadius.circular(360),
                 boxShadow: [
                   BoxShadow(
-                    color: Color(0xFFC2D1E5).withOpacity(0.7),
-                    offset: Offset(0, -1),
+                    color: const Color(0xFFC2D1E5).withOpacity(0.7),
+                    offset: const Offset(0, -1),
                     blurRadius: 11,
                   ),
                 ],
@@ -82,10 +82,10 @@ class CoursePresentation extends StatelessWidget {
                 child: LikeButton(
                   likeBuilder: (bool isLiked) {
                     return Padding(
-                      padding: EdgeInsets.only(top: 1.3, left: 2.75),
+                      padding: const EdgeInsets.only(top: 1.3, left: 2.75),
                       child: Icon(
                         Icons.favorite_rounded,
-                        color: isLiked ? Color(0xFFFE793D) : Colors.grey,
+                        color: isLiked ? const Color(0xFFFE793D) : Colors.grey,
                         size: 28,
                       ),
                     );
@@ -100,7 +100,7 @@ class CoursePresentation extends StatelessWidget {
             child: Text(
               "${course.lessonsCount} " +
                   rightLessonsCountName(course.lessonsCount),
-              style: TextStyle(
+              style: const TextStyle(
                 fontSize: 10,
                 fontWeight: FontWeight.w500,
                 letterSpacing: 1.04,
@@ -127,13 +127,13 @@ class CoursePresentation extends StatelessWidget {
         children: [
           Icon(
             icon,
-            color: Color(0xFF878787),
+            color: const Color(0xFF878787),
             size: 15,
           ),
-          SizedBox(width: 5),
+          const SizedBox(width: 5),
           Text(
             text,
-            style: TextStyle(
+            style: const TextStyle(
               color: Color(0xFF878787),
               fontSize: 7,
               fontWeight: FontWeight.w400,

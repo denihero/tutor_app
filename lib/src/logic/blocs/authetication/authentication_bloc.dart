@@ -61,7 +61,6 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> with HydratedMixin {
       //   );
       // }
       emit(const AuthLoading(""));
-      print("Login");
       try {
         var r = await login(event.username, event.password);
         print(r);

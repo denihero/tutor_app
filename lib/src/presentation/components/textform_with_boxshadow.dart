@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 
 class TextFormWithBoxShadow extends StatefulWidget {
   const TextFormWithBoxShadow({
@@ -25,7 +26,16 @@ class _TextFormWithBoxShadowState extends State<TextFormWithBoxShadow> {
   void initState() {
     super.initState();
     widget.focusNode.addListener(() {
-      setState(() {});
+      SchedulerBinding.instance
+          .addPostFrameCallback((_) {
+            if(mounted){
+              setState(() {
+
+              });
+            }
+
+      });
+
     });
   }
 

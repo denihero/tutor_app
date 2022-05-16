@@ -27,7 +27,7 @@ class _LoginScreenState extends State<LoginScreen> {
   final TextEditingController passwordController = TextEditingController();
 
   bool check(String name, String password) {
-    if (name.isEmpty || password.length < 6) {
+    if (name.isEmpty || password.length <= 6) {
       return false;
     }
     return true;
@@ -90,8 +90,9 @@ class _LoginScreenState extends State<LoginScreen> {
                             ButtonWithTextAndArrow(
                               text: "Login",
                               onTap: () {
-                                SchedulerBinding.instance
-                                    .addPostFrameCallback((_) {
+                                print(usernameController.text);
+                                print(passwordController.text);
+
                                   check(usernameController.text,
                                           passwordController.text)
                                       ? BlocProvider.of<AuthBloc>(context).add(
@@ -105,7 +106,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                                 Text("Entered invalid data!"),
                                           ),
                                         );
-                                });
+
                               },
                             ),
                           ],

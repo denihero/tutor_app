@@ -44,19 +44,19 @@ class Lesson {
     );
   }
 
-  Map<String, dynamic> toMap() {
+  dynamic toJson() {
     return {
-      'title': this.title,
-      'videoUrl': this.videoUrl,
-      'definition': this.definition,
+      'title': title,
+      'videoUrl': videoUrl,
+      'definition': definition,
     };
   }
 
-  factory Lesson.fromMap(Map<String, dynamic> map) {
+  factory Lesson.fromJson(dynamic json) {
     return Lesson(
-      title: map['title'] as String,
-      videoUrl: map['videoUrl'] as String,
-      definition: map['definition'] as String,
+      title: json['title'] as String,
+      videoUrl: json['videoUrl'] as String,
+      definition: json['definition'] as String,
     );
   }
 
@@ -64,21 +64,21 @@ class Lesson {
 }
 
 class Course {
-  ImageProvider image;
-  String title;
-  double rating;
-  int views, likes;
-  List<Lesson> lessons;
+  ImageProvider? image;
+  String? title;
+  double? rating;
+  int? views, likes;
+  List<Lesson>? lessons;
 
 //<editor-fold desc="Data Methods">
 
   Course({
-    required this.image,
-    required this.title,
-    required this.rating,
-    required this.views,
-    required this.likes,
-    required this.lessons,
+    this.image,
+    this.title,
+    this.rating,
+    this.views,
+    this.likes,
+    this.lessons,
   });
 
   @override
@@ -132,29 +132,29 @@ class Course {
     );
   }
 
-  Map<String, dynamic> toMap() {
+  dynamic toJson() {
     return {
-      'image': this.image,
-      'title': this.title,
-      'rating': this.rating,
-      'views': this.views,
-      'likes': this.likes,
-      'lessons': this.lessons,
+      'image': image,
+      'title': title,
+      'rating': rating,
+      'views': views,
+      'likes': likes,
+      'lessons': lessons,
     };
   }
 
-  factory Course.fromMap(Map<String, dynamic> map) {
+  factory Course.fromJson(dynamic json) {
     return Course(
-      image: map['image'] as ImageProvider,
-      title: map['title'] as String,
-      rating: map['rating'] as double,
-      views: map['views'] as int,
-      likes: map['likes'] as int,
-      lessons: (map['lessons'] as List).map((lesson) => Lesson.fromMap(lesson))
+      image: json['image'] as ImageProvider,
+      title: json['title'] as String,
+      rating: json['rating'] as double,
+      views: json['views'] as int,
+      likes: json['likes'] as int,
+      lessons: (json['lessons'] as List).map((lesson) => Lesson.fromJson(lesson))
           as List<Lesson>,
     );
   }
 
-  int get lessonsCount => lessons.length;
+  int get lessonsCount => lessons!.length;
 //</editor-fold>
 }

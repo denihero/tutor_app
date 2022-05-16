@@ -3,6 +3,7 @@ import 'dart:core';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tutor_app/src/logic/categories_cubit.dart';
+import 'package:tutor_app/src/logic/cubit/course__cubit.dart';
 import 'package:tutor_app/src/models/models.dart';
 import 'package:tutor_app/src/presentation/screens/home/pages/widgets/course_card.dart';
 
@@ -16,6 +17,7 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   int? choiceIndex;
   List<String> name = [];
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -28,40 +30,69 @@ class _HomePageState extends State<HomePage> {
             return ListView.builder(
                 scrollDirection: Axis.horizontal,
                 itemCount: name.length - name.length + 1,
-                itemBuilder: (BuildContext context, int index) => Padding(
-                    padding: const EdgeInsets.only(left: 10),
-                    child: Wrap(
-                      spacing: 10,
-                      children: techChips(index),
-                    )));
+                itemBuilder: (BuildContext context, int index) =>
+                    Padding(
+                        padding: const EdgeInsets.only(left: 10),
+                        child: Wrap(
+                          spacing: 10,
+                          children: techChips(index),
+                        )));
           }),
         ),
         Expanded(
-          child: ListView.builder(
-            itemCount: 20,
-            itemBuilder: (BuildContext context, int index) => CourseCard(
-              course: Course(
-                image: const NetworkImage(
-                    "https://timeweb.com/ru/community/article/3c/3c0cefa6f99fda8d9596da474fc7e264.jpg"),
-                title: "Python",
-                rating: 4.5,
-                views: 10,
-                likes: 1,
-                lessons: [
-                  Lesson(
-                      title: "Basics",
-                      videoUrl:
-                          "https://flutter.github.io/assets-for-api-docs/assets/videos/bee.mp4",
-                      definition:
-                          "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."),
-                  Lesson(
-                      title: "Begin",
-                      videoUrl: "",
-                      definition:
-                          "Aboba aboba aboba aboba aboba aboba aboba aboba aboba aboba aboba aboba aboba aboba aboba"),
-                ],
-              ),
-            ),
+          child: BlocBuilder<SurveyCubit, SurveyState>(
+            builder: (context, state) {
+              if (state is SurveyLoading) {
+                return const Center(
+                  child: CircularProgressIndicator(
+                    color: Colors.black,
+                  ),
+                );
+              } else if (state is SurveyEmpty) {
+                return const Center(
+                  child: Text('Nothing to show yet'),
+                );
+              } else if (state is SurveyError) {
+                return const Center(
+                  child: Text("Error..."),
+                );
+              } else if (state is SurveyCompleted) {
+                final surveys = BlocProvider.of<SurveyCubit>(context).state.surveys;
+                return ListView.builder(
+                  itemCount: 20,
+                  itemBuilder: (BuildContext context, int index) =>
+                      CourseCard(
+                        course: Course(
+                          image: const NetworkImage(
+                              "https://timeweb.com/ru/community/article/3c/3c0cefa6f99fda8d9596da474fc7e264.jpg"),
+                          title: surveys[index].title,
+                          rating: 4.5,
+                          views: 10,
+                          likes: 1,
+                          lessons: [
+                            Lesson(
+                                title: "Basics",
+                                videoUrl:
+                                "https://flutter.github.io/assets-for-api-docs/assets/videos/bee.mp4",
+                                definition:
+                                "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."),
+                            Lesson(
+                                title: "Begin",
+                                videoUrl: "",
+                                definition:
+                                "Aboba aboba aboba aboba aboba aboba aboba aboba aboba aboba aboba aboba aboba aboba aboba"),
+                          ],
+                        ),
+                      ),
+                );
+              }
+              return const Center(
+                child: CircularProgressIndicator(
+                  color: Colors.black,
+                ),
+              );
+
+            }
           ),
         ),
       ],
@@ -84,11 +115,11 @@ class _HomePageState extends State<HomePage> {
         shadowColor: Colors.black,
         labelStyle: choiceIndex == i
             ? const TextStyle(
-                color: Colors.white,
-              )
+          color: Colors.white,
+        )
             : const TextStyle(
-                color: Colors.black,
-              ),
+          color: Colors.black,
+        ),
         onSelected: (isSelected) {
           setState(() {
             if (isSelected) {

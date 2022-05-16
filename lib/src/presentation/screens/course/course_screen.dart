@@ -65,7 +65,7 @@ class _CourseScreenState extends State<CourseScreen> {
                   itemCount: widget.course.lessonsCount,
                   itemBuilder: (BuildContext context, int index) => LessonCard(
                     id: index + 1,
-                    lesson: widget.course.lessons[index],
+                    lesson: widget.course.lessons![index],
                   ),
                 ),
               ),

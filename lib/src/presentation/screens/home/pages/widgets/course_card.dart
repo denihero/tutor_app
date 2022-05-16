@@ -31,14 +31,14 @@ class _CourseCardState extends State<CourseCard> {
       },
       child: Container(
         height: 105,
-        margin: EdgeInsets.symmetric(
+        margin: const EdgeInsets.symmetric(
           vertical: 14,
           horizontal: 30,
         ),
         decoration: BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.circular(20),
-          boxShadow: [
+          boxShadow: const [
             BoxShadow(
               color: Color(0xFFC2D1E5),
               offset: Offset(1, 1),
@@ -57,13 +57,13 @@ class _CourseCardState extends State<CourseCard> {
                     borderRadius: BorderRadius.circular(20),
                   ),
                   child: Image(
-                    image: widget.course.image,
+                    image: widget.course.image!,
                     fit: BoxFit.cover,
                   ),
                 ),
-                Spacer(),
+                const Spacer(),
                 Padding(
-                  padding: EdgeInsets.only(
+                  padding: const EdgeInsets.only(
                     top: 10,
                     bottom: 12,
                   ),
@@ -71,15 +71,15 @@ class _CourseCardState extends State<CourseCard> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        widget.course.title,
-                        style: TextStyle(
+                        widget.course.title!,
+                        style: const TextStyle(
                           fontSize: 18,
                           fontWeight: FontWeight.w700,
                           letterSpacing: 1.04,
                         ),
                       ),
                       Padding(
-                        padding: EdgeInsets.symmetric(vertical: 17),
+                        padding: const EdgeInsets.symmetric(vertical: 17),
                         child: Row(
                           children: [
                             iconWithCountText(Icons.group,
@@ -92,7 +92,7 @@ class _CourseCardState extends State<CourseCard> {
                       Text(
                         "${widget.course.lessonsCount} " +
                             rightLessonsCountName(widget.course.lessonsCount),
-                        style: TextStyle(
+                        style: const TextStyle(
                           fontSize: 10,
                           fontWeight: FontWeight.w500,
                           letterSpacing: 1.04,
@@ -101,7 +101,7 @@ class _CourseCardState extends State<CourseCard> {
                     ],
                   ),
                 ),
-                Spacer(flex: 2),
+                const Spacer(flex: 2),
               ],
             ),
             widget.isForFavoritePage
@@ -113,13 +113,13 @@ class _CourseCardState extends State<CourseCard> {
                       likeBuilder: (bool isLiked) {
                         return Icon(
                           Icons.favorite_rounded,
-                          color: isLiked ? Color(0xFFFE793D) : Colors.grey,
+                          color: isLiked ? const Color(0xFFFE793D) : Colors.grey,
                           size: 28,
                         );
                       },
                     ),
                   )
-                : SizedBox(),
+                : const SizedBox(),
           ],
         ),
       ),
@@ -144,10 +144,10 @@ class _CourseCardState extends State<CourseCard> {
             size: 15,
             color: Colors.black,
           ),
-          SizedBox(width: 5),
+          const SizedBox(width: 5),
           Text(
             text,
-            style: TextStyle(
+            style: const TextStyle(
               color: Color(0xFF878787),
               fontSize: 7,
               fontWeight: FontWeight.w400,
