@@ -9,7 +9,6 @@ import '../../../models/models.dart';
 import '../../constant/api.dart';
 
 Future<String> login(String username, String password) async {
-  try {
     var response = await http.post(
       Uri.parse("${Api.tutorApi}/account/login/"),
       body: {
@@ -17,15 +16,10 @@ Future<String> login(String username, String password) async {
         "password": password,
       },
     );
-
-
-  if (response.statusCode >= 400) throw UnimplementedError();
-  print(response.body.toString());
+    print(response.body.toString());
+    if (response.statusCode >= 400) throw UnimplementedError();
   if (response.statusCode == 201 || response.statusCode == 200) {
     return jsonDecode(response.body.toString())["token"];
-  }
-  }catch(e){
-    print(e);
   }
   return "";
 
@@ -39,8 +33,13 @@ sendNameSurname(String name, String surname, String token, File? file) async {
     "surname": surname,
   });
   Dio dio = Dio();
+  print(token);
+  print(name);
+  print(surname);
+  print(file);
   dio.options.headers['Authorization'] = "Token $token";
   var response = await dio.post("${Api.tutorApi}/account/info_users/", data: formData);
+  print(response.toString());
   if (response.statusCode! >= 400) {
     throw UnimplementedError();
   }
@@ -101,6 +100,26 @@ get_survey_via_id(int id, String token) async {
       response.body.toString(),
     ),
   );
+}
+putImage(File? file, int id, String token, String name, String surname) async {
+  FormData formData = FormData.fromMap({
+    if (file != null) "image": await MultipartFile.fromFile(file.path),
+    "name": name,
+    "surname": surname,
+  });
+
+  Dio dio = Dio();
+  dio.options.headers['Authorization'] = "Token $token";
+  dio.options.headers['Content-Type'] = "multipart/form-data";
+  // dio.options.contentType = Headers.formUrlEncodedContentType;
+  var response =
+  await dio.put("${Api.tutorApi}/info_users/$id/", data: formData);
+  // if (response.statusCode! >= 400) {
+  //   throw UnimplementedError();
+  // }
+  print(response.data);
+  return response.data["image"];
+  // return jsonDecode(response.data)["image"];
 }
 
 
@@ -386,7 +405,7 @@ getLastSurvey(String email, String token) async {
 getNameSurname(String email) async {
   var response = await http.get(Uri.parse("${Api.tutorApi}/account/info_users/"));
   print(response.body);
-  for (var item in jsonDecode(utf8.decode(response.bodyBytes))) {
+  for (var item in jsonDecode(utf8.decode(response.bodyBytes))["results"]) {
     if (item["author"] == email) {
       return [item["name"], item["surname"], item["image"], item["id"]];
     }

@@ -32,10 +32,10 @@ class _LessonScreenState extends State<LessonScreen> {
     return Scaffold(
       appBar: TransparentAppBar(
         leading: Padding(
-          padding: EdgeInsets.only(left: 22),
+          padding: const EdgeInsets.only(left: 22),
           child: IconButton(
             padding: EdgeInsets.zero,
-            icon: Icon(
+            icon: const Icon(
               Icons.arrow_back_ios,
               color: Colors.black,
               size: 30,
@@ -47,7 +47,7 @@ class _LessonScreenState extends State<LessonScreen> {
         ),
         title: Text(
           beautifiedIdText(widget.id) + " " + widget.lesson.title,
-          style: TextStyle(
+          style: const TextStyle(
             color: Colors.black,
             fontSize: 18,
             fontWeight: FontWeight.w600,
@@ -59,12 +59,12 @@ class _LessonScreenState extends State<LessonScreen> {
         child: Column(
           children: [
             Container(
-              margin: EdgeInsets.symmetric(horizontal: 30),
+              margin: const EdgeInsets.symmetric(horizontal: 30),
               clipBehavior: Clip.antiAliasWithSaveLayer,
               decoration: BoxDecoration(
                   color: Colors.white,
                   borderRadius: BorderRadius.circular(20),
-                  boxShadow: [
+                  boxShadow: const [
                     BoxShadow(
                       color: Color(0xFFC2D1E5),
                       offset: Offset(0, -1),
@@ -79,7 +79,7 @@ class _LessonScreenState extends State<LessonScreen> {
                         videoPlayerController: _controller,
                       )),
                     )
-                  : SizedBox(
+                  : const SizedBox(
                       width: double.infinity,
                       height: 204,
                       child: Center(
@@ -87,10 +87,10 @@ class _LessonScreenState extends State<LessonScreen> {
                       ),
                     ),
             ),
-            SizedBox(height: 77),
+            const SizedBox(height: 77),
             Container(
-              margin: EdgeInsets.symmetric(horizontal: 30),
-              padding: EdgeInsets.only(
+              margin: const EdgeInsets.symmetric(horizontal: 30),
+              padding: const EdgeInsets.only(
                 top: 21,
                 left: 15,
                 bottom: 25,
@@ -99,7 +99,7 @@ class _LessonScreenState extends State<LessonScreen> {
               decoration: BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.circular(20),
-                boxShadow: [
+                boxShadow: const [
                   BoxShadow(
                     color: Color(0xFFC2D1E5),
                     offset: Offset(0, -1),
@@ -109,7 +109,7 @@ class _LessonScreenState extends State<LessonScreen> {
               ),
               child: Text(
                 widget.lesson.definition,
-                style: TextStyle(
+                style: const TextStyle(
                   fontSize: 13,
                   fontWeight: FontWeight.w500,
                   letterSpacing: 1.04,

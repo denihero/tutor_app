@@ -5,6 +5,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:tutor_app/src/presentation/screens/change_image.dart';
 import 'package:tutor_app/src/presentation/screens/widgets/profile_icon.dart';
 import '../../../logic/blocs/authetication/authentication_bloc.dart';
 
@@ -39,8 +40,7 @@ class _ProfileEditIconState extends State<ProfileEditIcon> {
               image == null || image.isEmpty
                   ? GestureDetector(
                       onTap: () {
-                        //TODO() make transition to view screen
-                        // Navigator.of(context).pushNamed("/view_change_image"),
+                         Navigator.of(context).push(MaterialPageRoute(builder:(_) => const ChangeImage()));
                       },
                       child: ProfileIcon(
                         is_settings: true,
@@ -48,8 +48,7 @@ class _ProfileEditIconState extends State<ProfileEditIcon> {
                     )
                   : GestureDetector(
                       onTap: () {
-                        //TODO() make transition to view screen
-                        // Navigator.of(context).pushNamed("/view_change_image");
+                        Navigator.of(context).push(MaterialPageRoute(builder:(_) => const ChangeImage()));
                       },
                       child: CircleAvatar(
                         foregroundColor: Colors.white,

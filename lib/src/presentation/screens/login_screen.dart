@@ -90,11 +90,9 @@ class _LoginScreenState extends State<LoginScreen> {
                             ButtonWithTextAndArrow(
                               text: "Login",
                               onTap: () {
-                                print(usernameController.text);
-                                print(passwordController.text);
-
-                                  check(usernameController.text,
-                                          passwordController.text)
+                                  check(
+                                      usernameController.text,
+                                      passwordController.text)
                                       ? BlocProvider.of<AuthBloc>(context).add(
                                           AuthLogin(usernameController.text,
                                               passwordController.text),

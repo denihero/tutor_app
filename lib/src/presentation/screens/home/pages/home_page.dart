@@ -40,32 +40,14 @@ class _HomePageState extends State<HomePage> {
           }),
         ),
         Expanded(
-          child: BlocBuilder<SurveyCubit, SurveyState>(
-            builder: (context, state) {
-              if (state is SurveyLoading) {
-                return const Center(
-                  child: CircularProgressIndicator(
-                    color: Colors.black,
-                  ),
-                );
-              } else if (state is SurveyEmpty) {
-                return const Center(
-                  child: Text('Nothing to show yet'),
-                );
-              } else if (state is SurveyError) {
-                return const Center(
-                  child: Text("Error..."),
-                );
-              } else if (state is SurveyCompleted) {
-                final surveys = BlocProvider.of<SurveyCubit>(context).state.surveys;
-                return ListView.builder(
+          child:ListView.builder(
                   itemCount: 20,
                   itemBuilder: (BuildContext context, int index) =>
                       CourseCard(
                         course: Course(
                           image: const NetworkImage(
                               "https://timeweb.com/ru/community/article/3c/3c0cefa6f99fda8d9596da474fc7e264.jpg"),
-                          title: surveys[index].title,
+                          title: "name",
                           rating: 4.5,
                           views: 10,
                           likes: 1,
@@ -84,15 +66,6 @@ class _HomePageState extends State<HomePage> {
                           ],
                         ),
                       ),
-                );
-              }
-              return const Center(
-                child: CircularProgressIndicator(
-                  color: Colors.black,
-                ),
-              );
-
-            }
           ),
         ),
       ],

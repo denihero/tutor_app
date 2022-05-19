@@ -1,3 +1,3 @@
 class Api {
-  static const tutorApi = 'http://139.180.146.234:8000';
+  static const tutorApi = 'http://164.92.91.86';
 }

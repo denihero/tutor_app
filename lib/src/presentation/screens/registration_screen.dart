@@ -24,6 +24,9 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
     FocusNode(),
     FocusNode(),
     FocusNode(),
+    FocusNode(),
+    FocusNode(),
+    FocusNode(),
   ];
 
   final TextEditingController usernameController = TextEditingController();
@@ -44,9 +47,9 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
     return true;
   }
 
-  TextEditingController? _codeController;
-  TextEditingController? _nameController;
-  TextEditingController? _surnameController;
+  TextEditingController _codeController = TextEditingController();
+  TextEditingController _nameController = TextEditingController() ;
+  TextEditingController _surnameController = TextEditingController();
 
   bool _isShowNameSurname = false;
   bool _isShowCodeConfirm = false;
@@ -267,7 +270,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                                   onTap: () {
                                     SchedulerBinding.instance
                                         .addPostFrameCallback((_) {
-                                      final code = _codeController?.text;
+                                      final code = _codeController.text;
 
                                       final email = usernameController.text;
                                       BlocProvider.of<AuthBloc>(context).add(
@@ -311,17 +314,19 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                                       height: 20,
                                     ),
                                     TextFormWithBoxShadow(
+                                      textEditingController: _nameController,
                                       icon: Icons.person,
                                       hintText: "Name",
-                                      focusNode: _focusNodes[0],
+                                      focusNode: _focusNodes[5],
                                     ),
                                     SizedBox(
                                       height: 1.8.h,
                                     ),
                                     TextFormWithBoxShadow(
+                                      textEditingController: _surnameController,
                                       icon: Icons.person,
                                       hintText: "Surname",
-                                      focusNode: _focusNodes[0],
+                                      focusNode: _focusNodes[6],
                                     ),
                                     SizedBox(
                                       height: 1.8.h,
@@ -332,10 +337,11 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                                         ButtonWithTextAndArrow(
                                           text: 'Confirm',
                                           onTap: () {
-                                            WidgetsBinding.instance
-                                                .addPostFrameCallback((_) {
+                                            print("Test");
+                                            print(_nameController.text);
+                                            print(_surnameController.text);
                                               final code =
-                                                  _codeController?.text;
+                                                  _codeController.text;
                                               final email =
                                                   usernameController.text;
                                               print(email);
@@ -343,18 +349,18 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                                               BlocProvider.of<AuthBloc>(context)
                                                   .add(
                                                 AuthRegisterSendNameSurname(
-                                                  name: _nameController?.text ??
+                                                  name: _nameController.text ??
                                                       "",
                                                   file: imageFile,
                                                   surname: _surnameController
-                                                          ?.text ??
+                                                          .text ??
                                                       '',
                                                   username: email,
                                                   password:
                                                       passwordController.text,
                                                 ),
                                               );
-                                            });
+
                                           },
                                         )
                                       ],

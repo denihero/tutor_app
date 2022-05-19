@@ -28,6 +28,10 @@ class AuthLogin extends AuthEvent {
 class AuthLogout extends AuthEvent {
   AuthLogout() : super("", "");
 }
+class AuthChangeInfo extends AuthEvent {
+  File? file;
+  AuthChangeInfo(this.file) : super("", "");
+}
 
 class AuthRegister extends AuthEvent {
   AuthRegister(String username, String password) : super(username, password);
@@ -35,8 +39,8 @@ class AuthRegister extends AuthEvent {
 
 class AuthRegisterSendNameSurname extends AuthEvent {
   final File? file;
-  final String name;
-  final String surname;
+  final name;
+  final surname;
   AuthRegisterSendNameSurname(
       {required String username,
       required String password,
@@ -63,20 +67,23 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> with HydratedMixin {
       emit(const AuthLoading(""));
       try {
         var r = await login(event.username, event.password);
-        print(r);
+        print("info $r");
         if (r.isNotEmpty) {
+          print('R is not empty');
           var email = event.username;
           var nameSurname = await getNameSurname(event.username);
-          print("NAme and surname:");
+          print("NAme and surna me:");
           print(nameSurname);
           emit(
-            AuthSuccess(
-                email, r, nameSurname[0], nameSurname[1], nameSurname[2]),
+            AuthSuccess(email, r, nameSurname[0], nameSurname[1],
+                nameSurname[2], nameSurname[3]),
           );
         } else if (r.isEmpty) {
+          print("Empty");
           emit(const AuthError());
         }
-      } catch (_) {
+      } catch (r) {
+        print(r);
         emit(const AuthError());
       }
     });
@@ -126,6 +133,23 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> with HydratedMixin {
         const AuthInitial(),
       );
     });
+    on<AuthChangeInfo>(
+          (event, emit) async {
+        String email = state.email;
+        String token = state.token;
+        String name = state.name;
+        String surname = state.surname;
+        int id = state.id_info;
+        emit(const AuthLoading(""));
+        try {
+          String imageLink =
+          await putImage(event.file, id, token, name, surname);
+          emit(AuthSuccess(email, token, name, surname, imageLink, id));
+        } catch (e) {
+          emit(const AuthError());
+        }
+      },
+    );
   }
 
   @override
