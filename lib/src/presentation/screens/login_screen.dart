@@ -7,6 +7,7 @@ import 'package:tutor_app/src/presentation/screens/home/home_screen.dart';
 import 'package:tutor_app/src/presentation/screens/home/pages/home_page.dart';
 import 'package:tutor_app/src/presentation/screens/registration_screen.dart';
 
+import '../../logic/blocs/authetication/api.dart';
 import '../../logic/blocs/authetication/authentication_bloc.dart';
 import '../../logic/categories_cubit.dart';
 
@@ -40,6 +41,7 @@ class _LoginScreenState extends State<LoginScreen> {
       child: Scaffold(
         backgroundColor: Colors.white,
         body: BlocConsumer<AuthBloc, AuthState>(builder: (context, state) {
+          // get_surveys_stream_fixed("").listen(print);
           if (state is AuthInitial ||
               state is AuthError ||
               state is AuthRegisterSuccess) {

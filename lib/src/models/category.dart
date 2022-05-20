@@ -6,7 +6,7 @@ class Categories extends Equatable {
   factory Categories.fromJson(List<dynamic> json) {
     Map<String, String> x = {};
     var c = json.forEach((element) {
-      x[element["name"]] = element["slug"];
+      x[element["title"]] = element["title"];
     });
     return Categories(x);
   }
