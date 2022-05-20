@@ -21,10 +21,10 @@ class _LessonScreenState extends State<LessonScreen> {
   @override
   void initState() {
     super.initState();
-    // _controller = VideoPlayerController.network(widget.lesson.videoUrl)
-    //   ..initialize().then((_) {
-    //     setState(() {});
-    //   });
+    _controller = VideoPlayerController.network("https://flutter.github.io/assets-for-api-docs/assets/videos/bee.mp4")
+      ..initialize().then((_) {
+        setState(() {});
+      });
   }
 
   @override
@@ -71,6 +71,13 @@ class _LessonScreenState extends State<LessonScreen> {
                       blurRadius: 11,
                     )
                   ]),
+              // child: Text("Hello"),
+              // child: Chewie(
+              //   controller: ChewieController(
+              //     videoPlayerController: _controller,
+              //   ),
+              // ),
+              
               child: _controller.value.isInitialized
                   ? AspectRatio(
                       aspectRatio: _controller.value.aspectRatio,
@@ -108,7 +115,7 @@ class _LessonScreenState extends State<LessonScreen> {
                 ],
               ),
               child: Text(
-                widget.lesson.description??"",
+                widget.lesson.description ?? "",
                 style: const TextStyle(
                   fontSize: 13,
                   fontWeight: FontWeight.w500,

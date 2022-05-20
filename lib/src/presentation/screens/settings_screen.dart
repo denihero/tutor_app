@@ -50,12 +50,16 @@ class SettingsScreen extends StatelessWidget {
                 ],
               ),
               const SizedBox(height: 43),
-              titleWithDetailes("Меня зовут", "Имя Фамилие"),
-              Padding(
-                padding: const EdgeInsets.symmetric(vertical: 49),
-                child: titleWithDetailes("Обо мне", "Расскажите что нибудь"),
-              ),
-              titleWithDetailes("Email", "uomuraliev09@gmail.com"),
+              titleWithDetailes(
+                  "Меня зовут", BlocProvider.of<AuthBloc>(context).state.name),
+
+              const SizedBox(height: 33),
+              // Padding(
+              //   padding: const EdgeInsets.symmetric(vertical: 49),
+              //   child: titleWithDetailes("Обо мне", "Расскажите что нибудь"),
+              // ),
+              titleWithDetailes(
+                  "Email", BlocProvider.of<AuthBloc>(context).state.email),
               const Spacer(),
               Row(
                 children: [
@@ -108,7 +112,7 @@ class SettingsScreen extends StatelessWidget {
           Text(
             details,
             style: const TextStyle(
-              fontSize: 10,
+              fontSize: 16,
               fontWeight: FontWeight.w500,
               letterSpacing: 1.04,
             ),

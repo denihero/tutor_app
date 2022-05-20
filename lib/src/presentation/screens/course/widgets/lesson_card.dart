@@ -21,8 +21,7 @@ class _LessonCardState extends State<LessonCard> {
   @override
   void initState() {
     super.initState();
-    _controller = VideoPlayerController.network(
-        'https://flutter.github.io/assets-for-api-docs/assets/videos/bee.mp4')
+    _controller = VideoPlayerController.network( 'https://flutter.github.io/assets-for-api-docs/assets/videos/bee.mp4')
       ..initialize().then((_) {
         setState(() {});
       });
@@ -45,8 +44,9 @@ class _LessonCardState extends State<LessonCard> {
         decoration: BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.circular(20),
+          // ignore: prefer_const_literals_to_create_immutables
           boxShadow: [
-            BoxShadow(
+            const BoxShadow(
               color: Color(0xFFC2D1E5),
               offset: Offset(0, 4),
               blurRadius: 4,
@@ -101,7 +101,7 @@ class _LessonCardState extends State<LessonCard> {
                 )
               ],
             ),
-            SizedBox(height: 8),
+            const SizedBox(height: 8),
           ],
         ),
       ),
