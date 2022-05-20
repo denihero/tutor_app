@@ -68,7 +68,7 @@ class _LessonCardState extends State<LessonCard> {
                   ),
                   SizedBox(width: 16),
                   Text(
-                    widget.lesson.title,
+                    widget.lesson.name??"",
                     style: TextStyle(
                       fontSize: 13,
                       fontWeight: FontWeight.w600,

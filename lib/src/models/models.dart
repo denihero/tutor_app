@@ -1,160 +1,147 @@
-import 'package:flutter/material.dart';
+// To parse this JSON data, do
+//
+//     final welcome = welcomeFromJson(jsonString);
 
-class Lesson {
-  String title, videoUrl, definition;
+import 'dart:convert';
 
-//<editor-fold desc="Data Methods">
+Welcome welcomeFromJson(String str) => Welcome.fromJson(json.decode(str));
 
-  Lesson({
-    required this.title,
-    required this.videoUrl,
-    required this.definition,
+String welcomeToJson(Welcome data) => json.encode(data.toJson());
+
+class Welcome {
+  Welcome({
+    this.count,
+    this.next,
+    this.previous,
+    this.results,
   });
 
-  @override
-  bool operator ==(Object other) =>
-      identical(this, other) ||
-      (other is Lesson &&
-          runtimeType == other.runtimeType &&
-          title == other.title &&
-          videoUrl == other.videoUrl &&
-          definition == other.definition);
+  int? count;
+  String? next;
+  dynamic? previous;
+  List<Course>? results;
 
-  @override
-  int get hashCode => title.hashCode ^ videoUrl.hashCode ^ definition.hashCode;
+  Welcome copyWith({
+    int? count,
+    String? next,
+    dynamic? previous,
+    List<Course>? results,
+  }) =>
+      Welcome(
+        count: count ?? this.count,
+        next: next ?? this.next,
+        previous: previous ?? this.previous,
+        results: results ?? this.results,
+      );
 
-  @override
-  String toString() {
-    return 'Lesson{' +
-        ' title: $title,' +
-        ' videoUrl: $videoUrl,' +
-        ' definition: $definition,' +
-        '}';
-  }
+  factory Welcome.fromJson(Map<String, dynamic> json) => Welcome(
+        count: json["count"] == null ? null : json["count"],
+        next: json["next"] == null ? null : json["next"],
+        previous: json["previous"],
+        results: json["results"] == null
+            ? null
+            : List<Course>.from(json["results"].map((x) => Course.fromJson(x))),
+      );
 
-  Lesson copyWith({
-    String? title,
-    String? videoUrl,
-    String? definition,
-  }) {
-    return Lesson(
-      title: title ?? this.title,
-      videoUrl: videoUrl ?? this.videoUrl,
-      definition: definition ?? this.definition,
-    );
-  }
-
-  dynamic toJson() {
-    return {
-      'title': title,
-      'videoUrl': videoUrl,
-      'definition': definition,
-    };
-  }
-
-  factory Lesson.fromJson(dynamic json) {
-    return Lesson(
-      title: json['title'] as String,
-      videoUrl: json['videoUrl'] as String,
-      definition: json['definition'] as String,
-    );
-  }
-
-//</editor-fold>
+  Map<String, dynamic> toJson() => {
+        "count": count == null ? null : count,
+        "next": next == null ? null : next,
+        "previous": previous,
+        "results": results == null
+            ? null
+            : List<dynamic>.from(results!.map((x) => x.toJson())),
+      };
 }
 
 class Course {
-  ImageProvider? image;
-  String? title;
-  double? rating;
-  int? views, likes;
-  List<Lesson>? lessons;
-
-//<editor-fold desc="Data Methods">
-
   Course({
-    this.image,
-    this.title,
-    this.rating,
-    this.views,
-    this.likes,
+    this.id,
+    this.nameOfCourse,
+    this.category,
     this.lessons,
   });
 
-  @override
-  bool operator ==(Object other) =>
-      identical(this, other) ||
-      (other is Course &&
-          runtimeType == other.runtimeType &&
-          image == other.image &&
-          title == other.title &&
-          rating == other.rating &&
-          views == other.views &&
-          likes == other.likes &&
-          lessons == other.lessons);
-
-  @override
-  int get hashCode =>
-      image.hashCode ^
-      title.hashCode ^
-      rating.hashCode ^
-      views.hashCode ^
-      likes.hashCode ^
-      lessons.hashCode;
-
-  @override
-  String toString() {
-    return 'Course{' +
-        ' image: $image,' +
-        ' title: $title,' +
-        ' rating: $rating,' +
-        ' views: $views,' +
-        ' likes: $likes,' +
-        ' lessons: $lessons,' +
-        '}';
-  }
+  int? id;
+  String? nameOfCourse;
+  String? category;
+  List<Lesson>? lessons;
 
   Course copyWith({
-    ImageProvider? image,
-    String? title,
-    double? rating,
-    int? views,
-    int? likes,
+    int? id,
+    String? nameOfCourse,
+    String? category,
     List<Lesson>? lessons,
-  }) {
+  }) =>
+      Course(
+        id: id ?? this.id,
+        nameOfCourse: nameOfCourse ?? this.nameOfCourse,
+        category: category ?? this.category,
+        lessons: lessons ?? this.lessons,
+      );
+
+  factory Course.fromJson(Map<String, dynamic> json) {
+    print("Course :$json");
     return Course(
-      image: image ?? this.image,
-      title: title ?? this.title,
-      rating: rating ?? this.rating,
-      views: views ?? this.views,
-      likes: likes ?? this.likes,
-      lessons: lessons ?? this.lessons,
+      id: json["id"] == null ? null : json["id"],
+      nameOfCourse:
+          json["name_of_course"] == null ? null : json["name_of_course"],
+      category: json["category"] == null ? null : json["category"],
+      lessons: json["lessons"] == null
+          ? null
+          : List<Lesson>.from(json["lessons"].map((x) => Lesson.fromJson(x))),
     );
   }
 
-  dynamic toJson() {
-    return {
-      'image': image,
-      'title': title,
-      'rating': rating,
-      'views': views,
-      'likes': likes,
-      'lessons': lessons,
-    };
-  }
+  Map<String, dynamic> toJson() => {
+        "id": id == null ? null : id,
+        "name_of_course": nameOfCourse == null ? null : nameOfCourse,
+        "category": category == null ? null : category,
+        "lessons": lessons == null
+            ? null
+            : List<dynamic>.from(lessons!.map((x) => x.toJson())),
+      };
+}
 
-  factory Course.fromJson(dynamic json) {
-    return Course(
-      image: json['image'] as ImageProvider,
-      title: json['title'] as String,
-      rating: json['rating'] as double,
-      views: json['views'] as int,
-      likes: json['likes'] as int,
-      lessons: (json['lessons'] as List).map((lesson) => Lesson.fromJson(lesson))
-          as List<Lesson>,
+class Lesson {
+  Lesson({
+    this.id,
+    this.name,
+    this.description,
+    this.course,
+  });
+
+  int? id;
+  String? name;
+  String? description;
+  int? course;
+
+  Lesson copyWith({
+    int? id,
+    String? name,
+    String? description,
+    int? course,
+  }) =>
+      Lesson(
+        id: id ?? this.id,
+        name: name ?? this.name,
+        description: description ?? this.description,
+        course: course ?? this.course,
+      );
+
+  factory Lesson.fromJson(Map<String, dynamic> json) {
+    print("json :$json");
+    return Lesson(
+      id: json["id"] == null ? null : json["id"],
+      name: json["name"] == null ? null : json["name"],
+      description: json["description"] == null ? null : json["description"],
+      course: json["course"] == null ? null : json["course"],
     );
   }
 
-  int get lessonsCount => lessons!.length;
-//</editor-fold>
+  Map<String, dynamic> toJson() => {
+        "id": id == null ? null : id,
+        "name": name == null ? null : name,
+        "description": description == null ? null : description,
+        "course": course == null ? null : course,
+      };
 }

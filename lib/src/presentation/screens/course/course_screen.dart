@@ -62,7 +62,7 @@ class _CourseScreenState extends State<CourseScreen> {
               ),
               Expanded(
                 child: ListView.builder(
-                  itemCount: widget.course.lessonsCount,
+                  itemCount: widget.course.lessons?.length,
                   itemBuilder: (BuildContext context, int index) => LessonCard(
                     id: index + 1,
                     lesson: widget.course.lessons![index],

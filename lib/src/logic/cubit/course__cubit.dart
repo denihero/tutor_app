@@ -1,18 +1,34 @@
-
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:meta/meta.dart';
 import 'package:tutor_app/src/models/models.dart';
 
+import '../blocs/authetication/api.dart';
 
 part 'course__state.dart';
-
 
 class SurveyCubit extends Cubit<SurveyState> {
   SurveyCubit() : super(SurveyInitial());
 
+  int offset = 0;
 
+  fetch_courses() async {
+    emit(SurveyLoading());
+    try {
+      List<Course> data = await get_courses(offset);
+      emit(SurveyCompleted(surveys: [...state.surveys, ...data]));
+      offset += 5;
+    } catch (e) {
+      print(e);
+      emit(SurveyError());
+    }
+  }
 
+  @override
+  void onChange(Change<SurveyState> change) {
+    print(change);
+    super.onChange(change);
+  }
 
   // get_last(String email, String token) async {
   //   if (state.surveys.contains(Course(id: 1))) {
@@ -75,6 +91,5 @@ class SurveyCubit extends Cubit<SurveyState> {
   //     emit(SurveyError());
   //   }
   // }
-
 
 }

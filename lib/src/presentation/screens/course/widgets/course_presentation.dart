@@ -33,8 +33,8 @@ class CoursePresentation extends StatelessWidget {
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(20),
                 ),
-                child: Image(
-                  image: course.image!,
+                child: FittedBox(
+                  // image: course.image!,
                   fit: BoxFit.cover,
                 ),
               ),
@@ -42,7 +42,7 @@ class CoursePresentation extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.only(left: 20),
                 child: Text(
-                  course.title!,
+                  course.nameOfCourse!,
                   style: const TextStyle(
                     fontSize: 18,
                     fontWeight: FontWeight.w700,
@@ -55,7 +55,7 @@ class CoursePresentation extends StatelessWidget {
                 padding: const EdgeInsets.only(left: 23),
                 child: Row(
                   children: [
-                    iconWithText(Icons.star_rounded, course.rating.toString()),
+                    iconWithText(Icons.star_rounded, 12.toString()),
                   ],
                 ),
               ),
@@ -98,8 +98,8 @@ class CoursePresentation extends StatelessWidget {
             right: 30,
             bottom: 24,
             child: Text(
-              "${course.lessonsCount} " +
-                  rightLessonsCountName(course.lessonsCount),
+              "${course.lessons?.length} " +
+                  rightLessonsCountName(course.lessons?.length??1),
               style: const TextStyle(
                 fontSize: 10,
                 fontWeight: FontWeight.w500,

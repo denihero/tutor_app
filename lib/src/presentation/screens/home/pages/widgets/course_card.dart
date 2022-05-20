@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:like_button/like_button.dart';
 import 'package:tutor_app/src/models/models.dart';
@@ -56,9 +57,10 @@ class _CourseCardState extends State<CourseCard> {
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(20),
                   ),
-                  child: Image(
-                    image: widget.course.image!,
+                  child: CachedNetworkImage(
+                    imageUrl: "https://tinypng.com/images/social/website.jpg",
                     fit: BoxFit.cover,
+
                   ),
                 ),
                 const Spacer(),
@@ -71,7 +73,8 @@ class _CourseCardState extends State<CourseCard> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        widget.course.title!,
+                        widget.course.nameOfCourse??"",
+                        // widget.course.title!,
                         style: const TextStyle(
                           fontSize: 18,
                           fontWeight: FontWeight.w700,
@@ -83,15 +86,15 @@ class _CourseCardState extends State<CourseCard> {
                         child: Row(
                           children: [
                             iconWithCountText(Icons.group,
-                                "${widget.course.views} просмотров"),
+                                "${12} просмотров"),
                             iconWithCountText(Icons.star_rounded,
-                                "${widget.course.likes} лайков"),
+                                "${32} лайков"),
                           ],
                         ),
                       ),
                       Text(
-                        "${widget.course.lessonsCount} " +
-                            rightLessonsCountName(widget.course.lessonsCount),
+                        "${widget.course.lessons?.length} " +
+                            rightLessonsCountName(widget.course.lessons?.length??0),
                         style: const TextStyle(
                           fontSize: 10,
                           fontWeight: FontWeight.w500,

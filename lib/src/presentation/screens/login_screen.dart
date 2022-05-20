@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:tutor_app/src/logic/cubit/course__cubit.dart';
 import 'package:tutor_app/src/presentation/components/button_with_text_and_arrow.dart';
 import 'package:tutor_app/src/presentation/components/textform_with_boxshadow.dart';
 import 'package:tutor_app/src/presentation/screens/home/home_screen.dart';
@@ -92,14 +93,17 @@ class _LoginScreenState extends State<LoginScreen> {
                             ButtonWithTextAndArrow(
                               text: "Login",
                               onTap: () {
-                                check(usernameController.text, passwordController.text)
+                                check(usernameController.text,
+                                        passwordController.text)
                                     ? BlocProvider.of<AuthBloc>(context).add(
                                         AuthLogin(usernameController.text,
                                             passwordController.text),
                                       )
-                                    : ScaffoldMessenger.of(context).showSnackBar(
+                                    : ScaffoldMessenger.of(context)
+                                        .showSnackBar(
                                         const SnackBar(
-                                          content: Text("Entered invalid data!"),
+                                          content:
+                                              Text("Entered invalid data!"),
                                         ),
                                       );
                               },
@@ -119,7 +123,8 @@ class _LoginScreenState extends State<LoginScreen> {
                                   Navigator.push(
                                       context,
                                       MaterialPageRoute(
-                                          builder: (_) => const RegistrationScreen()));
+                                          builder: (_) =>
+                                              const RegistrationScreen()));
                                 },
                                 child: const Text(
                                   'Sign up',
@@ -138,6 +143,7 @@ class _LoginScreenState extends State<LoginScreen> {
           } else if (state is AuthSuccess || state.email != "") {
             String token = BlocProvider.of<AuthBloc>(context).state.token;
             BlocProvider.of<CategoriesCubit>(context).get_category(token);
+            BlocProvider.of<SurveyCubit>(context).fetch_courses();
             // BlocProvider.of<LikeCubit>(context).get_like(
             //     token, BlocProvider.of<AuthBloc>(context).state.email);
             // BlocProvider.of<CategoriesCubit>(context).get_category(token);

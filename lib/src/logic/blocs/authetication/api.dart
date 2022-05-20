@@ -35,7 +35,8 @@ sendNameSurname(String name, String surname, String token, File? file) async {
   print(surname);
   print(file);
   dio.options.headers['Authorization'] = "Token $token";
-  var response = await dio.post("${Api.tutorApi}/account/info_users/", data: formData);
+  var response =
+      await dio.post("${Api.tutorApi}/account/info_users/", data: formData);
   print(response.toString());
   if (response.statusCode! >= 400) {
     throw UnimplementedError();
@@ -74,8 +75,8 @@ Future<bool> confirmPassword(String username, String code) async {
 }
 
 Future<Map<String, String>> get_categories(String token) async {
-  var response =
-      await http.get(Uri.parse("${Api.tutorApi}/category/category-list/"), headers: {
+  var response = await http
+      .get(Uri.parse("${Api.tutorApi}/category/category-list/"), headers: {
     "Authorization": "Token aeba6700ffd7d15f5184f817b5a0d2234f512347",
   });
   if (response.statusCode >= 400) {
@@ -88,7 +89,8 @@ Future<Map<String, String>> get_categories(String token) async {
 }
 
 get_survey_via_id(int id, String token) async {
-  var response = await http.get(Uri.parse("${Api.tutorApi}/course/$id/"), headers: {
+  var response =
+      await http.get(Uri.parse("${Api.tutorApi}/course/$id/"), headers: {
     "Authorization": "Token $token",
   });
   print(response.body);
@@ -110,7 +112,8 @@ putImage(File? file, int id, String token, String name, String surname) async {
   dio.options.headers['Authorization'] = "Token $token";
   dio.options.headers['Content-Type'] = "multipart/form-data";
   // dio.options.contentType = Headers.formUrlEncodedContentType;
-  var response = await dio.put("${Api.tutorApi}/account/info_users/$id/", data: formData);
+  var response =
+      await dio.put("${Api.tutorApi}/account/info_users/$id/", data: formData);
   // if (response.statusCode! >= 400) {
   //   throw UnimplementedError();
   // }
@@ -225,7 +228,8 @@ class Empty {}
 
 //correct one
 Stream<Course> get_surveys_stream_fixed(String token) async* {
-  var response = await http.get(Uri.parse("${Api.tutorApi}/surveys/"), headers: {
+  var response =
+      await http.get(Uri.parse("${Api.tutorApi}/surveys/"), headers: {
     "Authorization": "Token $token",
   });
   print(response.body);
@@ -396,13 +400,28 @@ Stream<Course> get_surveys_stream_fixed(String token) async* {
 // }
 
 getNameSurname(String email) async {
-  var response = await http.get(Uri.parse("${Api.tutorApi}/account/info_users/"));
+  var response =
+      await http.get(Uri.parse("${Api.tutorApi}/account/info_users/"));
   print(response.body);
   for (var item in jsonDecode(utf8.decode(response.bodyBytes))["results"]) {
     if (item["author"] == email) {
       return [item["name"], item["surname"], item["image"], item["id"]];
     }
   }
+}
+
+get_courses(int offset) async {
+  var response = await http
+      .get(Uri.parse("${Api.tutorApi}/course/?limit=5&offset=$offset"));
+  if (response.statusCode >= 400) throw UnimplementedError("Status code");
+  final data = jsonDecode(utf8.decode(response.bodyBytes));
+  List<Course> ls = [];
+  for (var element in data["results"]) {
+    // if (element["lessons"] == null) element["lessons"] = [];
+    print("Element :$element");
+    ls.add(Course.fromJson(element));
+  }
+  return ls;
 }
 
 void main(List<String> args) async {

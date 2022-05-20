@@ -21,10 +21,10 @@ class _LessonScreenState extends State<LessonScreen> {
   @override
   void initState() {
     super.initState();
-    _controller = VideoPlayerController.network(widget.lesson.videoUrl)
-      ..initialize().then((_) {
-        setState(() {});
-      });
+    // _controller = VideoPlayerController.network(widget.lesson.videoUrl)
+    //   ..initialize().then((_) {
+    //     setState(() {});
+    //   });
   }
 
   @override
@@ -45,15 +45,15 @@ class _LessonScreenState extends State<LessonScreen> {
             },
           ),
         ),
-        title: Text(
-          beautifiedIdText(widget.id) + " " + widget.lesson.title,
-          style: const TextStyle(
-            color: Colors.black,
-            fontSize: 18,
-            fontWeight: FontWeight.w600,
-            letterSpacing: 1.04,
-          ),
-        ),
+        // title: Text(
+        //   beautifiedIdText(widget.id) + " " + widget.lesson.name,
+        //   style: const TextStyle(
+        //     color: Colors.black,
+        //     fontSize: 18,
+        //     fontWeight: FontWeight.w600,
+        //     letterSpacing: 1.04,
+        //   ),
+        // ),
       ),
       body: SafeArea(
         child: Column(
@@ -108,7 +108,7 @@ class _LessonScreenState extends State<LessonScreen> {
                 ],
               ),
               child: Text(
-                widget.lesson.definition,
+                widget.lesson.description??"",
                 style: const TextStyle(
                   fontSize: 13,
                   fontWeight: FontWeight.w500,
