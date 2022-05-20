@@ -27,7 +27,7 @@ class _LoginScreenState extends State<LoginScreen> {
   final TextEditingController passwordController = TextEditingController();
 
   bool check(String name, String password) {
-    if (name.isEmpty || password.length <= 6) {
+    if (name.isEmpty || password.length < 6) {
       return false;
     }
     return true;
@@ -90,21 +90,16 @@ class _LoginScreenState extends State<LoginScreen> {
                             ButtonWithTextAndArrow(
                               text: "Login",
                               onTap: () {
-                                  check(
-                                      usernameController.text,
-                                      passwordController.text)
-                                      ? BlocProvider.of<AuthBloc>(context).add(
-                                          AuthLogin(usernameController.text,
-                                              passwordController.text),
-                                        )
-                                      : ScaffoldMessenger.of(context)
-                                          .showSnackBar(
-                                          const SnackBar(
-                                            content:
-                                                Text("Entered invalid data!"),
-                                          ),
-                                        );
-
+                                check(usernameController.text, passwordController.text)
+                                    ? BlocProvider.of<AuthBloc>(context).add(
+                                        AuthLogin(usernameController.text,
+                                            passwordController.text),
+                                      )
+                                    : ScaffoldMessenger.of(context).showSnackBar(
+                                        const SnackBar(
+                                          content: Text("Entered invalid data!"),
+                                        ),
+                                      );
                               },
                             ),
                           ],
@@ -122,8 +117,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                   Navigator.push(
                                       context,
                                       MaterialPageRoute(
-                                          builder: (_) =>
-                                              const RegistrationScreen()));
+                                          builder: (_) => const RegistrationScreen()));
                                 },
                                 child: const Text(
                                   'Sign up',

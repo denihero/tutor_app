@@ -8,21 +8,19 @@ import '../../../models/models.dart';
 import '../../constant/api.dart';
 
 Future<String> login(String username, String password) async {
-    var response = await http.post(
-      Uri.parse("${Api.tutorApi}/account/login/"),
-      body: {
-        "email": username,
-        "password": password,
-      },
-    );
-    print(response.body.toString());
-    if (response.statusCode >= 400) throw UnimplementedError();
+  var response = await http.post(
+    Uri.parse("${Api.tutorApi}/account/login/"),
+    body: {
+      "email": username,
+      "password": password,
+    },
+  );
+  print(response.body.toString());
+  if (response.statusCode >= 400) throw UnimplementedError();
   if (response.statusCode == 201 || response.statusCode == 200) {
     return jsonDecode(response.body.toString())["token"];
   }
   return "";
-
-
 }
 
 sendNameSurname(String name, String surname, String token, File? file) async {
@@ -44,7 +42,7 @@ sendNameSurname(String name, String surname, String token, File? file) async {
   }
 }
 
-Future<bool> register(String username,String password) async {
+Future<bool> register(String username, String password) async {
   var response = await http.post(
     Uri.parse("${Api.tutorApi}/account/register/"),
     body: {
@@ -76,9 +74,9 @@ Future<bool> confirmPassword(String username, String code) async {
 }
 
 Future<Map<String, String>> get_categories(String token) async {
-  var response = await http
-      .get(Uri.parse("${Api.tutorApi}/category/category-list/"), headers: {
-    "Authorization": "Token ed9cd3535c97526192f1193639088ad3e06097fe",
+  var response =
+      await http.get(Uri.parse("${Api.tutorApi}/category/category-list/"), headers: {
+    "Authorization": "Token aeba6700ffd7d15f5184f817b5a0d2234f512347",
   });
   if (response.statusCode >= 400) {
     throw UnimplementedError();
@@ -89,8 +87,7 @@ Future<Map<String, String>> get_categories(String token) async {
 }
 
 get_survey_via_id(int id, String token) async {
-  var response =
-  await http.get(Uri.parse("${Api.tutorApi}/course/$id/"), headers: {
+  var response = await http.get(Uri.parse("${Api.tutorApi}/course/$id/"), headers: {
     "Authorization": "Token $token",
   });
   print(response.body);
@@ -100,6 +97,7 @@ get_survey_via_id(int id, String token) async {
     ),
   );
 }
+
 putImage(File? file, int id, String token, String name, String surname) async {
   FormData formData = FormData.fromMap({
     if (file != null) "image": await MultipartFile.fromFile(file.path),
@@ -111,8 +109,7 @@ putImage(File? file, int id, String token, String name, String surname) async {
   dio.options.headers['Authorization'] = "Token $token";
   dio.options.headers['Content-Type'] = "multipart/form-data";
   // dio.options.contentType = Headers.formUrlEncodedContentType;
-  var response =
-  await dio.put("${Api.tutorApi}/account/info_users/$id/", data: formData);
+  var response = await dio.put("${Api.tutorApi}/account/info_users/$id/", data: formData);
   // if (response.statusCode! >= 400) {
   //   throw UnimplementedError();
   // }
@@ -120,7 +117,6 @@ putImage(File? file, int id, String token, String name, String surname) async {
   return response.data["image"];
   // return jsonDecode(response.data)["image"];
 }
-
 
 /*Stream<Surveys> get_surveys_via_category_stream_fixed(
     String token, String category) async* {
