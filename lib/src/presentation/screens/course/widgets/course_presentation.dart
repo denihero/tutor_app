@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:like_button/like_button.dart';
 import 'package:tutor_app/src/models/models.dart';
@@ -33,8 +34,8 @@ class CoursePresentation extends StatelessWidget {
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(20),
                 ),
-                child: FittedBox(
-                  // image: course.image!,
+                child: CachedNetworkImage(
+                  imageUrl:"https://tinypng.com/images/social/website.jpg" ,
                   fit: BoxFit.cover,
                 ),
               ),
