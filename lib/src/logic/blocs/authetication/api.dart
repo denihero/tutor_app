@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'dart:developer';
 import 'dart:io';
 import 'package:dio/dio.dart';
 import 'package:http/http.dart' as http;
@@ -113,7 +112,7 @@ putImage(File? file, int id, String token, String name, String surname) async {
   dio.options.headers['Content-Type'] = "multipart/form-data";
   // dio.options.contentType = Headers.formUrlEncodedContentType;
   var response =
-  await dio.put("${Api.tutorApi}/info_users/$id/", data: formData);
+  await dio.put("${Api.tutorApi}/account/info_users/$id/", data: formData);
   // if (response.statusCode! >= 400) {
   //   throw UnimplementedError();
   // }

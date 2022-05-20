@@ -6,7 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
 
 import '../../logic/blocs/authetication/authentication_bloc.dart';
-import '../../logic/cubit/course__cubit.dart';
+
 
 class ChangeImage extends StatefulWidget {
   const ChangeImage({Key? key}) : super(key: key);
@@ -25,16 +25,14 @@ class _ChangeImageState extends State<ChangeImage> {
           source: ImageSource.gallery, imageQuality: 50);
       if (image == null) return;
       setState(() {
-        this.imageFile = File(image.path);
+        imageFile = File(image.path);
       });
-      print(imageFile?.path);
     } catch (_) {}
   }
 
   @override
   Widget build(BuildContext context) {
     final String? image = BlocProvider.of<AuthBloc>(context).state.image;
-    bool is_loading = false;
     return BlocBuilder<AuthBloc, AuthState>(
       builder: (context, state) {
         return state is AuthLoading
@@ -48,7 +46,7 @@ class _ChangeImageState extends State<ChangeImage> {
             child: Scaffold(
                 backgroundColor: Colors.white,
                 appBar: AppBar(
-                  title: Text(
+                  title: const Text(
                     "View Image"
                   ),
                   backgroundColor: Colors.white,
@@ -68,16 +66,9 @@ class _ChangeImageState extends State<ChangeImage> {
                       size: 30,
                     ),
                     onPressed: () async {
-                      var val = BlocProvider.of<AuthBloc>(context).state;
                       if (imageFile != null) {
                         BlocProvider.of<AuthBloc>(context)
                             .add(AuthChangeInfo(imageFile));
-                        final nextState =
-                        await BlocProvider.of<AuthBloc>(context)
-                            .stream
-                            .firstWhere((element) =>
-                        element is AuthSuccess ||
-                            element is AuthError);
                       }
                       Navigator.of(context).pop();
                     },
@@ -92,14 +83,14 @@ class _ChangeImageState extends State<ChangeImage> {
                 )
                     : Center(
                   child: imageFile == null
-                      ? image == null || image.isEmpty
-                      ? Center(
+                      ? image.isEmpty
+                      ? const Center(
                       child: Text("None"))
                       : Padding(
                     padding:
                     const EdgeInsets.only(bottom: 60),
                     child: CachedNetworkImage(
-                      imageUrl: image ?? "",
+                      imageUrl: image,
                       width: double.infinity,
                       fit: BoxFit.fitWidth,
                     ),

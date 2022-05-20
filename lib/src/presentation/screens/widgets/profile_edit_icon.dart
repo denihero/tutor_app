@@ -1,11 +1,9 @@
-import 'dart:developer';
 import 'dart:io';
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:tutor_app/src/presentation/screens/change_image.dart';
 import 'package:tutor_app/src/presentation/screens/widgets/profile_icon.dart';
 import '../../../logic/blocs/authetication/authentication_bloc.dart';
 
@@ -43,7 +41,7 @@ class _ProfileEditIconState extends State<ProfileEditIcon> {
                          Navigator.of(context).push(MaterialPageRoute(builder:(_) => const ChangeImage()));
                       },
                       child: ProfileIcon(
-                        is_settings: true,
+                        isSettings: true,
                       ),
                     )
                   : GestureDetector(
@@ -155,22 +153,14 @@ class _ChangeImageState extends State<ChangeImage> {
                           size: 30,
                         ),
                         onPressed: () async {
-                          var val = BlocProvider.of<AuthBloc>(context).state;
                           if (imageFile != null) {
-                            // TODO() Make quit func
-                            // BlocProvider.of<AuthBloc>(context)
-                            //     .add(AuthChangeInfo(imageFile));
+                            BlocProvider.of<AuthBloc>(context)
+                                .add(AuthChangeInfo(imageFile));
                             // BlocProvider.of<SurveyCubit>(context)
                             //     .fetch_surveys_stream(
                             //     BlocProvider.of<AuthBloc>(context)
                             //         .state
                             //         .token);
-                            final nextState =
-                                await BlocProvider.of<AuthBloc>(context)
-                                    .stream
-                                    .firstWhere((element) =>
-                                        element is AuthSuccess ||
-                                        element is AuthError);
                           }
                           Navigator.of(context).pop();
                         },
@@ -189,7 +179,7 @@ class _ChangeImageState extends State<ChangeImage> {
                                         padding:
                                             const EdgeInsets.only(bottom: 60),
                                         child: CachedNetworkImage(
-                                          imageUrl: image ?? "",
+                                          imageUrl: image,
                                           width: double.infinity,
                                           fit: BoxFit.fitWidth,
                                         ),

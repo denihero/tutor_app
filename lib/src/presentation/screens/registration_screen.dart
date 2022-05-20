@@ -70,7 +70,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
 
   @override
   void dispose() {
-    _codeController?.dispose();
+    _codeController.dispose();
     passwordController.dispose();
     usernameController.dispose();
     super.dispose();
@@ -223,7 +223,6 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                                       onTap: () {
                                         SchedulerBinding.instance
                                             .addPostFrameCallback((_) {
-                                          print('work');
                                           final email = usernameController.text;
                                           final password =
                                               passwordController.text;
@@ -337,24 +336,14 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                                         ButtonWithTextAndArrow(
                                           text: 'Confirm',
                                           onTap: () {
-                                            print("Test");
-                                            print(_nameController.text);
-                                            print(_surnameController.text);
-                                              final code =
-                                                  _codeController.text;
                                               final email =
                                                   usernameController.text;
-                                              print(email);
-                                              print(passwordController.text);
                                               BlocProvider.of<AuthBloc>(context)
                                                   .add(
                                                 AuthRegisterSendNameSurname(
-                                                  name: _nameController.text ??
-                                                      "",
+                                                  name: _nameController.text,
                                                   file: imageFile,
-                                                  surname: _surnameController
-                                                          .text ??
-                                                      '',
+                                                  surname: _surnameController.text,
                                                   username: email,
                                                   password:
                                                       passwordController.text,

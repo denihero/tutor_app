@@ -1,20 +1,19 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:photo_view/photo_view.dart';
 import '../../../logic/blocs/authetication/authentication_bloc.dart';
 
 class ProfileIcon extends StatelessWidget {
   ProfileIcon({
     Key? key,
-    this.is_settings = false,
+    this.isSettings = false,
   }) : super(key: key);
-  bool is_settings;
+  bool isSettings;
 
   @override
   Widget build(BuildContext context) {
     final String? image = BlocProvider.of<AuthBloc>(context).state.image;
-    return is_settings
+    return isSettings
         ? Container(
             decoration: BoxDecoration(
                 color: Colors.white,
@@ -26,10 +25,10 @@ class ProfileIcon extends StatelessWidget {
                     spreadRadius: 4,
                   ),
                 ]),
-            padding: EdgeInsets.all(is_settings ? 20 : 50),
+            padding: EdgeInsets.all(isSettings ? 20 : 50),
             child: Icon(
               Icons.person,
-              size: is_settings ? 43 : 100,
+              size: isSettings ? 43 : 100,
             ),
           )
         : image == null || image.isEmpty
@@ -45,16 +44,16 @@ class ProfileIcon extends StatelessWidget {
                           spreadRadius: 4,
                         ),
                       ]),
-                  padding: EdgeInsets.all(is_settings ? 20 : 50),
+                  padding: EdgeInsets.all(isSettings ? 20 : 50),
                   child: Icon(
                     Icons.person,
-                    size: is_settings ? 43 : 100,
+                    size: isSettings ? 43 : 100,
                   ),
                 ),
               )
             : GestureDetector(
                 onTap: () {
-                  // Navigator.of(context).pushNamed("/view_change_image");
+                  Navigator.of(context).pushNamed("/view_change_image");
                 },
                 child: Center(
                   child: CircleAvatar(

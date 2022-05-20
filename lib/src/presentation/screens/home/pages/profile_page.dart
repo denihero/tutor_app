@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tutor_app/src/models/models.dart';
 import 'package:tutor_app/src/presentation/screens/home/pages/widgets/course_card.dart';
+import 'package:tutor_app/src/presentation/screens/widgets/profile_icon.dart';
+
+import '../../../../logic/blocs/authetication/authentication_bloc.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({Key? key}) : super(key: key);
@@ -28,25 +32,22 @@ class _ProfilePageState extends State<ProfilePage> {
                   blurRadius: 11,
                 )
               ]),
-          child: const Image(
-            image: NetworkImage(
-                "https://i.pinimg.com/originals/d9/56/9b/d9569bbed4393e2ceb1af7ba64fdf86a.jpg"),
-          ),
+          child: ProfileIcon(),
         ),
-        SizedBox(height: 44),
+        const SizedBox(height: 44),
         Text(
-          "Имя Фамилие",
-          style: TextStyle(
+          "${BlocProvider.of<AuthBloc>(context).state.name} ${BlocProvider.of<AuthBloc>(context).state.surname}",
+          style: const TextStyle(
             fontSize: 18,
             fontWeight: FontWeight.w600,
             letterSpacing: 1.04,
           ),
         ),
-        SizedBox(height: 67),
+        const SizedBox(height: 67),
         Padding(
-          padding: EdgeInsets.only(left: 30, bottom: 7),
+          padding: const EdgeInsets.only(left: 30, bottom: 7),
           child: Row(
-            children: [
+            children: const [
               Text(
                 "Просмотренные",
                 style: TextStyle(
@@ -64,7 +65,7 @@ class _ProfilePageState extends State<ProfilePage> {
             itemCount: 10,
             itemBuilder: (BuildContext context, int index) => CourseCard(
               course: Course(
-                image: NetworkImage(
+                image: const NetworkImage(
                     "https://timeweb.com/ru/community/article/3c/3c0cefa6f99fda8d9596da474fc7e264.jpg"),
                 title: "Python",
                 rating: 4.5,
