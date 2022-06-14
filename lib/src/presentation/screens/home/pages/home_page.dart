@@ -2,8 +2,8 @@ import 'dart:core';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:tutor_app/src/logic/categories_cubit.dart';
-import 'package:tutor_app/src/logic/cubit/course__cubit.dart';
+import 'package:tutor_app/src/logic/cubit/categories/categories_cubit.dart';
+import 'package:tutor_app/src/logic/cubit/course/courses_cubit.dart';
 import 'package:tutor_app/src/models/models.dart';
 import 'package:tutor_app/src/presentation/screens/home/pages/widgets/course_card.dart';
 
@@ -16,7 +16,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   int? choiceIndex;
-  List<String> name = [];
+  List<String> categoryNames = [];
 
   @override
   Widget build(BuildContext context) {
@@ -26,10 +26,10 @@ class _HomePageState extends State<HomePage> {
           height: 41,
           margin: const EdgeInsets.only(left: 17, bottom: 43),
           child: BlocBuilder<CategoriesCubit, Cat>(builder: (context, state) {
-            name = state.categories.keys.toList();
+            categoryNames = state.categories.keys.toList();
             return ListView.builder(
                 scrollDirection: Axis.horizontal,
-                itemCount: name.length - name.length + 1,
+                itemCount: categoryNames.length - categoryNames.length + 1,
                 itemBuilder: (BuildContext context, int index) => Padding(
                     padding: const EdgeInsets.only(left: 10),
                     child: Wrap(
@@ -38,36 +38,52 @@ class _HomePageState extends State<HomePage> {
                     )));
           }),
         ),
-        BlocBuilder<SurveyCubit, SurveyState>(
+        BlocBuilder<CourcesCubit, CoursesState>(
           builder: (context, state) {
-            if (state is SurveyLoading) {
+            if (state is CoursesLoading) {
               return const Center(
                 child: CircularProgressIndicator(
                   color: Colors.orange,
                 ),
               );
-            } else if (state is SurveyError) {
-              return const Center(
-                child: Text('Something get wrong'),
-              );
-            } else if (state is SurveyCompleted) {
-              var data = state.surveys;
+            }
+
+            if (state is CoursesCompleted) {
+              var courses = state.courses;
               return Expanded(
                 child: ListView.builder(
-                    itemCount: data.length,
+                    itemCount: courses.length,
                     itemBuilder: (BuildContext context, int index) {
+                      Course course = courses[index];
                       return CourseCard(
                         course: Course(
-                            nameOfCourse: data[index].nameOfCourse,
-                            category: data[index].category,
-                            lessons: data[index].lessons,
-                            images: data[index].images,
-                            likes: data[index].likes),
+                            name: course.name,
+                            categoryName: course.categoryName,
+                            lessons: course.lessons,
+                            images: course.images,
+                            likes: course.likes),
                       );
                     }),
               );
             }
-            return Container();
+
+            return Column(
+              children: [
+                Icon(
+                  Icons.error_outline_rounded,
+                  size: 60,
+                  color: Colors.black38,
+                ),
+                Text(
+                  "Something get wrong",
+                  style: TextStyle(
+                    fontSize: 24,
+                    color: Colors.black38,
+                    fontWeight: FontWeight.w500,
+                  ),
+                ),
+              ],
+            );
           },
         ),
       ],
@@ -76,12 +92,12 @@ class _HomePageState extends State<HomePage> {
 
   List<Widget> techChips(int index) {
     List<Widget> chips = [];
-    for (int i = 0; i < name.length; i++) {
+    for (int i = 0; i < categoryNames.length; i++) {
       Widget item = ChoiceChip(
         label: Padding(
           padding: const EdgeInsets.all(3.0),
           child: Text(
-            name[i],
+            categoryNames[i],
           ),
         ),
         backgroundColor: const Color.fromRGBO(250, 250, 250, 1),
@@ -99,8 +115,11 @@ class _HomePageState extends State<HomePage> {
           setState(() {
             if (isSelected) {
               choiceIndex = i;
+              BlocProvider.of<CourcesCubit>(context)
+                  .fetchCourseFromCategory(categoryNames[choiceIndex!]);
             } else {
               choiceIndex = null;
+              BlocProvider.of<CourcesCubit>(context).fetchCourse();
             }
           });
         },
@@ -108,101 +127,5 @@ class _HomePageState extends State<HomePage> {
       chips.add(item);
     }
     return chips;
-  }
-}
-
-/*class CategoryButton extends StatefulWidget {
-  const CategoryButton({
-    Key? key,
-    required this.name,
-    required this.index,
-    this.color = const Color(0xFFFAFAFA),
-    this.selectedColor = const Color(0xFFFE793D), required this.ii,
-  }) : super(key: key);
-
-  final String name;
-  final List ii;
-  final int index;
-  final Color color, selectedColor;
-
-  @override
-  State<CategoryButton> createState() => _CategoryButtonState();
-}
-
-
-class _CategoryButtonState extends State<CategoryButton> {
-  int? choiceIndex;
-  @override
-  Widget build(BuildContext context) {
-    for(int i = 0;i < widget.ii.length;i++){
-      choiceIndex = i;
-    }
-    return GestureDetector(
-      onTap: () {
-        setState((){
-
-        });
-      },
-      child: Container(
-        margin: const EdgeInsets.symmetric(horizontal: 13),
-        padding: const EdgeInsets.all(15),
-        decoration: BoxDecoration(
-          color: choiceIndex == widget.index ? widget.selectedColor : Colors.white,
-          borderRadius: BorderRadius.circular(20),
-        ),
-        child: Text(
-          widget.name,
-          style: TextStyle(
-            color:  choiceIndex == widget.index? Colors.white : Colors.black,
-            fontSize: 9,
-            fontWeight: FontWeight.w600,
-            letterSpacing: 1.04,
-          ),
-        ),
-      ),
-    );
-  }
-}*/
-/*Container(
-margin: const EdgeInsets.symmetric(horizontal: 13),
-padding: const EdgeInsets.all(15),
-decoration: BoxDecoration(
-color: choiceIndex == widget.index ? widget.selectedColor : Colors.white,
-borderRadius: BorderRadius.circular(20),
-),
-child: Text(
-widget.name,
-style: TextStyle(
-color:  choiceIndex == widget.index? Colors.white : Colors.black,
-fontSize: 9,
-fontWeight: FontWeight.w600,
-letterSpacing: 1.04,
-),
-),
-),*/
-
-class CustomSearchDelegate extends SearchDelegate {
-  @override
-  List<Widget>? buildActions(BuildContext context) {
-    // TODO: implement buildActions
-    throw UnimplementedError();
-  }
-
-  @override
-  Widget? buildLeading(BuildContext context) {
-    // TODO: implement buildLeading
-    throw UnimplementedError();
-  }
-
-  @override
-  Widget buildResults(BuildContext context) {
-    // TODO: implement buildResults
-    throw UnimplementedError();
-  }
-
-  @override
-  Widget buildSuggestions(BuildContext context) {
-    // TODO: implement buildSuggestions
-    throw UnimplementedError();
   }
 }
