@@ -1,10 +1,7 @@
-import 'dart:developer';
-import 'dart:ffi';
 import 'dart:io';
 
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:flutter/material.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 
 import 'api.dart';
@@ -82,8 +79,9 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> with HydratedMixin {
           print("Empty");
           emit(const AuthError());
         }
-      } catch (r) {
+      } catch (r,s) {
         print(r);
+        print(s);
         emit(const AuthError());
       }
     });
@@ -96,7 +94,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> with HydratedMixin {
         } else if (r == false) {
           emit(const AuthError());
         }
-      } catch (_) {
+      } catch (e) {
         emit(const AuthError());
       }
     });
@@ -117,10 +115,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> with HydratedMixin {
       try {
         emit(const AuthLoading(""));
 
-        var token = await login(event.username, event.password);
         print("Send name Username:");
-        var r =
-            await sendNameSurname(event.name, event.surname, token, event.file);
         emit(const AuthInitial());
       } catch (r) {
         print(r);

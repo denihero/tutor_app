@@ -58,7 +58,7 @@ class _CourseCardState extends State<CourseCard> {
                     borderRadius: BorderRadius.circular(20),
                   ),
                   child: CachedNetworkImage(
-                    imageUrl: "https://tinypng.com/images/social/website.jpg",
+                    imageUrl: widget.course.images![0].image!,
                     fit: BoxFit.cover,
 
                   ),
@@ -73,7 +73,7 @@ class _CourseCardState extends State<CourseCard> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        widget.course.nameOfCourse??"",
+                        widget.course.nameOfCourse ?? "",
                         // widget.course.title!,
                         style: const TextStyle(
                           fontSize: 18,
@@ -85,10 +85,8 @@ class _CourseCardState extends State<CourseCard> {
                         padding: const EdgeInsets.symmetric(vertical: 17),
                         child: Row(
                           children: [
-                            iconWithCountText(Icons.group,
-                                "${12} просмотров"),
                             iconWithCountText(Icons.star_rounded,
-                                "${32} лайков"),
+                                "${widget.course.likes} лайков"),
                           ],
                         ),
                       ),

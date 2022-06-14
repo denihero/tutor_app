@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:tutor_app/src/models/models.dart';
-import 'package:tutor_app/src/presentation/screens/home/pages/widgets/course_card.dart';
 import 'package:tutor_app/src/presentation/screens/widgets/profile_icon.dart';
 
 import '../../../../logic/blocs/authetication/authentication_bloc.dart';
@@ -63,10 +61,7 @@ class _ProfilePageState extends State<ProfilePage> {
         Expanded(
           child: ListView.builder(
             itemCount: 10,
-            itemBuilder: (BuildContext context, int index) => CourseCard(
-              course: Course(
-              ),
-            ),
+            itemBuilder: (BuildContext context, int index) => Container()
           ),
         ),
       ],

@@ -29,15 +29,16 @@ class CoursePresentation extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Container(
-                height: 200,
+                height: 220,
                 clipBehavior: Clip.antiAliasWithSaveLayer,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(20),
                 ),
-                child: CachedNetworkImage(
-                  imageUrl:"https://tinypng.com/images/social/website.jpg" ,
-                  fit: BoxFit.cover,
-                ),
+                child:CachedNetworkImage(
+                    imageUrl: "${course.images?[0].image}" ,
+                    fit: BoxFit.cover,
+                  ),
+
               ),
               const SizedBox(height: 14),
               Padding(
@@ -56,15 +57,15 @@ class CoursePresentation extends StatelessWidget {
                 padding: const EdgeInsets.only(left: 23),
                 child: Row(
                   children: [
-                    iconWithText(Icons.star_rounded, 12.toString()),
+                    iconWithText(Icons.star_rounded, course.likes.toString()),
                   ],
                 ),
               ),
             ],
           ),
           Positioned(
-            right: 20,
-            bottom: 89,
+            right: 15,
+            bottom: 69,
             child: Container(
               height: 50,
               width: 50,
@@ -81,6 +82,10 @@ class CoursePresentation extends StatelessWidget {
               ),
               child: Center(
                 child: LikeButton(
+                  onTap: (value)  async{
+                    return value = !value;
+
+                  },
                   likeBuilder: (bool isLiked) {
                     return Padding(
                       padding: const EdgeInsets.only(top: 1.3, left: 2.75),

@@ -40,19 +40,34 @@ class _HomePageState extends State<HomePage> {
         ),
         BlocBuilder<SurveyCubit, SurveyState>(
           builder: (context, state) {
-            var data = state.surveys;
-            return Expanded(
-              child: ListView.builder(
-                itemCount: data.length,
-                itemBuilder: (BuildContext context, int index) => CourseCard(
-                  course: Course(
-                    nameOfCourse: data[index].nameOfCourse,
-                    category: data[index].category,
-                    lessons: data[index].lessons,
-                  ),
+            if (state is SurveyLoading) {
+              return const Center(
+                child: CircularProgressIndicator(
+                  color: Colors.orange,
                 ),
-              ),
-            );
+              );
+            } else if (state is SurveyError) {
+              return const Center(
+                child: Text('Something get wrong'),
+              );
+            } else if (state is SurveyCompleted) {
+              var data = state.surveys;
+              return Expanded(
+                child: ListView.builder(
+                    itemCount: data.length,
+                    itemBuilder: (BuildContext context, int index) {
+                      return CourseCard(
+                        course: Course(
+                            nameOfCourse: data[index].nameOfCourse,
+                            category: data[index].category,
+                            lessons: data[index].lessons,
+                            images: data[index].images,
+                            likes: data[index].likes),
+                      );
+                    }),
+              );
+            }
+            return Container();
           },
         ),
       ],

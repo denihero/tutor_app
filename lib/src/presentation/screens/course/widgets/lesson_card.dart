@@ -21,7 +21,7 @@ class _LessonCardState extends State<LessonCard> {
   @override
   void initState() {
     super.initState();
-    _controller = VideoPlayerController.network( 'https://flutter.github.io/assets-for-api-docs/assets/videos/bee.mp4')
+    _controller = VideoPlayerController.network( 'http://leadev.club:8000/media/videos/butterfly.mp4')
       ..initialize().then((_) {
         setState(() {});
       });
@@ -35,12 +35,12 @@ class _LessonCardState extends State<LessonCard> {
           context,
           MaterialPageRoute(
             builder: (context) =>
-                LessonScreen(id: widget.id, lesson: widget.lesson),
+                LessonScreen(id: widget.id, lesson: widget.lesson,),
           ),
         );
       },
       child: Container(
-        margin: EdgeInsets.symmetric(vertical: 16.5),
+        margin: const EdgeInsets.symmetric(vertical: 16.5),
         decoration: BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.circular(20),
@@ -56,21 +56,21 @@ class _LessonCardState extends State<LessonCard> {
         child: Column(
           children: [
             Padding(
-              padding: EdgeInsets.only(top: 10, left: 9),
+              padding: const EdgeInsets.only(top: 10, left: 9),
               child: Row(
                 children: [
                   Text(
                     beautifiedIdText(widget.id),
-                    style: TextStyle(
+                    style: const TextStyle(
                       fontSize: 18,
                       fontWeight: FontWeight.w600,
                       letterSpacing: 1.04,
                     ),
                   ),
-                  SizedBox(width: 16),
+                  const SizedBox(width: 16),
                   Text(
                     widget.lesson.name??"",
-                    style: TextStyle(
+                    style: const TextStyle(
                       fontSize: 13,
                       fontWeight: FontWeight.w600,
                       letterSpacing: 1.04,
@@ -79,21 +79,21 @@ class _LessonCardState extends State<LessonCard> {
                 ],
               ),
             ),
-            SizedBox(height: 11),
+            const SizedBox(height: 11),
             Row(
               children: [
-                SizedBox(width: 55),
-                Icon(
+                const SizedBox(width: 55),
+                const Icon(
                   Icons.access_time,
                   color: Color(0xFF878787),
                   size: 12,
                 ),
-                SizedBox(width: 4),
+                const SizedBox(width: 4),
                 Text(
                   _controller.value.isInitialized
                       ? getProperTime(_controller.value.duration)
                       : "00:00",
-                  style: TextStyle(
+                  style: const TextStyle(
                     color: Color(0xFF878787),
                     fontSize: 7,
                     fontWeight: FontWeight.w400,

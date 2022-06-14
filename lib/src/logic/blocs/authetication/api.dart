@@ -77,28 +77,14 @@ Future<bool> confirmPassword(String username, String code) async {
 Future<Map<String, String>> get_categories(String token) async {
   var response = await http
       .get(Uri.parse("${Api.tutorApi}/category/category-list/"), headers: {
-    "Authorization": "Token aeba6700ffd7d15f5184f817b5a0d2234f512347",
+    "Authorization": "Token fd7c8a1a80f3637f5d7675736f3c6a1e97ceb240",
   });
   if (response.statusCode >= 400) {
     throw UnimplementedError();
   }
-  print(response.body);
   return Categories.fromJson(
-    jsonDecode(utf8.decode(response.bodyBytes))["results"],
+    jsonDecode(utf8.decode(response.bodyBytes)),
   ).categories;
-}
-
-get_survey_via_id(int id, String token) async {
-  var response =
-      await http.get(Uri.parse("${Api.tutorApi}/course/$id/"), headers: {
-    "Authorization": "Token $token",
-  });
-  print(response.body);
-  return Course.fromJson(
-    jsonDecode(
-      response.body.toString(),
-    ),
-  );
 }
 
 putImage(File? file, int id, String token, String name, String surname) async {
@@ -122,341 +108,41 @@ putImage(File? file, int id, String token, String name, String surname) async {
   // return jsonDecode(response.data)["image"];
 }
 
-// Stream<Course> get_surveys_via_category_stream_fixed( String token, String category) async* {
-//   var response = await http
-//       .get(Uri.parse("${Api.tutorApi}/surveys/?category=$category"), headers: {
-//     "Authorization": "Token $token",
-//   });
-
-//   if (jsonDecode(response.body.toString())["count"] == 0) throw Empty();
-
-//   if (response.statusCode >= 400) {
-//     throw UnimplementedError();
-//   }
-
-//   String? next_one;
-
-//   try {
-//     final first_one = jsonDecode(utf8.decode(response.bodyBytes));
-//     print(first_one);
-//     next_one = first_one["next"];
-//     yield Course.fromJson(first_one["results"][0]);
-//   } catch (_) {
-//     throw UnimplementedError();
-//   }
-//   while (next_one != null) {
-//     var response = await http.get(Uri.parse(next_one), headers: {
-//       "Authorization": "Token $token",
-//     });
-//     final survey = jsonDecode(utf8.decode(response.bodyBytes));
-//     next_one = survey["next"];
-//     yield Course.fromJson(survey["results"][0]);
-//   }
-//   yield Course();
-// }
-/*
-Stream<Surveys> get_surveys_Mine(String token, String email) async* {
-  var response = await http
-      .get(Uri.parse("${Api.surveyApi}/surveys/?search=$email"), headers: {
-    "Authorization": "Token $token",
-  });
-
-  if (jsonDecode(response.body.toString())["count"] == 0) throw Empty();
-
-  if (response.statusCode >= 400) {
-    throw UnimplementedError();
-  }
-
-  String? next_one;
-
-  try {
-    final first_one = jsonDecode(utf8.decode(response.bodyBytes));
-    print(first_one);
-    next_one = first_one["next"];
-    yield Surveys.fromJson(first_one["results"][0]);
-  } catch (_) {
-    throw UnimplementedError();
-  }
-  while (next_one != null) {
-    var response = await http.get(Uri.parse(next_one), headers: {
-      "Authorization": "Token $token",
-    });
-    final survey = jsonDecode(utf8.decode(response.bodyBytes));
-    next_one = survey["next"];
-    yield Surveys.fromJson(survey["results"][0]);
-  }
-  yield Surveys(id: -100);
-}
-// */
-// Stream<Surveys> find_surveys_stream_fixed(String title, String token) async* {
-//   var response = await http
-//       .get(Uri.parse("${Api.surveyApi}/surveys/?search=$title"), headers: {
-//     "Authorization": "Token $token",
-//   });
-//   print(response.body);
-//
-//   if (jsonDecode(response.body.toString())["count"] == 0) throw Empty();
-//
-//   if (response.statusCode >= 400) {
-//     throw UnimplementedError();
-//   }
-//
-//   String? next_one;
-//
-//   try {
-//     final first_one = jsonDecode(utf8.decode(response.bodyBytes));
-//     print(first_one);
-//     next_one = first_one["next"];
-//     yield Surveys.fromJson(first_one["results"][0]);
-//   } catch (_) {
-//     throw UnimplementedError();
-//   }
-//   while (next_one != null) {
-//     var response = await http.get(Uri.parse(next_one), headers: {
-//       "Authorization": "Token $token",
-//     });
-//     final survey = jsonDecode(utf8.decode(response.bodyBytes));
-//     next_one = survey["next"];
-//     yield Surveys.fromJson(survey["results"][0]);
-//   }
-//   yield Surveys(id: -100);
-// }
-
-//not correct function
-
-class Empty {}
-
-//correct one
-Stream<Course> get_surveys_stream_fixed(String token) async* {
-  var response =
-      await http.get(Uri.parse("${Api.tutorApi}/surveys/"), headers: {
-    "Authorization": "Token $token",
-  });
-  print(response.body);
-
-  if (jsonDecode(response.body.toString())["count"] == 0) throw Empty();
-
-  if (response.statusCode >= 400) {
-    throw UnimplementedError();
-  }
-
-  String? next_one;
-
-  try {
-    final first_one = jsonDecode(utf8.decode(response.bodyBytes));
-    print(first_one);
-    next_one = first_one["next"];
-    print(first_one);
-    yield Course.fromJson(first_one["results"][0]);
-  } catch (_) {
-    throw UnimplementedError();
-  }
-  while (next_one != null) {
-    var response = await http.get(Uri.parse(next_one), headers: {
-      "Authorization": "Token $token",
-    });
-    final survey = jsonDecode(utf8.decode(response.bodyBytes));
-    next_one = survey["next"];
-    yield Course.fromJson(survey["results"][0]);
-  }
-  yield Course();
-}
-
-// post_sumbissions(Submission sub, String token) async {
-//   var response = await http.post(Uri.parse("${Api.surveyApi}/sumbitions/"),
-//       body: json.encode(sub.toJson()),
-//       // encoding: "",
-//       headers: {
-//         "Content-Type": "application/json",
-//         "Authorization": "Token $token",
-//       });
-//   print(response.body);
-
-//   if (response.statusCode >= 400) throw UnimplementedError();
-// }
-
-// delete_survey(Surveys survey, String token) async {
-//   var response_surveys = await http.delete(
-//     Uri.parse(
-//       "${Api.surveyApi}/surveys/${survey.id}/",
-//     ),
-//     headers: {
-//       // "Content-Type": "application/json",
-//       "Authorization": "Token $token",
-//     },
-//   );
-//   print(response_surveys.body);
-//   if (response_surveys.statusCode >= 400) throw UnimplementedError();
-// }
-
-// post_like(int survey_index, String token) async {
-//   var response_surveys = await http.post(
-//       Uri.parse(
-//         "${Api.surveyApi}/likes/",
-//       ),
-//       headers: {
-//         // "Content-Type": "application/json",
-//         "Authorization": "Token $token",
-//       },
-//       body: {
-//         "survey": survey_index.toString(),
-//       });
-
-//   if (response_surveys.statusCode >= 400) throw UnimplementedError();
-//   return jsonDecode(response_surveys.body)["id"];
-// }
-
-// get_likes(String token, String email) async {
-//   var response_surveys = await http.get(
-//     Uri.parse(
-//       "${Api.surveyApi}/likes/",
-//     ),
-//     headers: {
-//       // "Content-Type": "application/json",
-//       "Authorization": "Token $token",
-//     },
-//   );
-//   log("Likes:${response_surveys.body}");
-//   if (response_surveys.statusCode >= 400) throw UnimplementedError();
-//   try {
-//     return jsonDecode(response_surveys.body);
-//   } catch (_) {
-//     return [];
-//   }
-// }
-
-// delete_like(int like_index, String token) async {
-//   var response_surveys = await http.delete(
-//     Uri.parse(
-//       "${Api.surveyApi}/likes/$like_index/",
-//     ),
-//     headers: {
-//       // "Content-Type": "application/json",
-//       "Authorization": "Token $token",
-//     },
-//   );
-//   print(response_surveys.body);
-//   if (response_surveys.statusCode >= 400) throw UnimplementedError();
-// }
-
-// post_survey(Surveys survey, String token, File? image) async {
-//   try {
-//     Surveys return_survey;
-//     return_survey = Surveys.fromJson(await uploadImage(image, survey, token));
-//     for (Questions i in survey.questions ?? []) {
-//       Questions question;
-//       var response_questions = await http.post(
-//         Uri.parse(
-//           "${Api.surveyApi}/questions/",
-//         ),
-//         headers: {
-//           // "Content-Type": "application/json",
-//           "Authorization": "Token $token",
-//         },
-//         body: {
-//           "survey": return_survey.id.toString(),
-//           "text": i.text,
-//         },
-//       );
-
-//       if (response_questions.statusCode >= 400) {
-//         throw UnimplementedError();
-//       }
-//       int question_id =
-//       jsonDecode(utf8.decode(response_questions.bodyBytes))["id"];
-
-//       for (Choice c in i.choices ?? []) {
-//         var response_choices = await http.post(
-//           Uri.parse("${Api.tutorApi}/choices/"),
-//           headers: {
-//             // "Content-Type": "application/json",
-//             "Authorization": "Token $token",
-//           },
-//           body: {
-//             "text": c.text,
-//             "question": question_id.toString(),
-//           },
-//         );
-//         if (response_choices.statusCode >= 400) {
-//           throw UnimplementedError();
-//         }
-//         print(response_choices.body);
-//       }
-//     }
-//   } catch (_) {
-//     throw UnimplementedError();
-//   }
-// }
-
-// getLastSurvey(String email, String token) async {
-//   var response = await http.get(
-//     Uri.parse("${Api.tutorApi}/surveys/?search=$email&ordering=-created_at"),
-//     headers: {
-//       "Authorization": "Token $token",
-//     },
-//   );
-//   if (response.statusCode >= 400) return UnimplementedError();
-//   return Surveys.fromJson(jsonDecode(utf8.decode(response.bodyBytes))["results"][0]);
-// }
-
 getNameSurname(String email) async {
   var response =
       await http.get(Uri.parse("${Api.tutorApi}/account/info_users/"));
-  print(response.body);
-  for (var item in jsonDecode(utf8.decode(response.bodyBytes))["results"]) {
+  for (var item in jsonDecode(utf8.decode(response.bodyBytes))) {
     if (item["author"] == email) {
       return [item["name"], item["surname"], item["image"], item["id"]];
     }
   }
 }
 
-get_courses(int offset) async {
+Future<List<Course>> getCourse() async {
   var response = await http
-      .get(Uri.parse("${Api.tutorApi}/course/?limit=5&offset=$offset"));
+      .get(Uri.parse("${Api.tutorApi}/course/"));
   if (response.statusCode >= 400) throw UnimplementedError("Status code");
   final data = jsonDecode(utf8.decode(response.bodyBytes));
   List<Course> ls = [];
-  for (var element in data["results"]) {
-    // if (element["lessons"] == null) element["lessons"] = [];
-    print("Element :$element");
+  for (var element in data) {
     ls.add(Course.fromJson(element));
   }
   return ls;
 }
 
-void main(List<String> args) async {
-  // get_surveys_stream_fixed("").listen((event) {
-  //   print(event);
-  // });
-  print("Hello World");
-}
 
-/*Future uploadImage(File? file, Surveys survey, String token) async {
-  FormData formData = FormData.fromMap({
-    if (file != null) "image": await MultipartFile.fromFile(file.path),
-    "title": survey.title,
-    "description": survey.description,
-    "category": survey.category,
+Future<List<SavedList>> getSavedCourse(String token) async{
+  var response = await http.get(Uri.parse("${Api.tutorApi}/course/savedlist/"),headers: {
+    "Authorization": "Token $token",
   });
-  Dio dio = Dio();
-  dio.options.headers['Authorization'] = "Token $token";
-  var response = await dio.post("${Api.tutorApi}/surveys/", data: formData);
-  if (response.statusCode! >= 400) {
-    throw UnimplementedError();
+
+
+  if(response.statusCode >= 400) throw UnimplementedError('Status code');
+  final data = jsonDecode(utf8.decode(response.bodyBytes));
+  List<SavedList> sl = [];
+
+  for(var element in data){
+    sl.add(SavedList.fromJson(element));
   }
-  return response.data;
+  return sl;
 }
-*/
-/*get_surveys(int begin) async {
-  List<Surveys> surveys = [];
-  for (var i = begin; i < begin + 5; i++) {
-    var response = await http.get(
-      Uri.parse("${Api.surveyApi}/surveys/?page=$i"),
-    );
-    // print(response.body);
-    surveys.add(Surveys.fromJson(
-        jsonDecode(utf8.decode(response.bodyBytes))["results"][0]));
-  }
-  return surveys;
-}
-*/

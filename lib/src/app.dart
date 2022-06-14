@@ -3,9 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:sizer/sizer.dart';
 import 'package:tutor_app/src/logic/cubit/course__cubit.dart';
-import 'package:tutor_app/src/presentation/screens/home/home_screen.dart';
+import 'package:tutor_app/src/logic/cubit/saved_courses_cubit.dart';
 import 'package:tutor_app/src/presentation/screens/login_screen.dart';
-import 'package:tutor_app/src/presentation/screens/registration_screen.dart';
 
 import 'logic/blocs/authetication/authentication_bloc.dart';
 import 'logic/categories_cubit.dart';
@@ -27,6 +26,9 @@ class App extends StatelessWidget {
         BlocProvider<SurveyCubit>(
           create: (context) => SurveyCubit(),
         ),
+        BlocProvider<SavedCoursesCubit>(
+            create: (context) => SavedCoursesCubit()
+        )
       ],
       child: Sizer(
         builder: ((context, orientation, deviceType) {

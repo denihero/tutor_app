@@ -1,105 +1,63 @@
 // To parse this JSON data, do
 //
-//     final welcome = welcomeFromJson(jsonString);
+//     final course = courseFromJson(jsonString);
 
 import 'dart:convert';
 
-Welcome welcomeFromJson(String str) => Welcome.fromJson(json.decode(str));
+List<Course> courseFromJson(String str) => List<Course>.from(json.decode(str).map((x) => Course.fromJson(x)));
 
-String welcomeToJson(Welcome data) => json.encode(data.toJson());
-
-class Welcome {
-  Welcome({
-    this.count,
-    this.next,
-    this.previous,
-    this.results,
-  });
-
-  int? count;
-  String? next;
-  dynamic? previous;
-  List<Course>? results;
-
-  Welcome copyWith({
-    int? count,
-    String? next,
-    dynamic? previous,
-    List<Course>? results,
-  }) =>
-      Welcome(
-        count: count ?? this.count,
-        next: next ?? this.next,
-        previous: previous ?? this.previous,
-        results: results ?? this.results,
-      );
-
-  factory Welcome.fromJson(Map<String, dynamic> json) => Welcome(
-        count: json["count"] == null ? null : json["count"],
-        next: json["next"] == null ? null : json["next"],
-        previous: json["previous"],
-        results: json["results"] == null
-            ? null
-            : List<Course>.from(json["results"].map((x) => Course.fromJson(x))),
-      );
-
-  Map<String, dynamic> toJson() => {
-        "count": count == null ? null : count,
-        "next": next == null ? null : next,
-        "previous": previous,
-        "results": results == null
-            ? null
-            : List<dynamic>.from(results!.map((x) => x.toJson())),
-      };
-}
+String courseToJson(List<Course> data) => json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
 
 class Course {
   Course({
     this.id,
     this.nameOfCourse,
     this.category,
+    this.images,
     this.lessons,
+    required this.likes,
   });
 
   int? id;
   String? nameOfCourse;
   String? category;
+  List<Image>? images;
   List<Lesson>? lessons;
+  int likes;
 
-  Course copyWith({
-    int? id,
-    String? nameOfCourse,
-    String? category,
-    List<Lesson>? lessons,
-  }) =>
-      Course(
-        id: id ?? this.id,
-        nameOfCourse: nameOfCourse ?? this.nameOfCourse,
-        category: category ?? this.category,
-        lessons: lessons ?? this.lessons,
-      );
-
-  factory Course.fromJson(Map<String, dynamic> json) {
-    print("Course :$json");
-    return Course(
-      id: json["id"] == null ? null : json["id"],
-      nameOfCourse:
-          json["name_of_course"] == null ? null : json["name_of_course"],
-      category: json["category"] == null ? null : json["category"],
-      lessons: json["lessons"] == null
-          ? null
-          : List<Lesson>.from(json["lessons"].map((x) => Lesson.fromJson(x))),
-    );
-  }
+  factory Course.fromJson(Map<String, dynamic> json) => Course(
+    id: json["id"],
+    nameOfCourse: json["name_of_course"],
+    category: json["category"],
+    images: List<Image>.from(json["images"].map((x) => Image.fromJson(x))),
+    lessons: List<Lesson>.from(json["lessons"].map((x) => Lesson.fromJson(x))),
+    likes: json["likes"],
+  );
 
   Map<String, dynamic> toJson() => {
-        "id": id == null ? null : id,
-        "name_of_course": nameOfCourse == null ? null : nameOfCourse,
-        "category": category == null ? null : category,
-        "lessons": lessons == null
-            ? null
-            : List<dynamic>.from(lessons!.map((x) => x.toJson())),
-      };
+    "id": id,
+    "name_of_course": nameOfCourse,
+    "category": category,
+    "images": List<dynamic>.from(images!.map((x) => x.toJson())),
+    "lessons": List<dynamic>.from(lessons!.map((x) => x.toJson())),
+    "likes": likes,
+  };
+}
+
+class Image {
+  Image({
+    this.image,
+  });
+
+  String? image;
+
+  factory Image.fromJson(Map<String, dynamic> json) => Image(
+    image: json["image"],
+  );
+
+  Map<String, dynamic> toJson() => {
+    "image": image,
+  };
 }
 
 class Lesson {
@@ -108,40 +66,73 @@ class Lesson {
     this.name,
     this.description,
     this.course,
+    this.videos,
   });
 
   int? id;
   String? name;
   String? description;
   int? course;
+  List<Video>? videos;
 
-  Lesson copyWith({
-    int? id,
-    String? name,
-    String? description,
-    int? course,
-  }) =>
-      Lesson(
-        id: id ?? this.id,
-        name: name ?? this.name,
-        description: description ?? this.description,
-        course: course ?? this.course,
-      );
-
-  factory Lesson.fromJson(Map<String, dynamic> json) {
-    print("json :$json");
-    return Lesson(
-      id: json["id"] == null ? null : json["id"],
-      name: json["name"] == null ? null : json["name"],
-      description: json["description"] == null ? null : json["description"],
-      course: json["course"] == null ? null : json["course"],
-    );
-  }
+  factory Lesson.fromJson(Map<String, dynamic> json) => Lesson(
+    id: json["id"],
+    name: json["name"],
+    description: json["description"],
+    course: json["course"],
+    videos: List<Video>.from(json["videos"].map((x) => Video.fromJson(x))),
+  );
 
   Map<String, dynamic> toJson() => {
-        "id": id == null ? null : id,
-        "name": name == null ? null : name,
-        "description": description == null ? null : description,
-        "course": course == null ? null : course,
-      };
+    "id": id,
+    "name": name,
+    "description": description,
+    "course": course,
+    "videos": List<dynamic>.from(videos!.map((x) => x)),
+  };
 }
+
+
+class SavedList {
+  SavedList({
+    this.id,
+    this.saved,
+    this.user,
+    this.course,
+  });
+
+  int? id;
+  bool? saved;
+  String? user;
+  List<Course>? course;
+
+  factory SavedList.fromJson(Map<String, dynamic> json) => SavedList(
+    id: json["id"],
+    saved: json["saved"],
+    user: json["user"],
+    course: List<Course>.from(json["course"].map((x) => Course.fromJson(x))),
+  );
+
+  Map<String, dynamic> toJson() => {
+    "id": id,
+    "saved": saved,
+    "user": user,
+    "course": List<dynamic>.from(course!.map((x) => x.toJson())),
+  };
+}
+class Video {
+  Video({
+    required this.video,
+  });
+
+  String video;
+
+  factory Video.fromJson(Map<String, dynamic> json) => Video(
+    video: json["video"],
+  );
+
+  Map<String, dynamic> toJson() => {
+    "video": video,
+  };
+}
+
