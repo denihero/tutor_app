@@ -1,4 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:tutor_app/src/logic/cubit/search/search_cubit.dart';
+
+import '../../models/models.dart';
+import '../screens/home/pages/widgets/course_card.dart';
 
 class CustomSearch extends StatelessWidget {
   const CustomSearch({Key? key}) : super(key: key);
@@ -11,7 +16,9 @@ class CustomSearch extends StatelessWidget {
         onTap: () {
           showSearch(
             context: context,
-            delegate: CustomSearchDelegate(),
+            delegate: CustomSearchDelegate(
+              searchCubit: BlocProvider.of<SearchCubit>(context),
+            ),
           );
           FocusManager.instance.primaryFocus?.unfocus();
         },
@@ -60,6 +67,25 @@ class CustomSearch extends StatelessWidget {
 }
 
 class CustomSearchDelegate extends SearchDelegate {
+  final SearchCubit searchCubit;
+
+  CustomSearchDelegate({required this.searchCubit});
+
+  late String queryString;
+
+  @override
+  ThemeData appBarTheme(BuildContext context) {
+    return super.appBarTheme(context).copyWith(
+          appBarTheme: AppBarTheme(
+            backgroundColor: Colors.transparent,
+            shadowColor: Colors.transparent,
+            iconTheme: IconThemeData(
+              color: Colors.black,
+            ),
+          ),
+        );
+  }
+
   @override
   List<Widget>? buildActions(BuildContext context) {
     return [
@@ -67,7 +93,7 @@ class CustomSearchDelegate extends SearchDelegate {
           onPressed: () {
             query = '';
           },
-          icon: const Icon(Icons.remove))
+          icon: const Icon(Icons.clear)),
     ];
   }
 
@@ -83,13 +109,94 @@ class CustomSearchDelegate extends SearchDelegate {
 
   @override
   Widget buildResults(BuildContext context) {
-    return Column(
-      children: const [],
+    queryString = query;
+    searchCubit.fetchSearch(query);
+
+    return BlocBuilder<SearchCubit, SearchState>(
+      builder: (context, state) {
+        if (state is SearchProcessing) {
+          return Center(
+            child: CircularProgressIndicator(
+              color: Colors.orange,
+            ),
+          );
+        }
+
+        if (state is SearchCompleted) {
+          var courses = state.courses;
+          return Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Padding(
+                padding: EdgeInsets.only(left: 25),
+                child: Text(
+                  "Результаты для “$queryString”",
+                  style: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.w700,
+                      letterSpacing: 1.03),
+                ),
+              ),
+              Divider(
+                thickness: 2,
+              ),
+              Expanded(
+                child: ListView.builder(
+                    itemCount: courses.length,
+                    itemBuilder: (BuildContext context, int index) {
+                      Course course = courses[index];
+                      return CourseCard(
+                        course: Course(
+                            nameOfCourse: course.nameOfCourse,
+                            category: course.category,
+                            lessons: course.lessons,
+                            images: course.images,
+                            likes: course.likes),
+                      );
+                    }),
+              ),
+            ],
+          );
+        }
+
+        if (state is SearchEmpty) {
+          return Padding(
+            padding: EdgeInsets.all(20),
+            child: Text(
+              "Результаты для “$queryString” не найдены",
+              style: TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.w700,
+                  letterSpacing: 1.03),
+            ),
+          );
+        }
+
+        return Column(
+          children: [
+            Icon(
+              Icons.error_outline_rounded,
+              size: 60,
+              color: Colors.black38,
+            ),
+            Text(
+              "Something get wrong",
+              style: TextStyle(
+                fontSize: 24,
+                color: Colors.black38,
+                fontWeight: FontWeight.w500,
+              ),
+            ),
+          ],
+        );
+      },
     );
   }
 
   @override
   Widget buildSuggestions(BuildContext context) {
-    return Column();
+    return Column(
+      children: [],
+    );
   }
 }
