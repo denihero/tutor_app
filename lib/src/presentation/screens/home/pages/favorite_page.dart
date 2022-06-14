@@ -1,10 +1,8 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:tutor_app/src/logic/cubit/saved_courses_cubit.dart';
+import 'package:tutor_app/src/logic/cubit/saved/saved_cubit.dart';
 import 'package:tutor_app/src/models/models.dart';
 import 'package:tutor_app/src/presentation/screens/home/pages/widgets/course_card.dart';
-
 
 class FavoritePage extends StatefulWidget {
   const FavoritePage({Key? key}) : super(key: key);
@@ -19,17 +17,14 @@ class _FavoritePageState extends State<FavoritePage> {
     return Scaffold(
       body: Column(
         children: [
-          BlocBuilder<SavedCoursesCubit, SavedCoursesState>(
+          BlocBuilder<SavedCoursesCubit, SavedState>(
             builder: (context, state) {
-              if(state is SavedCoursesLoading){
+              if (state is SavedLoading) {
+                return const Center(child: CircularProgressIndicator());
+              } else if (state is SavedError) {
                 return const Center(
-                  child: CircularProgressIndicator()
-                );
-              }else if(state is SavedCoursesError){
-                return const Center(
-                    child: Text('There is error in saved list')
-                );
-              }else if(state is SavedCoursesCompleted){
+                    child: Text('There is error in saved list'));
+              } else if (state is SavedCompleted) {
                 final data = state.savedList;
                 return Expanded(
                   child: ListView.builder(
@@ -37,20 +32,17 @@ class _FavoritePageState extends State<FavoritePage> {
                       itemBuilder: (BuildContext context, int index) {
                         print(data[index].course);
                         return CourseCard(
-                          course: Course(
-                              nameOfCourse: data[index].course?[index].nameOfCourse,
-                              category: data[index].course?[index].category,
-                              lessons: data[index].course?[index].lessons,
-                              images: data[index].course?[index].images,
-                              likes: data[index].course![index].likes
-                          )
-                      );
-              }
-                  ),
+                            course: Course(
+                                name: data[index].course?[index].name,
+                                categoryName:
+                                    data[index].course?[index].categoryName,
+                                lessons: data[index].course?[index].lessons,
+                                images: data[index].course?[index].images,
+                                likes: data[index].course![index].likes));
+                      }),
                 );
               }
               return Container();
-
             },
           ),
         ],

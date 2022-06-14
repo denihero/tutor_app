@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:tutor_app/src/logic/cubit/course__cubit.dart';
+import 'package:tutor_app/src/logic/cubit/course/courses_cubit.dart';
 import 'package:tutor_app/src/presentation/components/button_with_text_and_arrow.dart';
 import 'package:tutor_app/src/presentation/components/textform_with_boxshadow.dart';
 import 'package:tutor_app/src/presentation/screens/home/home_screen.dart';
 import 'package:tutor_app/src/presentation/screens/registration_screen.dart';
 
 import '../../logic/blocs/authetication/authentication_bloc.dart';
-import '../../logic/categories_cubit.dart';
-import '../../logic/cubit/saved_courses_cubit.dart';
+import '../../logic/cubit/categories/categories_cubit.dart';
+import '../../logic/cubit/saved/saved_cubit.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -141,7 +141,7 @@ class _LoginScreenState extends State<LoginScreen> {
           } else if (state is AuthSuccess || state.email != "") {
             String token = BlocProvider.of<AuthBloc>(context).state.token;
             BlocProvider.of<CategoriesCubit>(context).getCategory(token);
-            BlocProvider.of<SurveyCubit>(context).fetchCourse();
+            BlocProvider.of<CourcesCubit>(context).fetchCourse();
             print(token);
             BlocProvider.of<SavedCoursesCubit>(context).addSavedList(token);
             // BlocProvider.of<LikeCubit>(context).get_like(

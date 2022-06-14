@@ -3,9 +3,10 @@ import 'dart:io';
 import 'package:dio/dio.dart';
 import 'package:http/http.dart' as http;
 
-import '../../../models/category.dart';
-import '../../../models/models.dart';
-import '../../constant/api.dart';
+import '../constant/api.dart';
+import '../models/category.dart';
+import '../models/models.dart';
+
 
 Future<String> login(String username, String password) async {
   var response = await http.post(

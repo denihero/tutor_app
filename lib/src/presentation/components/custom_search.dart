@@ -147,8 +147,8 @@ class CustomSearchDelegate extends SearchDelegate {
                       Course course = courses[index];
                       return CourseCard(
                         course: Course(
-                            nameOfCourse: course.nameOfCourse,
-                            category: course.category,
+                            name: course.name,
+                            categoryName: course.categoryName,
                             lessons: course.lessons,
                             images: course.images,
                             likes: course.likes),

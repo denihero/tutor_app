@@ -60,7 +60,6 @@ class _CourseCardState extends State<CourseCard> {
                   child: CachedNetworkImage(
                     imageUrl: widget.course.images![0].image!,
                     fit: BoxFit.cover,
-
                   ),
                 ),
                 const Spacer(),
@@ -73,7 +72,7 @@ class _CourseCardState extends State<CourseCard> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        widget.course.nameOfCourse ?? "",
+                        widget.course.name ?? "",
                         // widget.course.title!,
                         style: const TextStyle(
                           fontSize: 18,
@@ -92,7 +91,8 @@ class _CourseCardState extends State<CourseCard> {
                       ),
                       Text(
                         "${widget.course.lessons?.length} " +
-                            rightLessonsCountName(widget.course.lessons?.length??0),
+                            rightLessonsCountName(
+                                widget.course.lessons?.length ?? 0),
                         style: const TextStyle(
                           fontSize: 10,
                           fontWeight: FontWeight.w500,
@@ -114,7 +114,8 @@ class _CourseCardState extends State<CourseCard> {
                       likeBuilder: (bool isLiked) {
                         return Icon(
                           Icons.favorite_rounded,
-                          color: isLiked ? const Color(0xFFFE793D) : Colors.grey,
+                          color:
+                              isLiked ? const Color(0xFFFE793D) : Colors.grey,
                           size: 28,
                         );
                       },

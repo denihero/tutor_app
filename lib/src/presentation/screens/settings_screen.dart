@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:tutor_app/src/presentation/components/appbars/transparent_appbar.dart';
+import 'package:tutor_app/src/presentation/components/transparent_appbar.dart';
 import 'package:tutor_app/src/presentation/screens/widgets/profile_edit_icon.dart';
 
 import '../../logic/blocs/authetication/authentication_bloc.dart';

@@ -34,17 +34,16 @@ class CoursePresentation extends StatelessWidget {
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(20),
                 ),
-                child:CachedNetworkImage(
-                    imageUrl: "${course.images?[0].image}" ,
-                    fit: BoxFit.cover,
-                  ),
-
+                child: CachedNetworkImage(
+                  imageUrl: "${course.images?[0].image}",
+                  fit: BoxFit.cover,
+                ),
               ),
               const SizedBox(height: 14),
               Padding(
                 padding: const EdgeInsets.only(left: 20),
                 child: Text(
-                  course.nameOfCourse!,
+                  course.name!,
                   style: const TextStyle(
                     fontSize: 18,
                     fontWeight: FontWeight.w700,
@@ -82,9 +81,8 @@ class CoursePresentation extends StatelessWidget {
               ),
               child: Center(
                 child: LikeButton(
-                  onTap: (value)  async{
+                  onTap: (value) async {
                     return value = !value;
-
                   },
                   likeBuilder: (bool isLiked) {
                     return Padding(
@@ -105,7 +103,7 @@ class CoursePresentation extends StatelessWidget {
             bottom: 24,
             child: Text(
               "${course.lessons?.length} " +
-                  rightLessonsCountName(course.lessons?.length??1),
+                  rightLessonsCountName(course.lessons?.length ?? 1),
               style: const TextStyle(
                 fontSize: 10,
                 fontWeight: FontWeight.w500,

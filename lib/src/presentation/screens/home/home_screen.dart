@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:tutor_app/src/presentation/components/appbars/transparent_appbar.dart';
+import 'package:tutor_app/src/presentation/components/transparent_appbar.dart';
 import 'package:tutor_app/src/presentation/components/custom_search.dart';
 import 'package:tutor_app/src/presentation/screens/home/pages/favorite_page.dart';
 import 'package:tutor_app/src/presentation/screens/home/pages/home_page.dart';

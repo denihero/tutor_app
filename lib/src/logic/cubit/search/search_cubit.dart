@@ -17,7 +17,7 @@ class SearchCubit extends Cubit<SearchState> {
 
       List<Course> filtered = courses
           .where((survey) =>
-              survey.nameOfCourse!.toLowerCase().contains(toFind.toLowerCase()))
+              survey.name!.toLowerCase().contains(toFind.toLowerCase()))
           .toList();
 
       if (filtered.isNotEmpty) {
