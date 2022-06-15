@@ -7,8 +7,8 @@ import '../../api.dart';
 
 part 'courses_state.dart';
 
-class CourcesCubit extends Cubit<CoursesState> {
-  CourcesCubit() : super(CoursesInitial());
+class CoursesCubit extends Cubit<CoursesState> {
+  CoursesCubit() : super(CoursesInitial());
 
   fetchCourseFromCategory(String categoryName) async {
     emit(CoursesLoading());
@@ -17,7 +17,7 @@ class CourcesCubit extends Cubit<CoursesState> {
       List<Course> courses = await getCourse();
 
       List<Course> filtered = courses
-          .where((cource) => cource.categoryName == categoryName)
+          .where((courses) => courses.categoryName == categoryName)
           .toList();
 
       emit(CoursesCompleted(courses: filtered));

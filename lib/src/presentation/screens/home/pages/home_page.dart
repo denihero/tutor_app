@@ -38,7 +38,7 @@ class _HomePageState extends State<HomePage> {
                     )));
           }),
         ),
-        BlocBuilder<CourcesCubit, CoursesState>(
+        BlocBuilder<CoursesCubit, CoursesState>(
           builder: (context, state) {
             if (state is CoursesLoading) {
               return const Center(
@@ -115,11 +115,11 @@ class _HomePageState extends State<HomePage> {
           setState(() {
             if (isSelected) {
               choiceIndex = i;
-              BlocProvider.of<CourcesCubit>(context)
+              BlocProvider.of<CoursesCubit>(context)
                   .fetchCourseFromCategory(categoryNames[choiceIndex!]);
             } else {
               choiceIndex = null;
-              BlocProvider.of<CourcesCubit>(context).fetchCourse();
+              BlocProvider.of<CoursesCubit>(context).fetchCourse();
             }
           });
         },
