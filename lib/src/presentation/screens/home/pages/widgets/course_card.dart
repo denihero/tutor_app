@@ -72,7 +72,7 @@ class _CourseCardState extends State<CourseCard> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        widget.course.nameOfCourse ?? "",
+                        widget.course.name ?? "",
                         // widget.course.title!,
                         style: const TextStyle(
                           fontSize: 18,

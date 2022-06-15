@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:tutor_app/src/models/models.dart';
-import 'package:tutor_app/src/presentation/components/appbars/transparent_appbar.dart';
+
 import 'package:tutor_app/src/presentation/screens/course/widgets/course_presentation.dart';
 import 'package:tutor_app/src/presentation/screens/course/widgets/lesson_card.dart';
+
+import '../../components/appbars/transparent_appbar.dart';
 
 class CourseScreen extends StatefulWidget {
   const CourseScreen({Key? key, required this.course}) : super(key: key);

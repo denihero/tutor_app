@@ -1,8 +1,11 @@
 import 'package:chewie/chewie.dart';
 import 'package:flutter/material.dart';
 import 'package:tutor_app/src/models/models.dart';
-import 'package:tutor_app/src/presentation/components/appbars/transparent_appbar.dart';
 import 'package:video_player/video_player.dart';
+
+import '../../components/appbars/transparent_appbar.dart';
+
+// TODO: UPDATE VIDEO PLAYER
 
 class LessonScreen extends StatefulWidget {
   const LessonScreen({Key? key, required this.id, required this.lesson})
@@ -67,22 +70,16 @@ class _LessonScreenState extends State<LessonScreen> {
               margin: const EdgeInsets.symmetric(horizontal: 30),
               clipBehavior: Clip.antiAliasWithSaveLayer,
               decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(20),
-                  boxShadow: const [
-                    BoxShadow(
-                      color: Color(0xFFC2D1E5),
-                      offset: Offset(0, -1),
-                      blurRadius: 11,
-                    )
-                  ]),
-              // child: Text("Hello"),
-              // child: Chewie(
-              //   controller: ChewieController(
-              //     videoPlayerController: _controller,
-              //   ),
-              // ),
-
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(20),
+                boxShadow: const [
+                  BoxShadow(
+                    color: Color(0xFFC2D1E5),
+                    offset: Offset(0, -1),
+                    blurRadius: 11,
+                  )
+                ],
+              ),
               child: _controller.value.isInitialized
                   ? AspectRatio(
                       aspectRatio: _controller.value.aspectRatio,
@@ -102,6 +99,7 @@ class _LessonScreenState extends State<LessonScreen> {
             const SizedBox(height: 77),
             Container(
               margin: const EdgeInsets.symmetric(horizontal: 30),
+              constraints: BoxConstraints(minWidth: 368),
               padding: const EdgeInsets.only(
                 top: 21,
                 left: 15,

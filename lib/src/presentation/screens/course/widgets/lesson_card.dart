@@ -3,6 +3,8 @@ import 'package:tutor_app/src/models/models.dart';
 import 'package:tutor_app/src/presentation/screens/lesson/lesson_screen.dart';
 import 'package:video_player/video_player.dart';
 
+// TODO: LOAD ACTUAL VIDEO
+
 class LessonCard extends StatefulWidget {
   const LessonCard({Key? key, required this.id, required this.lesson})
       : super(key: key);

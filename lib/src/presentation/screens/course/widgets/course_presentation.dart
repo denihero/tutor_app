@@ -43,7 +43,7 @@ class CoursePresentation extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.only(left: 20),
                 child: Text(
-                  course.nameOfCourse!,
+                  course.name!,
                   style: const TextStyle(
                     fontSize: 18,
                     fontWeight: FontWeight.w700,

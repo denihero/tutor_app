@@ -13,24 +13,24 @@ String courseToJson(List<Course> data) =>
 class Course {
   Course({
     this.id,
-    this.nameOfCourse,
-    this.category,
+    this.name,
+    this.categoryName,
     this.images,
     this.lessons,
     required this.likes,
   });
 
   int? id;
-  String? nameOfCourse;
-  String? category;
+  String? name;
+  String? categoryName;
   List<Image>? images;
   List<Lesson>? lessons;
   int likes;
 
   factory Course.fromJson(Map<String, dynamic> json) => Course(
         id: json["id"],
-        nameOfCourse: json["name_of_course"],
-        category: json["category"],
+        name: json["name_of_course"],
+        categoryName: json["category"],
         images: List<Image>.from(json["images"].map((x) => Image.fromJson(x))),
         lessons:
             List<Lesson>.from(json["lessons"].map((x) => Lesson.fromJson(x))),
@@ -39,8 +39,8 @@ class Course {
 
   Map<String, dynamic> toJson() => {
         "id": id,
-        "name_of_course": nameOfCourse,
-        "category": category,
+        "name_of_course": name,
+        "category": categoryName,
         "images": List<dynamic>.from(images!.map((x) => x.toJson())),
         "lessons": List<dynamic>.from(lessons!.map((x) => x.toJson())),
         "likes": likes,

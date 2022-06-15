@@ -3,7 +3,7 @@ import 'dart:developer';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 
-import 'blocs/authetication/api_request.dart';
+import '../../api.dart';
 
 part 'categories_state.dart';
 

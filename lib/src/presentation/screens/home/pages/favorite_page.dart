@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:tutor_app/src/logic/cubit/saved_courses_cubit.dart';
+import 'package:tutor_app/src/logic/cubit/saved/favorite_cubit.dart';
 import 'package:tutor_app/src/models/models.dart';
 import 'package:tutor_app/src/presentation/screens/home/pages/widgets/course_card.dart';
 
@@ -15,40 +15,43 @@ class _FavoritePageState extends State<FavoritePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(
-        children: [
-          BlocBuilder<SavedCoursesCubit, SavedCoursesState>(
-            builder: (context, state) {
-              if (state is SavedCoursesLoading) {
-                return const Center(child: CircularProgressIndicator());
-              } else if (state is SavedCoursesError) {
-                return const Center(
-                    child: Text('There is error in saved list'));
-              } else if (state is SavedCoursesEmpty) {
-                return const Center(
-                  child: Text('There course is empty'),
-                );
-              } else if (state is SavedCoursesCompleted) {
-                final data = state.savedList;
-                return Expanded(
+      body: BlocBuilder<FavoritesCubit, FavoritesState>(
+        builder: (context, state) {
+          if (state is FavoritesLoading) {
+            return const Center(child: CircularProgressIndicator());
+          }
+          if (state is FavoritesError) {
+            return const Center(child: Text('There is error in saved list'));
+          }
+          if (state is FavoritesEmpty) {
+            return const Center(
+              child: Text('There is nothing'),
+            );
+          }
+          if (state is FavoritesCompleted) {
+            final courses = state.favoritesList;
+            return Column(
+              children: [
+                Expanded(
                   child: ListView.builder(
-                      itemCount: data.length,
+                      itemCount: courses.length,
                       itemBuilder: (BuildContext context, int index) {
+                        Course course = courses[index];
                         return CourseCard(
                             course: Course(
-                                nameOfCourse:
-                                    data[index].course?[0].nameOfCourse,
-                                category: data[index].course?[0].category,
-                                lessons: data[index].course?[0].lessons,
-                                images: data[index].course?[0].images,
-                                likes: data[index].course![0].likes));
+                                name: course.name,
+                                categoryName:
+      course.categoryName,
+lessons: course.lessons,
+                                images: course.images,
+                                likes: course.likes));
                       }),
-                );
-              }
-              return Container();
-            },
-          ),
-        ],
+                ),
+              ],
+            );
+          }
+          return Container();
+        },
       ),
     );
   }
