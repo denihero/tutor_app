@@ -24,8 +24,8 @@ class App extends StatelessWidget {
         BlocProvider<CategoriesCubit>(
           create: (context) => CategoriesCubit(),
         ),
-        BlocProvider<CourcesCubit>(
-          create: (context) => CourcesCubit(),
+        BlocProvider<CoursesCubit>(
+          create: (context) => CoursesCubit(),
         ),
         BlocProvider<FavoritesCubit>(create: (context) => FavoritesCubit()),
         BlocProvider<SearchCubit>(
