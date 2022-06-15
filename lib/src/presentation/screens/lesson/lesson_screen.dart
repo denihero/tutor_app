@@ -4,6 +4,8 @@ import 'package:tutor_app/src/models/models.dart';
 import 'package:tutor_app/src/presentation/components/transparent_appbar.dart';
 import 'package:video_player/video_player.dart';
 
+// TODO: UPDATE VIDEO PLAYER
+
 class LessonScreen extends StatefulWidget {
   const LessonScreen({Key? key, required this.id, required this.lesson})
       : super(key: key);
@@ -21,7 +23,8 @@ class _LessonScreenState extends State<LessonScreen> {
   @override
   void initState() {
     super.initState();
-    _controller = VideoPlayerController.network("http://leadev.club:8000/media/videos/butterfly.mp4")
+    _controller = VideoPlayerController.network(
+        "http://leadev.club:8000/media/videos/butterfly.mp4")
       ..initialize().then((_) {
         setState(() {});
       });
@@ -31,7 +34,10 @@ class _LessonScreenState extends State<LessonScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: TransparentAppBar(
-        title: Text(widget.lesson.name!,style: const TextStyle(color: Colors.black),),
+        title: Text(
+          widget.lesson.name!,
+          style: const TextStyle(color: Colors.black),
+        ),
         leading: Padding(
           padding: const EdgeInsets.only(left: 22),
           child: IconButton(
@@ -63,22 +69,16 @@ class _LessonScreenState extends State<LessonScreen> {
               margin: const EdgeInsets.symmetric(horizontal: 30),
               clipBehavior: Clip.antiAliasWithSaveLayer,
               decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(20),
-                  boxShadow: const [
-                    BoxShadow(
-                      color: Color(0xFFC2D1E5),
-                      offset: Offset(0, -1),
-                      blurRadius: 11,
-                    )
-                  ]),
-              // child: Text("Hello"),
-              // child: Chewie(
-              //   controller: ChewieController(
-              //     videoPlayerController: _controller,
-              //   ),
-              // ),
-              
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(20),
+                boxShadow: const [
+                  BoxShadow(
+                    color: Color(0xFFC2D1E5),
+                    offset: Offset(0, -1),
+                    blurRadius: 11,
+                  )
+                ],
+              ),
               child: _controller.value.isInitialized
                   ? AspectRatio(
                       aspectRatio: _controller.value.aspectRatio,
@@ -98,6 +98,7 @@ class _LessonScreenState extends State<LessonScreen> {
             const SizedBox(height: 77),
             Container(
               margin: const EdgeInsets.symmetric(horizontal: 30),
+              constraints: BoxConstraints(minWidth: 368),
               padding: const EdgeInsets.only(
                 top: 21,
                 left: 15,

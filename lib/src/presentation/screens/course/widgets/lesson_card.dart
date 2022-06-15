@@ -4,6 +4,8 @@ import 'package:tutor_app/src/models/models.dart';
 import 'package:tutor_app/src/presentation/screens/lesson/lesson_screen.dart';
 import 'package:video_player/video_player.dart';
 
+// TODO: LOAD ACTUAL VIDEO
+
 class LessonCard extends StatefulWidget {
   const LessonCard({Key? key, required this.id, required this.lesson})
       : super(key: key);
@@ -21,7 +23,7 @@ class _LessonCardState extends State<LessonCard> {
   @override
   void initState() {
     super.initState();
-    _controller = VideoPlayerController.network( 'http://leadev.club:8000/media/videos/butterfly.mp4')
+    _controller = VideoPlayerController.network('http://leadev.club:8000/media/videos/butterfly.mp4')
       ..initialize().then((_) {
         setState(() {});
       });
