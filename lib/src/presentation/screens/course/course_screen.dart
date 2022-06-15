@@ -48,7 +48,7 @@ class _CourseScreenState extends State<CourseScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-            CoursePresentation(course: widget.course),
+              CoursePresentation(course: widget.course),
               const Padding(
                 padding: EdgeInsets.only(top: 30, bottom: 6.5),
                 child: Text(

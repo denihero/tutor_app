@@ -119,8 +119,7 @@ getNameSurname(String email) async {
 }
 
 Future<List<Course>> getCourse() async {
-  var response = await http
-      .get(Uri.parse("${Api.tutorApi}/course/"));
+  var response = await http.get(Uri.parse("${Api.tutorApi}/course/"));
   if (response.statusCode >= 400) throw UnimplementedError("Status code");
   final data = jsonDecode(utf8.decode(response.bodyBytes));
   List<Course> ls = [];
@@ -130,19 +129,29 @@ Future<List<Course>> getCourse() async {
   return ls;
 }
 
-
-Future<List<SavedList>> getSavedCourse(String token) async{
-  var response = await http.get(Uri.parse("${Api.tutorApi}/course/savedlist/"),headers: {
+Future<List<SavedList>> getSavedCourse(String token) async {
+  var response =
+      await http.get(Uri.parse("${Api.tutorApi}/course/savedlist/"), headers: {
     "Authorization": "Token $token",
   });
 
-
-  if(response.statusCode >= 400) throw UnimplementedError('Status code');
+  if (response.statusCode >= 400) throw UnimplementedError('Status code');
   final data = jsonDecode(utf8.decode(response.bodyBytes));
   List<SavedList> sl = [];
 
-  for(var element in data){
+  for (var element in data) {
     sl.add(SavedList.fromJson(element));
   }
   return sl;
+}
+
+Future<void> saveCourses(int id) async {
+  var response =
+      await http.post(Uri.parse("${Api.tutorApi}/course/$id/saved/"), headers: {
+    "Authorization": "Token a57cd99f01fb08c286232e072844e129574ee4b1",
+  });
+  if (response.statusCode >= 400) throw UnimplementedError('Status code');
+  if (response.statusCode == 200) {
+    return jsonDecode(response.body.toString());
+  }
 }

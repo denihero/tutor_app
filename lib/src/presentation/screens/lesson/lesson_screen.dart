@@ -21,7 +21,8 @@ class _LessonScreenState extends State<LessonScreen> {
   @override
   void initState() {
     super.initState();
-    _controller = VideoPlayerController.network("http://leadev.club:8000/media/videos/butterfly.mp4")
+    _controller = VideoPlayerController.network(
+        "http://leadev.club:8000/media/videos/butterfly.mp4")
       ..initialize().then((_) {
         setState(() {});
       });
@@ -31,7 +32,10 @@ class _LessonScreenState extends State<LessonScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: TransparentAppBar(
-        title: Text(widget.lesson.name!,style: const TextStyle(color: Colors.black),),
+        title: Text(
+          widget.lesson.name!,
+          style: const TextStyle(color: Colors.black),
+        ),
         leading: Padding(
           padding: const EdgeInsets.only(left: 22),
           child: IconButton(
@@ -78,7 +82,7 @@ class _LessonScreenState extends State<LessonScreen> {
               //     videoPlayerController: _controller,
               //   ),
               // ),
-              
+
               child: _controller.value.isInitialized
                   ? AspectRatio(
                       aspectRatio: _controller.value.aspectRatio,

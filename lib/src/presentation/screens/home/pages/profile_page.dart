@@ -60,9 +60,8 @@ class _ProfilePageState extends State<ProfilePage> {
         ),
         Expanded(
           child: ListView.builder(
-            itemCount: 10,
-            itemBuilder: (BuildContext context, int index) => Container()
-          ),
+              itemCount: 10,
+              itemBuilder: (BuildContext context, int index) => Container()),
         ),
       ],
     );

@@ -7,7 +7,6 @@ import 'package:image_picker/image_picker.dart';
 
 import '../../logic/blocs/authetication/authentication_bloc.dart';
 
-
 class ChangeImage extends StatefulWidget {
   const ChangeImage({Key? key}) : super(key: key);
 
@@ -37,73 +36,68 @@ class _ChangeImageState extends State<ChangeImage> {
       builder: (context, state) {
         return state is AuthLoading
             ? const Center(
-          child: CircularProgressIndicator(
-            color: Colors.black,
-          ),
-        )
-            : WillPopScope(
-            onWillPop: () async => false,
-            child: Scaffold(
-                backgroundColor: Colors.white,
-                appBar: AppBar(
-                  title: const Text(
-                    "View Image"
-                  ),
-                  backgroundColor: Colors.white,
-                  actions: [
-                    IconButton(
-                      onPressed: pickImage,
-                      icon: const Icon(
-                        Icons.edit,
-                        color: Colors.black,
-                      ),
-                    ),
-                  ],
-                  leading: IconButton(
-                    icon: const Icon(
-                      Icons.arrow_back_ios,
-                      color: Colors.black,
-                      size: 30,
-                    ),
-                    onPressed: () async {
-                      if (imageFile != null) {
-                        BlocProvider.of<AuthBloc>(context)
-                            .add(AuthChangeInfo(imageFile));
-                      }
-                      Navigator.of(context).pop();
-                    },
-                  ),
-                  elevation: 0,
+                child: CircularProgressIndicator(
+                  color: Colors.black,
                 ),
-                body: image == null || image.isEmpty && imageFile == null
-                    ? const Center(
-                  child: Text(
-                    "None"
-                  ),
-                )
-                    : Center(
-                  child: imageFile == null
-                      ? image.isEmpty
-                      ? const Center(
-                      child: Text("None"))
-                      : Padding(
-                    padding:
-                    const EdgeInsets.only(bottom: 60),
-                    child: CachedNetworkImage(
-                      imageUrl: image,
-                      width: double.infinity,
-                      fit: BoxFit.fitWidth,
+              )
+            : WillPopScope(
+                onWillPop: () async => false,
+                child: Scaffold(
+                    backgroundColor: Colors.white,
+                    appBar: AppBar(
+                      title: const Text("View Image"),
+                      backgroundColor: Colors.white,
+                      actions: [
+                        IconButton(
+                          onPressed: pickImage,
+                          icon: const Icon(
+                            Icons.edit,
+                            color: Colors.black,
+                          ),
+                        ),
+                      ],
+                      leading: IconButton(
+                        icon: const Icon(
+                          Icons.arrow_back_ios,
+                          color: Colors.black,
+                          size: 30,
+                        ),
+                        onPressed: () async {
+                          if (imageFile != null) {
+                            BlocProvider.of<AuthBloc>(context)
+                                .add(AuthChangeInfo(imageFile));
+                          }
+                          Navigator.of(context).pop();
+                        },
+                      ),
+                      elevation: 0,
                     ),
-                  )
-                      : Padding(
-                    padding: const EdgeInsets.only(bottom: 60),
-                    child: Image.file(
-                      imageFile!,
-                      width: double.infinity,
-                      fit: BoxFit.fitWidth,
-                    ),
-                  ),
-                )));
+                    body: image == null || image.isEmpty && imageFile == null
+                        ? const Center(
+                            child: Text("None"),
+                          )
+                        : Center(
+                            child: imageFile == null
+                                ? image.isEmpty
+                                    ? const Center(child: Text("None"))
+                                    : Padding(
+                                        padding:
+                                            const EdgeInsets.only(bottom: 60),
+                                        child: CachedNetworkImage(
+                                          imageUrl: image,
+                                          width: double.infinity,
+                                          fit: BoxFit.fitWidth,
+                                        ),
+                                      )
+                                : Padding(
+                                    padding: const EdgeInsets.only(bottom: 60),
+                                    child: Image.file(
+                                      imageFile!,
+                                      width: double.infinity,
+                                      fit: BoxFit.fitWidth,
+                                    ),
+                                  ),
+                          )));
       },
     );
   }

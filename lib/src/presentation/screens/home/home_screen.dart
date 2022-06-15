@@ -35,7 +35,7 @@ class _HomeScreenState extends State<HomeScreen> {
       appBar: [
         const TransparentAppBar(
           title: Padding(
-            padding: EdgeInsets.symmetric(horizontal: 30,vertical: 10),
+            padding: EdgeInsets.symmetric(horizontal: 30, vertical: 10),
             child: CustomSearch(),
           ),
         ),

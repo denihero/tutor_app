@@ -38,7 +38,8 @@ class _ProfileEditIconState extends State<ProfileEditIcon> {
               image == null || image.isEmpty
                   ? GestureDetector(
                       onTap: () {
-                         Navigator.of(context).push(MaterialPageRoute(builder:(_) => const ChangeImage()));
+                        Navigator.of(context).push(MaterialPageRoute(
+                            builder: (_) => const ChangeImage()));
                       },
                       child: ProfileIcon(
                         isSettings: true,
@@ -46,7 +47,8 @@ class _ProfileEditIconState extends State<ProfileEditIcon> {
                     )
                   : GestureDetector(
                       onTap: () {
-                        Navigator.of(context).push(MaterialPageRoute(builder:(_) => const ChangeImage()));
+                        Navigator.of(context).push(MaterialPageRoute(
+                            builder: (_) => const ChangeImage()));
                       },
                       child: CircleAvatar(
                         foregroundColor: Colors.white,

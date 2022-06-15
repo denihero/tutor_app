@@ -6,7 +6,6 @@ abstract class SavedCoursesState extends Equatable {
 
 class SavedCoursesInitial extends SavedCoursesState {
   @override
-
   List<Object> get props => [];
 }
 
@@ -19,6 +18,12 @@ class SavedCoursesError extends SavedCoursesState {
   @override
   List<Object> get props => [];
 }
+
+class SavedCoursesEmpty extends SavedCoursesState {
+  @override
+  List<Object> get props => [];
+}
+
 class SavedCoursesCompleted extends SavedCoursesState {
   final List<SavedList> savedList;
 

@@ -3,7 +3,7 @@ import 'package:equatable/equatable.dart';
 import 'package:meta/meta.dart';
 import 'package:tutor_app/src/models/models.dart';
 
-import '../blocs/authetication/api.dart';
+import '../blocs/authetication/api_request.dart';
 
 part 'course__state.dart';
 

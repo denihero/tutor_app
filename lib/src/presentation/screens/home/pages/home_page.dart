@@ -59,6 +59,7 @@ class _HomePageState extends State<HomePage> {
                       return CourseCard(
                         course: Course(
                             nameOfCourse: data[index].nameOfCourse,
+                            id: data[index].id,
                             category: data[index].category,
                             lessons: data[index].lessons,
                             images: data[index].images,

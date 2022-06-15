@@ -27,8 +27,7 @@ class App extends StatelessWidget {
           create: (context) => SurveyCubit(),
         ),
         BlocProvider<SavedCoursesCubit>(
-            create: (context) => SavedCoursesCubit()
-        )
+            create: (context) => SavedCoursesCubit())
       ],
       child: Sizer(
         builder: ((context, orientation, deviceType) {

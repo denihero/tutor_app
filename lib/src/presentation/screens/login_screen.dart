@@ -142,16 +142,7 @@ class _LoginScreenState extends State<LoginScreen> {
             String token = BlocProvider.of<AuthBloc>(context).state.token;
             BlocProvider.of<CategoriesCubit>(context).getCategory(token);
             BlocProvider.of<SurveyCubit>(context).fetchCourse();
-            print(token);
             BlocProvider.of<SavedCoursesCubit>(context).addSavedList(token);
-            // BlocProvider.of<LikeCubit>(context).get_like(
-            //     token, BlocProvider.of<AuthBloc>(context).state.email);
-            // BlocProvider.of<CategoriesCubit>(context).get_category(token);
-            // BlocProvider.of<SurveyCubit>(context)
-            //     .fetch_surveys_stream(token);
-            // // BlocProvider.of<SurveyCubit>(context).fetch();
-            // BlocProvider.of<SurveyMineCubit>(context).fetch(
-            //     BlocProvider.of<AuthBloc>(context).state.email, token);
             return const HomeScreen();
           }
           return const Center(
