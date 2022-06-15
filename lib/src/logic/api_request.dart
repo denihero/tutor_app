@@ -7,6 +7,7 @@ import '../constant/api.dart';
 import '../models/category.dart';
 import '../models/models.dart';
 
+
 Future<String> login(String username, String password) async {
   var response = await http.post(
     Uri.parse("${Api.tutorApi}/account/login/"),
@@ -77,7 +78,7 @@ Future<bool> confirmPassword(String username, String code) async {
 Future<Map<String, String>> get_categories(String token) async {
   var response = await http
       .get(Uri.parse("${Api.tutorApi}/category/category-list/"), headers: {
-    "Authorization": "Token $token",
+    "Authorization": "Token fd7c8a1a80f3637f5d7675736f3c6a1e97ceb240",
   });
   if (response.statusCode >= 400) {
     throw UnimplementedError();
@@ -142,9 +143,6 @@ Future<List<SavedList>> getSavedCourse(String token) async {
   for (var element in data) {
     sl.add(SavedList.fromJson(element));
   }
-
-
-
   return sl;
 }
 

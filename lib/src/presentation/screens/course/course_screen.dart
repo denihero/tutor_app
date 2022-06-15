@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:tutor_app/src/models/models.dart';
-import 'package:tutor_app/src/presentation/components/transparent_appbar.dart';
+
 import 'package:tutor_app/src/presentation/screens/course/widgets/course_presentation.dart';
 import 'package:tutor_app/src/presentation/screens/course/widgets/lesson_card.dart';
+
+import '../../components/appbars/transparent_appbar.dart';
 
 class CourseScreen extends StatefulWidget {
   const CourseScreen({Key? key, required this.course}) : super(key: key);
@@ -48,7 +50,7 @@ class _CourseScreenState extends State<CourseScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-            CoursePresentation(course: widget.course),
+              CoursePresentation(course: widget.course),
               const Padding(
                 padding: EdgeInsets.only(top: 30, bottom: 6.5),
                 child: Text(

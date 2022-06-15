@@ -1,6 +1,5 @@
 part of 'authentication_bloc.dart';
 
-
 abstract class AuthState extends Equatable {
   final String email;
   final String token;
@@ -10,10 +9,11 @@ abstract class AuthState extends Equatable {
   final int id_info;
   const AuthState(
       {this.name = "",
-        this.surname = "",
-        this.email = "",
-        this.token = "",
-        this.image,this.id_info=-1});
+      this.surname = "",
+      this.email = "",
+      this.token = "",
+      this.image,
+      this.id_info = -1});
 
   fromMap(Map<String, dynamic> map) {
     if (map["email"] != "") {
@@ -38,12 +38,12 @@ abstract class AuthState extends Equatable {
       "name": name,
       "surname": surname,
       "image": image ?? "",
-      "id_info":id_info
+      "id_info": id_info
     };
   }
 
   @override
-  List<Object> get props => [email,image??"",id_info,name,surname];
+  List<Object> get props => [email, image ?? "", id_info, name, surname];
 }
 
 class AuthInitial extends AuthState {
@@ -79,10 +79,15 @@ class AuthLoading extends AuthState {
 }
 
 class AuthSuccess extends AuthState {
-  const AuthSuccess(
-      String e, String token, String name, String surname, String? image,int id_info)
+  const AuthSuccess(String e, String token, String name, String surname,
+      String? image, int id_info)
       : super(
-      email: e, token: token, name: name, surname: surname, image: image,id_info: id_info);
+            email: e,
+            token: token,
+            name: name,
+            surname: surname,
+            image: image,
+            id_info: id_info);
   @override
   fromMap(Map<String, dynamic> map) {
     return AuthSuccess(

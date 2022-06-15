@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:tutor_app/src/models/models.dart';
 import 'package:tutor_app/src/presentation/screens/lesson/lesson_screen.dart';
@@ -23,7 +22,8 @@ class _LessonCardState extends State<LessonCard> {
   @override
   void initState() {
     super.initState();
-    _controller = VideoPlayerController.network('http://leadev.club:8000/media/videos/butterfly.mp4')
+    _controller = VideoPlayerController.network(
+        'http://leadev.club:8000/media/videos/butterfly.mp4')
       ..initialize().then((_) {
         setState(() {});
       });
@@ -36,8 +36,10 @@ class _LessonCardState extends State<LessonCard> {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) =>
-                LessonScreen(id: widget.id, lesson: widget.lesson,),
+            builder: (context) => LessonScreen(
+              id: widget.id,
+              lesson: widget.lesson,
+            ),
           ),
         );
       },
@@ -71,7 +73,7 @@ class _LessonCardState extends State<LessonCard> {
                   ),
                   const SizedBox(width: 16),
                   Text(
-                    widget.lesson.name??"",
+                    widget.lesson.name ?? "",
                     style: const TextStyle(
                       fontSize: 13,
                       fontWeight: FontWeight.w600,

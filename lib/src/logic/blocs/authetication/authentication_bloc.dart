@@ -4,7 +4,7 @@ import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 
-import '../../api.dart';
+import '../../api_request.dart';
 
 part 'authentication_state.dart';
 
@@ -25,6 +25,7 @@ class AuthLogin extends AuthEvent {
 class AuthLogout extends AuthEvent {
   AuthLogout() : super("", "");
 }
+
 class AuthChangeInfo extends AuthEvent {
   File? file;
   AuthChangeInfo(this.file) : super("", "");
@@ -79,7 +80,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> with HydratedMixin {
           print("Empty");
           emit(const AuthError());
         }
-      } catch (r,s) {
+      } catch (r, s) {
         print(r);
         print(s);
         emit(const AuthError());
@@ -129,7 +130,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> with HydratedMixin {
       );
     });
     on<AuthChangeInfo>(
-          (event, emit) async {
+      (event, emit) async {
         String email = state.email;
         String token = state.token;
         String name = state.name;
@@ -138,7 +139,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> with HydratedMixin {
         emit(const AuthLoading(""));
         try {
           String imageLink =
-          await putImage(event.file, id, token, name, surname);
+              await putImage(event.file, id, token, name, surname);
           emit(AuthSuccess(email, token, name, surname, imageLink, id));
         } catch (e) {
           emit(const AuthError());

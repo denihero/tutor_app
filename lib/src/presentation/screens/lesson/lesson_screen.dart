@@ -1,8 +1,9 @@
 import 'package:chewie/chewie.dart';
 import 'package:flutter/material.dart';
 import 'package:tutor_app/src/models/models.dart';
-import 'package:tutor_app/src/presentation/components/transparent_appbar.dart';
 import 'package:video_player/video_player.dart';
+
+import '../../components/appbars/transparent_appbar.dart';
 
 // TODO: UPDATE VIDEO PLAYER
 

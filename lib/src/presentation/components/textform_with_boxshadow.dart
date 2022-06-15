@@ -26,16 +26,11 @@ class _TextFormWithBoxShadowState extends State<TextFormWithBoxShadow> {
   void initState() {
     super.initState();
     widget.focusNode.addListener(() {
-      SchedulerBinding.instance
-          .addPostFrameCallback((_) {
-            if(mounted){
-              setState(() {
-
-              });
-            }
-
+      SchedulerBinding.instance.addPostFrameCallback((_) {
+        if (mounted) {
+          setState(() {});
+        }
       });
-
     });
   }
 

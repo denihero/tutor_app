@@ -48,7 +48,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
   }
 
   TextEditingController _codeController = TextEditingController();
-  TextEditingController _nameController = TextEditingController() ;
+  TextEditingController _nameController = TextEditingController();
   TextEditingController _surnameController = TextEditingController();
 
   bool _isShowNameSurname = false;
@@ -336,20 +336,20 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                                         ButtonWithTextAndArrow(
                                           text: 'Confirm',
                                           onTap: () {
-                                              final email =
-                                                  usernameController.text;
-                                              BlocProvider.of<AuthBloc>(context)
-                                                  .add(
-                                                AuthRegisterSendNameSurname(
-                                                  name: _nameController.text,
-                                                  file: imageFile,
-                                                  surname: _surnameController.text,
-                                                  username: email,
-                                                  password:
-                                                      passwordController.text,
-                                                ),
-                                              );
-
+                                            final email =
+                                                usernameController.text;
+                                            BlocProvider.of<AuthBloc>(context)
+                                                .add(
+                                              AuthRegisterSendNameSurname(
+                                                name: _nameController.text,
+                                                file: imageFile,
+                                                surname:
+                                                    _surnameController.text,
+                                                username: email,
+                                                password:
+                                                    passwordController.text,
+                                              ),
+                                            );
                                           },
                                         )
                                       ],

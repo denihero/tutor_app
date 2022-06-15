@@ -8,7 +8,7 @@ import 'package:tutor_app/src/presentation/screens/registration_screen.dart';
 
 import '../../logic/blocs/authetication/authentication_bloc.dart';
 import '../../logic/cubit/categories/categories_cubit.dart';
-import '../../logic/cubit/saved/saved_cubit.dart';
+import '../../logic/cubit/saved/favorite_cubit.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -25,7 +25,6 @@ class _LoginScreenState extends State<LoginScreen> {
 
   final TextEditingController usernameController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
-
   bool check(String name, String password) {
     if (name.isEmpty || password.length < 6) {
       return false;
@@ -44,6 +43,7 @@ class _LoginScreenState extends State<LoginScreen> {
           if (state is AuthInitial ||
               state is AuthError ||
               state is AuthRegisterSuccess) {
+
             return SafeArea(
               child: SingleChildScrollView(
                 child: Padding(
@@ -143,15 +143,7 @@ class _LoginScreenState extends State<LoginScreen> {
             BlocProvider.of<CategoriesCubit>(context).getCategory(token);
             BlocProvider.of<CourcesCubit>(context).fetchCourse();
             print(token);
-            BlocProvider.of<SavedCoursesCubit>(context).addSavedList(token);
-            // BlocProvider.of<LikeCubit>(context).get_like(
-            //     token, BlocProvider.of<AuthBloc>(context).state.email);
-            // BlocProvider.of<CategoriesCubit>(context).get_category(token);
-            // BlocProvider.of<SurveyCubit>(context)
-            //     .fetch_surveys_stream(token);
-            // // BlocProvider.of<SurveyCubit>(context).fetch();
-            // BlocProvider.of<SurveyMineCubit>(context).fetch(
-            //     BlocProvider.of<AuthBloc>(context).state.email, token);
+            BlocProvider.of<FavoritesCubit>(context).addSavedList(token);
             return const HomeScreen();
           }
           return const Center(

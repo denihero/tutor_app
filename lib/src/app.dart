@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:sizer/sizer.dart';
 import 'package:tutor_app/src/logic/cubit/course/courses_cubit.dart';
-import 'package:tutor_app/src/logic/cubit/saved/saved_cubit.dart';
+import 'package:tutor_app/src/logic/cubit/saved/favorite_cubit.dart';
 import 'package:tutor_app/src/logic/cubit/search/search_cubit.dart';
 import 'package:tutor_app/src/presentation/screens/login_screen.dart';
 
@@ -27,8 +27,7 @@ class App extends StatelessWidget {
         BlocProvider<CourcesCubit>(
           create: (context) => CourcesCubit(),
         ),
-        BlocProvider<SavedCoursesCubit>(
-            create: (context) => SavedCoursesCubit()),
+        BlocProvider<FavoritesCubit>(create: (context) => FavoritesCubit()),
         BlocProvider<SearchCubit>(
           create: (context) => SearchCubit(),
         )

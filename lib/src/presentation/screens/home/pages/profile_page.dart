@@ -16,6 +16,9 @@ class _ProfilePageState extends State<ProfilePage> {
   Widget build(BuildContext context) {
     return Column(
       children: [
+        const SizedBox(
+          height: 10,
+        ),
         Container(
           height: 200,
           width: 200,
@@ -60,9 +63,8 @@ class _ProfilePageState extends State<ProfilePage> {
         ),
         Expanded(
           child: ListView.builder(
-            itemCount: 10,
-            itemBuilder: (BuildContext context, int index) => Container()
-          ),
+              itemCount: 10,
+              itemBuilder: (BuildContext context, int index) => Container()),
         ),
       ],
     );
