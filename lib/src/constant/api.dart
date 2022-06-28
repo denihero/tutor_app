@@ -1,3 +1,3 @@
 class Api {
-  static const tutorApi = 'http://leadev.club:8000';
+  static const tutorApi = 'http://198.13.43.82';
 }

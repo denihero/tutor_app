@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tutor_app/src/logic/cubit/course/courses_cubit.dart';
+import 'package:tutor_app/src/logic/cubit/history/history_cubit.dart';
 import 'package:tutor_app/src/presentation/components/button_with_text_and_arrow.dart';
 import 'package:tutor_app/src/presentation/components/textform_with_boxshadow.dart';
 import 'package:tutor_app/src/presentation/screens/home/home_screen.dart';
@@ -142,8 +143,8 @@ class _LoginScreenState extends State<LoginScreen> {
             String token = BlocProvider.of<AuthBloc>(context).state.token;
             BlocProvider.of<CategoriesCubit>(context).getCategory(token);
             BlocProvider.of<CoursesCubit>(context).fetchCourse();
-            print(token);
             BlocProvider.of<FavoritesCubit>(context).addSavedList(token);
+            BlocProvider.of<HistoryCubit>(context).getCubitViewedCourses(token);
             return const HomeScreen();
           }
           return const Center(

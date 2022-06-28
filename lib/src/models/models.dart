@@ -12,7 +12,7 @@ String courseToJson(List<Course> data) =>
 
 class Course {
   Course({
-    this.id,
+    required this.id,
     this.name,
     this.categoryName,
     this.images,
@@ -20,7 +20,7 @@ class Course {
     required this.likes,
   });
 
-  int? id;
+  int id;
   String? name;
   String? categoryName;
   List<Image>? images;

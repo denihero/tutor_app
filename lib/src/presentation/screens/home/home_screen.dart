@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:tutor_app/src/logic/blocs/authetication/authentication_bloc.dart';
 import 'package:tutor_app/src/presentation/screens/home/pages/favorite_page.dart';
 import 'package:tutor_app/src/presentation/screens/home/pages/home_page.dart';
 import 'package:tutor_app/src/presentation/screens/home/pages/profile_page.dart';
@@ -17,6 +19,13 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   final PageController _pageController = PageController();
   int _currentIndex = 0;
+  late String token;
+
+  @override
+  void initState() {
+    super.initState();
+    token = BlocProvider.of<AuthBloc>(context).state.token;
+  }
 
   void onBottomNavBarTap(int index) {
     setState(() {
@@ -34,10 +43,17 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: [
-        const TransparentAppBar(
+        TransparentAppBar(
           title: Padding(
-            padding: EdgeInsets.symmetric(horizontal: 30, vertical: 10),
-            child: CustomSearch(),
+            padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 20),
+            child: Column(
+              children: const [
+                SizedBox(
+                  height: 10,
+                ),
+                CustomSearch(),
+              ],
+            ),
           ),
         ),
         const TransparentAppBar(
@@ -84,6 +100,16 @@ class _HomeScreenState extends State<HomeScreen> {
       body: SafeArea(
         child: PageView(
           controller: _pageController,
+          // onPageChanged: (usman) {
+          //   switch(usman){
+          //     case 1:
+          //       BlocProvider.of<FavoritesCubit>(context).addSavedList(token);
+          //       break;
+          //     case 2:
+          //       BlocProvider.of<HistoryCubit>(context).getCubitViewedCourses(token);
+          //       break;
+          //   }
+          // },
           physics: const NeverScrollableScrollPhysics(),
           children: const [
             HomePage(),

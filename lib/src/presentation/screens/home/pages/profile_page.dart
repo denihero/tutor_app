@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:tutor_app/src/logic/cubit/history/history_cubit.dart';
+import 'package:tutor_app/src/models/models.dart';
+import 'package:tutor_app/src/presentation/screens/home/pages/widgets/course_card.dart';
 import 'package:tutor_app/src/presentation/screens/widgets/profile_icon.dart';
 
 import '../../../../logic/blocs/authetication/authentication_bloc.dart';
@@ -12,6 +15,7 @@ class ProfilePage extends StatefulWidget {
 }
 
 class _ProfilePageState extends State<ProfilePage> {
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -62,9 +66,39 @@ class _ProfilePageState extends State<ProfilePage> {
           ),
         ),
         Expanded(
-          child: ListView.builder(
-              itemCount: 10,
-              itemBuilder: (BuildContext context, int index) => Container()),
+          child: BlocBuilder<HistoryCubit, HistoryState>(
+            builder: (context, state) {
+              if(state is HistoryLoading){
+                return const Center(
+                    child: CircularProgressIndicator()
+                );
+              }
+              if(state is HistoryError){
+                return const Center(
+                    child: Text('Something get wrong')
+                );
+              }
+              if(state is HistorySuccess){
+                final historyCourse = state.historyCourses;
+                return ListView.builder(
+                    itemCount: historyCourse.length,
+                    itemBuilder: (BuildContext context, int index){
+                      return CourseCard(
+                        course: Course(
+                            name: historyCourse[index].name,
+                            categoryName: historyCourse[index].categoryName,
+                            lessons: historyCourse[index].lessons,
+                            images: historyCourse[index].images,
+                            likes: historyCourse[index].likes,
+                            id: historyCourse[index].id
+                        ),
+                      );
+                    });
+              }
+              return Container();
+            },
+
+          ),
         ),
       ],
     );

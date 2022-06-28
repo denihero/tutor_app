@@ -61,6 +61,7 @@ class _HomePageState extends State<HomePage> {
                             categoryName: course.categoryName,
                             lessons: course.lessons,
                             images: course.images,
+                            id: course.id,
                             likes: course.likes),
                       );
                     }),
@@ -68,7 +69,7 @@ class _HomePageState extends State<HomePage> {
             }
 
             return Column(
-              children: [
+              children: const [
                 Icon(
                   Icons.error_outline_rounded,
                   size: 60,

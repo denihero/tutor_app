@@ -76,7 +76,7 @@ class CustomSearchDelegate extends SearchDelegate {
   @override
   ThemeData appBarTheme(BuildContext context) {
     return super.appBarTheme(context).copyWith(
-          appBarTheme: AppBarTheme(
+          appBarTheme: const AppBarTheme(
             backgroundColor: Colors.transparent,
             shadowColor: Colors.transparent,
             iconTheme: IconThemeData(
@@ -115,7 +115,7 @@ class CustomSearchDelegate extends SearchDelegate {
     return BlocBuilder<SearchCubit, SearchState>(
       builder: (context, state) {
         if (state is SearchProcessing) {
-          return Center(
+          return const Center(
             child: CircularProgressIndicator(
               color: Colors.orange,
             ),
@@ -128,16 +128,16 @@ class CustomSearchDelegate extends SearchDelegate {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Padding(
-                padding: EdgeInsets.only(left: 25),
+                padding: const EdgeInsets.only(left: 25),
                 child: Text(
                   "Результаты для “$queryString”",
-                  style: TextStyle(
+                  style: const TextStyle(
                       fontSize: 16,
                       fontWeight: FontWeight.w700,
                       letterSpacing: 1.03),
                 ),
               ),
-              Divider(
+              const Divider(
                 thickness: 2,
               ),
               Expanded(
@@ -151,7 +151,8 @@ class CustomSearchDelegate extends SearchDelegate {
                             categoryName: course.categoryName,
                             lessons: course.lessons,
                             images: course.images,
-                            likes: course.likes),
+                            likes: course.likes,
+                            id: course.id),
                       );
                     }),
               ),
@@ -161,10 +162,10 @@ class CustomSearchDelegate extends SearchDelegate {
 
         if (state is SearchEmpty) {
           return Padding(
-            padding: EdgeInsets.all(20),
+            padding: const EdgeInsets.all(20),
             child: Text(
               "Результаты для “$queryString” не найдены",
-              style: TextStyle(
+              style: const TextStyle(
                   fontSize: 16,
                   fontWeight: FontWeight.w700,
                   letterSpacing: 1.03),
@@ -173,7 +174,7 @@ class CustomSearchDelegate extends SearchDelegate {
         }
 
         return Column(
-          children: [
+          children: const [
             Icon(
               Icons.error_outline_rounded,
               size: 60,
@@ -196,7 +197,7 @@ class CustomSearchDelegate extends SearchDelegate {
   @override
   Widget buildSuggestions(BuildContext context) {
     return Column(
-      children: [],
+      children: const [],
     );
   }
 }

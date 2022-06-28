@@ -16,7 +16,7 @@ class FavoritesError extends FavoritesState {}
 class FavoritesCompleted extends FavoritesState {
   FavoritesCompleted({required this.favoritesList});
 
-  final List<Course> favoritesList;
+  final List<SavedList> favoritesList;
 
   @override
   List<Object> get props => [favoritesList];

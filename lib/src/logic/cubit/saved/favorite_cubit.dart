@@ -12,10 +12,8 @@ class FavoritesCubit extends Cubit<FavoritesState> {
     try {
       emit(FavoritesLoading());
       List<SavedList> data = await getSavedCourse(token);
-      List<Course> courses = [];
-
-      if (courses.isNotEmpty) {
-        emit(FavoritesCompleted(favoritesList: courses));
+      if (data.isNotEmpty) {
+        emit(FavoritesCompleted(favoritesList: data));
       } else {
         emit(FavoritesEmpty());
       }

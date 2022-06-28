@@ -99,7 +99,7 @@ class _LessonScreenState extends State<LessonScreen> {
             const SizedBox(height: 77),
             Container(
               margin: const EdgeInsets.symmetric(horizontal: 30),
-              constraints: BoxConstraints(minWidth: 368),
+              constraints: const BoxConstraints(minWidth: 368),
               padding: const EdgeInsets.only(
                 top: 21,
                 left: 15,
