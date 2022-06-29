@@ -107,7 +107,7 @@ class _CourseCardState extends State<CourseCard> {
             ),
             widget.isForFavoritePage
                 ? Positioned(
-                    top: 6,
+                    bottom: 10,
                     right: 10,
                     child: LikeButton(
                       isLiked: true,

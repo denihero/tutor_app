@@ -1,12 +1,28 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:like_button/like_button.dart';
 import 'package:tutor_app/src/models/models.dart';
 
-class CoursePresentation extends StatelessWidget {
+import '../../../../logic/api.dart';
+import '../../../../logic/blocs/authetication/authentication_bloc.dart';
+
+class CoursePresentation extends StatefulWidget {
   const CoursePresentation({Key? key, required this.course}) : super(key: key);
 
   final Course course;
+
+  @override
+  State<CoursePresentation> createState() => _CoursePresentationState();
+}
+
+class _CoursePresentationState extends State<CoursePresentation> {
+  late String token;
+  @override
+  void initState() {
+    token = BlocProvider.of<AuthBloc>(context).state.token;
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -35,7 +51,7 @@ class CoursePresentation extends StatelessWidget {
                   borderRadius: BorderRadius.circular(20),
                 ),
                 child: CachedNetworkImage(
-                  imageUrl: "${course.images?[0].image}",
+                  imageUrl: "${widget.course.images?[0].image}",
                   fit: BoxFit.cover,
                 ),
               ),
@@ -43,7 +59,7 @@ class CoursePresentation extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.only(left: 20),
                 child: Text(
-                  course.name!,
+                  widget.course.name!,
                   style: const TextStyle(
                     fontSize: 18,
                     fontWeight: FontWeight.w700,
@@ -56,7 +72,7 @@ class CoursePresentation extends StatelessWidget {
                 padding: const EdgeInsets.only(left: 23),
                 child: Row(
                   children: [
-                    iconWithText(Icons.star_rounded, course.likes.toString()),
+                    iconWithText(Icons.star_rounded, widget.course.likes.toString()),
                   ],
                 ),
               ),
@@ -82,6 +98,7 @@ class CoursePresentation extends StatelessWidget {
               child: Center(
                 child: LikeButton(
                   onTap: (value) async {
+                    await saveCourses(token,widget.course.id);
                     return value = !value;
                   },
                   likeBuilder: (bool isLiked) {
@@ -102,8 +119,8 @@ class CoursePresentation extends StatelessWidget {
             right: 30,
             bottom: 24,
             child: Text(
-              "${course.lessons?.length} " +
-                  rightLessonsCountName(course.lessons?.length ?? 1),
+              "${widget.course.lessons?.length} " +
+                  rightLessonsCountName(widget.course.lessons?.length ?? 1),
               style: const TextStyle(
                 fontSize: 10,
                 fontWeight: FontWeight.w500,
@@ -128,21 +145,22 @@ class CoursePresentation extends StatelessWidget {
   }
 
   Widget iconWithText(IconData icon, String text) => Row(
-        children: [
-          Icon(
-            icon,
-            color: const Color(0xFF878787),
-            size: 15,
-          ),
-          const SizedBox(width: 5),
-          Text(
-            text,
-            style: const TextStyle(
-              color: Color(0xFF878787),
-              fontSize: 7,
-              fontWeight: FontWeight.w400,
-            ),
-          )
-        ],
-      );
+    children: [
+      Icon(
+        icon,
+        color: const Color(0xFF878787),
+        size: 15,
+      ),
+      const SizedBox(width: 5),
+      Text(
+        text,
+        style: const TextStyle(
+          color: Color(0xFF878787),
+          fontSize: 7,
+          fontWeight: FontWeight.w400,
+        ),
+      )
+    ],
+  );
 }
+
