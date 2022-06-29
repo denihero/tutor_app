@@ -1,8 +1,10 @@
 import 'package:chewie/chewie.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_highlight/themes/a11y-dark.dart';
 import 'package:tutor_app/src/models/models.dart';
 import 'package:video_player/video_player.dart';
-
+import 'package:flutter_highlight/flutter_highlight.dart';
+import 'package:flutter_highlight/themes/github.dart';
 import '../../components/appbars/transparent_appbar.dart';
 
 // TODO: UPDATE VIDEO PLAYER
@@ -98,8 +100,8 @@ class _LessonScreenState extends State<LessonScreen> {
             ),
             const SizedBox(height: 77),
             Container(
-              margin: const EdgeInsets.symmetric(horizontal: 30),
-              constraints: const BoxConstraints(minWidth: 368),
+              //margin: const EdgeInsets.symmetric(horizontal: 30),
+              // constraints: const BoxConstraints(minWidth: 368),
               padding: const EdgeInsets.only(
                 top: 21,
                 left: 15,
@@ -117,13 +119,45 @@ class _LessonScreenState extends State<LessonScreen> {
                   )
                 ],
               ),
-              child: Text(
-                widget.lesson.description ?? "",
-                style: const TextStyle(
-                  fontSize: 13,
-                  fontWeight: FontWeight.w500,
-                  letterSpacing: 1.04,
-                ),
+              child: Column(
+                children: [
+                  Text(
+                   '${widget.lesson.description}',
+                    style: const TextStyle(
+                      fontSize: 13,
+                      fontWeight: FontWeight.w500,
+                      letterSpacing: 1.04,
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(top: 20),
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(12),
+                      child: HighlightView(
+                          '''def fib(n):    # write Fibonacci series up to n
+     a, b = 0, 1
+     while a < n:
+         print(a, end=' ')
+         a, b = b, a+b
+     print()
+                        ''',
+                        language: 'python',
+
+                        // Specify highlight theme
+                        // All available themes are listed in `themes` folder
+                        theme: a11yDarkTheme,
+                        // Specify padding
+                        padding: const EdgeInsets.all(20),
+                        // Specify text style
+                        textStyle: const TextStyle(
+                          fontFamily: 'My awesome monospace font',
+                          fontSize: 16,
+                        ),
+
+                      ),
+                    ),
+                  )
+                ],
               ),
             ),
           ],

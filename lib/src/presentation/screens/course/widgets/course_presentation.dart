@@ -2,6 +2,8 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:like_button/like_button.dart';
+import 'package:tutor_app/src/logic/cubit/save_course/save_course_cubit.dart';
+import 'package:tutor_app/src/logic/cubit/saved/favorite_cubit.dart';
 import 'package:tutor_app/src/models/models.dart';
 
 import '../../../../logic/api.dart';
@@ -72,7 +74,8 @@ class _CoursePresentationState extends State<CoursePresentation> {
                 padding: const EdgeInsets.only(left: 23),
                 child: Row(
                   children: [
-                    iconWithText(Icons.star_rounded, widget.course.likes.toString()),
+                    iconWithText(
+                        Icons.star_rounded, widget.course.likes.toString()),
                   ],
                 ),
               ),
@@ -96,20 +99,31 @@ class _CoursePresentationState extends State<CoursePresentation> {
                 ],
               ),
               child: Center(
-                child: LikeButton(
-                  onTap: (value) async {
-                    await saveCourses(token,widget.course.id);
-                    return value = !value;
-                  },
-                  likeBuilder: (bool isLiked) {
-                    return Padding(
-                      padding: const EdgeInsets.only(top: 1.3, left: 2.75),
-                      child: Icon(
-                        Icons.favorite_rounded,
-                        color: isLiked ? const Color(0xFFFE793D) : Colors.grey,
-                        size: 28,
-                      ),
-                    );
+                child: BlocBuilder<FavoritesCubit, FavoritesState>(
+                  builder: (context, state) {
+                    if(state is FavoritesCompleted){
+                      //TODO check if saved work correctly
+                      final isLiked = state.favoritesList[1].saved;
+                      return LikeButton(
+                        isLiked: isLiked,
+                        onTap: (value) async {
+                          await saveCourses(token, widget.course.id);
+                          return value = !value;
+                        },
+                        likeBuilder: (bool isLiked) {
+                          return Padding(
+                            padding: const EdgeInsets.only(top: 1.3, left: 2.75),
+                            child: Icon(
+                              Icons.favorite_rounded,
+                              color:
+                              isLiked ? const Color(0xFFFE793D) : Colors.grey,
+                              size: 28,
+                            ),
+                          );
+                        },
+                      );
+                    }
+                    return Container();
                   },
                 ),
               ),
@@ -145,22 +159,21 @@ class _CoursePresentationState extends State<CoursePresentation> {
   }
 
   Widget iconWithText(IconData icon, String text) => Row(
-    children: [
-      Icon(
-        icon,
-        color: const Color(0xFF878787),
-        size: 15,
-      ),
-      const SizedBox(width: 5),
-      Text(
-        text,
-        style: const TextStyle(
-          color: Color(0xFF878787),
-          fontSize: 7,
-          fontWeight: FontWeight.w400,
-        ),
-      )
-    ],
-  );
+        children: [
+          Icon(
+            icon,
+            color: const Color(0xFF878787),
+            size: 15,
+          ),
+          const SizedBox(width: 5),
+          Text(
+            text,
+            style: const TextStyle(
+              color: Color(0xFF878787),
+              fontSize: 7,
+              fontWeight: FontWeight.w400,
+            ),
+          )
+        ],
+      );
 }
-
