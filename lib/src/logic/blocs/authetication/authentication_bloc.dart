@@ -1,6 +1,5 @@
 import 'dart:io';
 
-import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 
@@ -12,8 +11,8 @@ abstract class AuthEvent extends Equatable {
   final String username;
   final String password;
 
-  AuthEvent(this.username, this.password);
-  
+  const AuthEvent(this.username, this.password);
+
   @override
   List<Object?> get props => [username, password];
 }
