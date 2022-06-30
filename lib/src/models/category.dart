@@ -13,6 +13,5 @@ class Categories extends Equatable {
   Categories(this.categories);
 
   @override
-  // TODO: implement props
   List<Object?> get props => [categories];
 }

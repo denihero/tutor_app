@@ -13,8 +13,8 @@ abstract class AuthEvent extends Equatable {
   final String password;
 
   AuthEvent(this.username, this.password);
+  
   @override
-  // TODO: implement props
   List<Object?> get props => [username, password];
 }
 
