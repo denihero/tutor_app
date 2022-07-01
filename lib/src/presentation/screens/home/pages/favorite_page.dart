@@ -29,6 +29,7 @@ class _FavoritePageState extends State<FavoritePage> {
           }
           if (state is FavoritesCompleted) {
             final courses = state.favoritesList;
+
             return Column(
               children: [
                 Expanded(

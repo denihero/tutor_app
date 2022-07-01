@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
+import 'dart:math';
 import 'package:dio/dio.dart';
 import 'package:http/http.dart' as http;
 
@@ -118,8 +119,10 @@ getNameSurname(String email) async {
   }
 }
 
-Future<List<Course>> getCourse() async {
-  var response = await http.get(Uri.parse("${Api.tutorApi}/course/"));
+Future<List<Course>> getCourse(String token) async {
+  var response = await http.get(Uri.parse("${Api.tutorApi}/course/"),headers: {
+    "Authorization": "Token $token",
+  });
   if (response.statusCode >= 400) throw UnimplementedError("Status code");
   final data = jsonDecode(utf8.decode(response.bodyBytes));
   List<Course> ls = [];
@@ -141,6 +144,7 @@ Future<List<SavedList>> getSavedCourse(String token) async {
 
   for (var element in data) {
     sl.add(SavedList.fromJson(element));
+    pr
   }
   return sl;
 }

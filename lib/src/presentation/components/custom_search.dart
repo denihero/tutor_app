@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:tutor_app/src/logic/blocs/authetication/authentication_bloc.dart';
 import 'package:tutor_app/src/logic/cubit/search/search_cubit.dart';
 
 import '../../models/models.dart';
@@ -109,8 +110,9 @@ class CustomSearchDelegate extends SearchDelegate {
 
   @override
   Widget buildResults(BuildContext context) {
+    String token = BlocProvider.of<AuthBloc>(context).state.token;
     queryString = query;
-    searchCubit.fetchSearch(query);
+    searchCubit.fetchSearch(query,token);
 
     return BlocBuilder<SearchCubit, SearchState>(
       builder: (context, state) {

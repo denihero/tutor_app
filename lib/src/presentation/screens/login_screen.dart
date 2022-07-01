@@ -142,7 +142,7 @@ class _LoginScreenState extends State<LoginScreen> {
           } else if (state is AuthSuccess || state.email != "") {
             String token = BlocProvider.of<AuthBloc>(context).state.token;
             BlocProvider.of<CategoriesCubit>(context).getCategory(token);
-            BlocProvider.of<CoursesCubit>(context).fetchCourse();
+            BlocProvider.of<CoursesCubit>(context).fetchCourse(token);
             BlocProvider.of<FavoritesCubit>(context).addSavedList(token);
             BlocProvider.of<HistoryCubit>(context).getCubitViewedCourses(token);
             return const HomeScreen();

@@ -9,11 +9,11 @@ part 'search_state.dart';
 class SearchCubit extends Cubit<SearchState> {
   SearchCubit() : super(SearchInitial());
 
-  fetchSearch(String toFind) async {
+  fetchSearch(String toFind,String token) async {
     emit(SearchProcessing());
 
     try {
-      List<Course> courses = await getCourse();
+      List<Course> courses = await getCourse(token);
 
       List<Course> filtered = courses
           .where((survey) =>
