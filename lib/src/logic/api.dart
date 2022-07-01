@@ -144,7 +144,6 @@ Future<List<SavedList>> getSavedCourse(String token) async {
 
   for (var element in data) {
     sl.add(SavedList.fromJson(element));
-    pr
   }
   return sl;
 }
