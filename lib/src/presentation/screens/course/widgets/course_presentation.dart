@@ -103,7 +103,7 @@ class _CoursePresentationState extends State<CoursePresentation> {
                   builder: (context, state) {
                     if(state is FavoritesCompleted){
                       //TODO check if saved work correctly
-                      final isLiked = state.favoritesList[1].saved;
+                      final isLiked = state.favoritesList[0].saved;
                       return LikeButton(
                         isLiked: isLiked,
                         onTap: (value) async {

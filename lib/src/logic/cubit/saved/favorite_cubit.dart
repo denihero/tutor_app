@@ -3,6 +3,7 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tutor_app/src/logic/api.dart';
 import 'package:tutor_app/src/models/models.dart';
+import 'dart:developer';
 
 part 'favorutes_state.dart';
 
@@ -12,6 +13,7 @@ class FavoritesCubit extends Cubit<FavoritesState> {
     try {
       emit(FavoritesLoading());
       List<SavedList> data = await getSavedCourse(token);
+      log('$data');
       if (data.isNotEmpty) {
         emit(FavoritesCompleted(favoritesList: data));
       } else {

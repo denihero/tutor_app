@@ -41,7 +41,7 @@ class _HomePageState extends State<HomePage> {
                     padding: const EdgeInsets.only(left: 10),
                     child: Wrap(
                       spacing: 10,
-                      children: techChips(index),
+                      children: techChips(index,context),
                     )));
           }),
         ),
@@ -97,7 +97,8 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  List<Widget> techChips(int index) {
+  List<Widget> techChips(int index,BuildContext context) {
+    String token = BlocProvider.of<AuthBloc>(context).state.token;
     List<Widget> chips = [];
     for (int i = 0; i < categoryNames.length; i++) {
       Widget item = ChoiceChip(

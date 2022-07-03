@@ -44,6 +44,10 @@ class _CourseCardState extends State<CourseCard> {
               color: Color(0xFFC2D1E5),
               offset: Offset(1, 1),
             ),
+            BoxShadow(
+              color: Color(0xFFC2D1E5),
+              offset: Offset(1, 1),
+            ),
           ],
         ),
         child: Stack(
@@ -52,21 +56,17 @@ class _CourseCardState extends State<CourseCard> {
               children: [
                 Container(
                   height: 105,
-                  width: 140,
+                  width: 130,
                   clipBehavior: Clip.antiAliasWithSaveLayer,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(20),
                   ),
                   child: CachedNetworkImage(
                     imageUrl: widget.course.images![0].image!,
-                    height: 105,
-                    width: 140,
                     fit: BoxFit.cover,
                   ),
                 ),
-                const SizedBox(
-                  width: 15,
-                ),
+                const Spacer(),
                 Padding(
                   padding: const EdgeInsets.only(
                     top: 10,
@@ -79,7 +79,7 @@ class _CourseCardState extends State<CourseCard> {
                         widget.course.name ?? "",
                         overflow: TextOverflow.ellipsis,
                         style: const TextStyle(
-                          fontSize: 18,
+                          fontSize: 17,
                           fontWeight: FontWeight.w700,
                           letterSpacing: 1.04,
                         ),
