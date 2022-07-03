@@ -41,8 +41,8 @@ class Course {
         "id": id,
         "name_of_course": name,
         "category": categoryName,
-        "images": List<dynamic>.from(images!.map((x) => x.toJson())),
-        "lessons": List<dynamic>.from(lessons!.map((x) => x.toJson())),
+        "images": List<Image>.from(images!.map((x) => x.toJson())),
+        "lessons": List<Lesson>.from(lessons!.map((x) => x.toJson())),
         "likes": likes,
       };
 }
@@ -91,7 +91,7 @@ class Lesson {
         "name": name,
         "description": description,
         "course": course,
-        "videos": List<dynamic>.from(videos!.map((x) => x)),
+        "videos": List<Video>.from(videos!.map((x) => x)),
       };
 }
 
@@ -106,21 +106,20 @@ class SavedList {
   int? id;
   bool? saved;
   String? user;
-  List<Course>? course;
+  Course? course;
 
   factory SavedList.fromJson(Map<String, dynamic> json) => SavedList(
         id: json["id"],
         saved: json["saved"],
         user: json["user"],
-        course:
-            List<Course>.from(json["course"].map((x) => Course.fromJson(x))),
+        course: Course.fromJson(json["course"]),
       );
 
   Map<String, dynamic> toJson() => {
         "id": id,
         "saved": saved,
         "user": user,
-        "course": List<dynamic>.from(course!.map((x) => x.toJson())),
+        "course": course?.toJson(),
       };
 }
 
