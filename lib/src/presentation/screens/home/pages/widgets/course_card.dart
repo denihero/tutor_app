@@ -52,17 +52,21 @@ class _CourseCardState extends State<CourseCard> {
               children: [
                 Container(
                   height: 105,
-                  width: 136,
+                  width: 140,
                   clipBehavior: Clip.antiAliasWithSaveLayer,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(20),
                   ),
                   child: CachedNetworkImage(
                     imageUrl: widget.course.images![0].image!,
+                    height: 105,
+                    width: 140,
                     fit: BoxFit.cover,
                   ),
                 ),
-                const Spacer(),
+                const SizedBox(
+                  width: 15,
+                ),
                 Padding(
                   padding: const EdgeInsets.only(
                     top: 10,
@@ -73,7 +77,7 @@ class _CourseCardState extends State<CourseCard> {
                     children: [
                       Text(
                         widget.course.name ?? "",
-                        // widget.course.title!,
+                        overflow: TextOverflow.ellipsis,
                         style: const TextStyle(
                           fontSize: 18,
                           fontWeight: FontWeight.w700,

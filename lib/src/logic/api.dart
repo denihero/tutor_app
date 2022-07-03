@@ -118,8 +118,10 @@ getNameSurname(String email) async {
   }
 }
 
-Future<List<Course>> getCourse() async {
-  var response = await http.get(Uri.parse("${Api.tutorApi}/course/"));
+Future<List<Course>> getCourse(String token) async {
+  var response = await http.get(Uri.parse("${Api.tutorApi}/course/"),headers: {
+    "Authorization": "Token $token",
+  });
   if (response.statusCode >= 400) throw UnimplementedError("Status code");
   final data = jsonDecode(utf8.decode(response.bodyBytes));
   List<Course> ls = [];

@@ -2,6 +2,7 @@ import 'dart:core';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:tutor_app/src/logic/blocs/authetication/authentication_bloc.dart';
 import 'package:tutor_app/src/logic/cubit/categories/categories_cubit.dart';
 import 'package:tutor_app/src/logic/cubit/course/courses_cubit.dart';
 import 'package:tutor_app/src/models/models.dart';
@@ -17,6 +18,12 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   int? choiceIndex;
   List<String> categoryNames = [];
+  late String token;
+  @override
+  void initState() {
+    token = BlocProvider.of<AuthBloc>(context).state.token;
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -47,7 +54,6 @@ class _HomePageState extends State<HomePage> {
                 ),
               );
             }
-
             if (state is CoursesCompleted) {
               var courses = state.courses;
               return Expanded(
@@ -117,10 +123,10 @@ class _HomePageState extends State<HomePage> {
             if (isSelected) {
               choiceIndex = i;
               BlocProvider.of<CoursesCubit>(context)
-                  .fetchCourseFromCategory(categoryNames[choiceIndex!]);
+                  .fetchCourseFromCategory(categoryNames[choiceIndex!],token);
             } else {
               choiceIndex = null;
-              BlocProvider.of<CoursesCubit>(context).fetchCourse();
+              BlocProvider.of<CoursesCubit>(context).fetchCourse(token);
             }
           });
         },
