@@ -23,8 +23,8 @@ class LessonScreen extends StatefulWidget {
 class _LessonScreenState extends State<LessonScreen> {
   @override
   Widget build(BuildContext context) {
-    String videoUrl = widget.lesson.videos![widget.id].url;
-
+    String videoUrl = widget.lesson.videos![1].url;
+    print(videoUrl);
     return BlocProvider<VideoCubit>(
       create: (context) => VideoCubit()..loadVideoFromNetwork(videoUrl),
       child: Scaffold(
@@ -77,8 +77,16 @@ class _LessonScreenState extends State<LessonScreen> {
                   child: BlocBuilder<VideoCubit, VideoState>(
                     builder: ((context, state) {
                       if (state is VideoLoadError) {
-                        return const Center(
-                          child: Text("Loading video failed"),
+                        return const SizedBox(
+                          height: 200,
+                          child: Center(
+                            child: Text(
+                                "Loading video failed",
+                                style: TextStyle(
+                                  fontSize: 24
+                                ),
+                            ),
+                          ),
                         );
                       }
 
@@ -93,13 +101,13 @@ class _LessonScreenState extends State<LessonScreen> {
                       }
                       if (state is VideoLoaded) {
                         VideoPlayerController controller = state.controller;
-
                         return AspectRatio(
                           aspectRatio: controller.value.aspectRatio,
                           // TODO: SPECIFY VIDEO CONTROLLER
                           child: Chewie(
                               controller: ChewieController(
-                            videoPlayerController: controller,
+                                videoPlayerController: controller,
+                                autoInitialize: true
                           )),
                         );
                       }
