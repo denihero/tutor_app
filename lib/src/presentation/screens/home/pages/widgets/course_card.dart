@@ -32,7 +32,7 @@ class _CourseCardState extends State<CourseCard> {
         );
       },
       child: Container(
-        height: 13.h,
+        height: 14.h,
         margin: const EdgeInsets.symmetric(
           vertical: 14,
           horizontal: 30,
@@ -56,7 +56,7 @@ class _CourseCardState extends State<CourseCard> {
             Row(
               children: [
                 Container(
-                  height: 12.h,
+                  height: 13.h,
                   width: 34.w,
                   clipBehavior: Clip.antiAliasWithSaveLayer,
                   decoration: BoxDecoration(

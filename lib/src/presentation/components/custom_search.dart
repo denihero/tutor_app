@@ -11,7 +11,6 @@ class CustomSearch extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var width = MediaQuery.of(context).size.width;
     return SizedBox(
       height: 4.5.h,
       width: 65.w,
@@ -45,7 +44,7 @@ class CustomSearch extends StatelessWidget {
           filled: true,
           fillColor: Colors.grey.withOpacity(0.2),
           suffixIcon: Padding(
-            padding: const EdgeInsets.only(left: 10),
+            padding: EdgeInsets.only(left: 0.9.h),
             child: CircleAvatar(
                 radius: 10,
                 backgroundColor: const Color(0xFFFE793D),
