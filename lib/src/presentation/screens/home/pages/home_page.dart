@@ -55,7 +55,6 @@ class _HomePageState extends State<HomePage> {
           ),
           BlocBuilder<CoursesCubit, CoursesState>(
             builder: (context, state) {
-              // TODO: Add Shimmer
               if (state is CoursesLoading) {
                 return Expanded(
                   child: ListView.builder(
