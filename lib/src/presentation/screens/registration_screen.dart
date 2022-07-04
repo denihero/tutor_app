@@ -286,10 +286,10 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                                             BlocProvider.of<AuthBloc>(context)
                                                 .add(
                                               AuthRegisterSendNameSurname(
-                                                name: _nameController.text ?? '',
+                                                name: _nameController.text,
                                                 file: imageFile,
                                                 surname:
-                                                    _surnameController.text?? '' ,
+                                                    _surnameController.text,
                                                 username: email,
                                                 password:
                                                     passwordController.text,
