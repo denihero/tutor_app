@@ -17,6 +17,6 @@ class Categories extends Cat {
   List<Object> get props => [categories];
 }
 
+class CategoriesLoading extends Cat {}
 class CategoriesInitial extends Cat {}
-
 class CategoriesError extends Cat {}

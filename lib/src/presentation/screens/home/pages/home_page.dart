@@ -8,6 +8,7 @@ import 'package:tutor_app/src/logic/cubit/categories/categories_cubit.dart';
 import 'package:tutor_app/src/logic/cubit/course/courses_cubit.dart';
 import 'package:tutor_app/src/models/models.dart';
 import 'package:tutor_app/src/presentation/screens/home/pages/widgets/course_card.dart';
+import 'package:tutor_app/src/presentation/screens/home/pages/widgets/shimmer_load_categories_badges_widget.dart';
 import 'package:tutor_app/src/presentation/screens/home/pages/widgets/shimmer_load_coure_card.dart';
 
 class HomePage extends StatefulWidget {
@@ -40,18 +41,32 @@ class _HomePageState extends State<HomePage> {
             //не изменять, потому что ломается кликние баджей
             height: 40,
             margin: const EdgeInsets.only(left: 17, bottom: 43),
-            child: BlocBuilder<CategoriesCubit, Cat>(builder: (context, state) {
-              categoryNames = state.categories.keys.toList();
-              return ListView.builder(
-                  scrollDirection: Axis.horizontal,
-                  itemCount: categoryNames.length - categoryNames.length + 1,
-                  itemBuilder: (BuildContext context, int index) => Padding(
-                      padding: const EdgeInsets.only(left: 10),
-                      child: Wrap(
-                        spacing: 10,
-                        children: techChips(index,context),
-                      )));
-            }),
+            child: BlocBuilder<CategoriesCubit, Cat>(
+              builder: (context, state) {
+              if(state is CategoriesLoading){
+                return ListView.builder(
+                    itemCount: 5,
+                    scrollDirection: Axis.horizontal,
+                    itemBuilder: (context,index){
+                      return const ShimmerLoadCategoriesBadgesWidget();
+                    });
+              }else if(state is Categories){
+                categoryNames = state.categories.keys.toList();
+                return ListView.builder(
+                    scrollDirection: Axis.horizontal,
+                    itemCount: categoryNames.length - categoryNames.length + 1,
+                    itemBuilder: (BuildContext context, int index) => Padding(
+                        padding: const EdgeInsets.only(left: 10),
+                        child: Wrap(
+                          spacing: 10,
+                          children: techChips(index,context),
+                        )));
+              }
+              return Container();
+
+            },
+
+            ),
           ),
           BlocBuilder<CoursesCubit, CoursesState>(
             builder: (context, state) {
