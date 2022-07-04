@@ -11,7 +11,6 @@ class CustomSearch extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var width = MediaQuery.of(context).size.width;
     return SizedBox(
       height: 4.5.h,
       width: 65.w,
