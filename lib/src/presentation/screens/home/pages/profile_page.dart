@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:sizer/sizer.dart';
 import 'package:tutor_app/src/logic/cubit/history/history_cubit.dart';
 import 'package:tutor_app/src/models/models.dart';
 import 'package:tutor_app/src/presentation/screens/home/pages/widgets/course_card.dart';
@@ -24,8 +25,8 @@ class _ProfilePageState extends State<ProfilePage> {
           height: 10,
         ),
         Container(
-          height: 200,
-          width: 200,
+          height: 26.h,
+          width: 54.w,
           clipBehavior: Clip.antiAliasWithSaveLayer,
           decoration: BoxDecoration(
               color: Colors.white,
@@ -52,16 +53,16 @@ class _ProfilePageState extends State<ProfilePage> {
         Padding(
           padding: const EdgeInsets.only(left: 30, bottom: 7),
           child: Row(
-            children: const [
+            children: [
               Text(
                 "Просмотренные",
                 style: TextStyle(
-                  fontSize: 18,
+                  fontSize: 15.sp,
                   fontWeight: FontWeight.w600,
                   letterSpacing: 1.04,
                 ),
               ),
-              Spacer(),
+              const Spacer(),
             ],
           ),
         ),

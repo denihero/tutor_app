@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:sizer/sizer.dart';
 import 'package:tutor_app/src/logic/blocs/authetication/authentication_bloc.dart';
 import 'package:tutor_app/src/presentation/screens/home/pages/favorite_page.dart';
 import 'package:tutor_app/src/presentation/screens/home/pages/home_page.dart';
@@ -44,34 +45,33 @@ class _HomeScreenState extends State<HomeScreen> {
       backgroundColor: Colors.white,
       appBar: [
         TransparentAppBar(
-          title: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20),
-            child: Column(
-              children: const [
-                SizedBox(
-                  height: 10,
-                ),
-                CustomSearch(),
-              ],
-            ),
+          title: Column(
+            children: const [
+              SizedBox(
+                height: 10,
+              ),
+              CustomSearch(),
+            ],
           ),
+          action: Container(),
+
         ),
-        const TransparentAppBar(
+        TransparentAppBar(
           title: Text(
             "Избранное",
             style: TextStyle(
               color: Colors.black,
-              fontSize: 18,
+              fontSize: 15.sp,
               fontWeight: FontWeight.w600,
               letterSpacing: 1.04,
             ),
           ),
         ), TransparentAppBar(
-          title: const Text(
+          title: Text(
             "Профиль",
             style: TextStyle(
               color: Colors.black,
-              fontSize: 18,
+              fontSize: 15.sp,
               fontWeight: FontWeight.w600,
               letterSpacing: 1.04,
             ),

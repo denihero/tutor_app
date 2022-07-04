@@ -2,6 +2,7 @@ import 'dart:core';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:sizer/sizer.dart';
 import 'package:tutor_app/src/logic/blocs/authetication/authentication_bloc.dart';
 import 'package:tutor_app/src/logic/cubit/categories/categories_cubit.dart';
 import 'package:tutor_app/src/logic/cubit/course/courses_cubit.dart';
@@ -30,7 +31,7 @@ class _HomePageState extends State<HomePage> {
     return Column(
       children: [
         Container(
-          height: 41,
+          height: 2.h,
           margin: const EdgeInsets.only(left: 17, bottom: 43),
           child: BlocBuilder<CategoriesCubit, Cat>(builder: (context, state) {
             categoryNames = state.categories.keys.toList();
@@ -106,6 +107,7 @@ class _HomePageState extends State<HomePage> {
           padding: const EdgeInsets.all(3.0),
           child: Text(
             categoryNames[i],
+            style: TextStyle(fontSize: 11.sp),
           ),
         ),
         backgroundColor: const Color.fromRGBO(250, 250, 250, 1),

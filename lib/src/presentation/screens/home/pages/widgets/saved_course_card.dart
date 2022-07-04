@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:like_button/like_button.dart';
+import 'package:sizer/sizer.dart';
 import 'package:tutor_app/src/models/models.dart';
 import 'package:tutor_app/src/presentation/screens/course/course_screen.dart';
 
@@ -31,7 +32,7 @@ class _SavedCourseCardState extends State<SavedCourseCard> {
         );
       },
       child: Container(
-        height: 105,
+        height: 13.h,
         margin: const EdgeInsets.symmetric(
           vertical: 14,
           horizontal: 30,
@@ -51,8 +52,8 @@ class _SavedCourseCardState extends State<SavedCourseCard> {
             Row(
               children: [
                 Container(
-                  height: 105,
-                  width: 136,
+                  height: 12.h,
+                  width: 34.w,
                   clipBehavior: Clip.antiAliasWithSaveLayer,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(20),
@@ -74,8 +75,8 @@ class _SavedCourseCardState extends State<SavedCourseCard> {
                       Text(
                         widget.course.course!.name ?? "",
                         // widget.course.title!,
-                        style: const TextStyle(
-                          fontSize: 18,
+                        style: TextStyle(
+                          fontSize: 14.sp,
                           fontWeight: FontWeight.w700,
                           letterSpacing: 1.04,
                         ),
@@ -93,8 +94,8 @@ class _SavedCourseCardState extends State<SavedCourseCard> {
                         "${widget.course.course!.lessons!.length} " +
                             rightLessonsCountName(
                                 widget.course.course!.lessons!.length),
-                        style: const TextStyle(
-                          fontSize: 10,
+                        style: TextStyle(
+                          fontSize: 9.sp,
                           fontWeight: FontWeight.w500,
                           letterSpacing: 1.04,
                         ),
@@ -143,15 +144,15 @@ class _SavedCourseCardState extends State<SavedCourseCard> {
     children: [
       Icon(
         icon,
-        size: 15,
+        size: 7.sp,
         color: Colors.black,
       ),
       const SizedBox(width: 5),
       Text(
         text,
-        style: const TextStyle(
-          color: Color(0xFF878787),
-          fontSize: 7,
+        style: TextStyle(
+          color: const  Color(0xFF878787),
+          fontSize: 7.sp,
           fontWeight: FontWeight.w400,
           letterSpacing: 1.04,
         ),
