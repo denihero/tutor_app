@@ -31,14 +31,9 @@ sendNameSurname(String name, String surname, String token, File? file) async {
     "surname": surname,
   });
   Dio dio = Dio();
-  print(token);
-  print(name);
-  print(surname);
-  print(file);
   dio.options.headers['Authorization'] = "Token $token";
   var response =
       await dio.post("${Api.tutorApi}/account/info_users/", data: formData);
-  print(response.toString());
   if (response.statusCode! >= 400) {
     throw UnimplementedError();
   }
@@ -75,18 +70,6 @@ Future<bool> confirmPassword(String username, String code) async {
   return false;
 }
 
-Future<Map<String, String>> get_categories(String token) async {
-  var response = await http
-      .get(Uri.parse("${Api.tutorApi}/category/category-list/"), headers: {
-    "Authorization": "Token fd7c8a1a80f3637f5d7675736f3c6a1e97ceb240",
-  });
-  if (response.statusCode >= 400) {
-    throw UnimplementedError();
-  }
-  return Categories.fromJson(
-    jsonDecode(utf8.decode(response.bodyBytes)),
-  ).categories;
-}
 
 putImage(File? file, int id, String token, String name, String surname) async {
   FormData formData = FormData.fromMap({
