@@ -8,6 +8,7 @@ import 'package:tutor_app/src/logic/cubit/categories/categories_cubit.dart';
 import 'package:tutor_app/src/logic/cubit/course/courses_cubit.dart';
 import 'package:tutor_app/src/models/models.dart';
 import 'package:tutor_app/src/presentation/screens/home/pages/widgets/course_card.dart';
+import 'package:tutor_app/src/presentation/screens/home/pages/widgets/shimmer_load_coure_card.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -28,74 +29,85 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Container(
-          height: 2.h,
-          margin: const EdgeInsets.only(left: 17, bottom: 43),
-          child: BlocBuilder<CategoriesCubit, Cat>(builder: (context, state) {
-            categoryNames = state.categories.keys.toList();
-            return ListView.builder(
-                scrollDirection: Axis.horizontal,
-                itemCount: categoryNames.length - categoryNames.length + 1,
-                itemBuilder: (BuildContext context, int index) => Padding(
-                    padding: const EdgeInsets.only(left: 10),
-                    child: Wrap(
-                      spacing: 10,
-                      children: techChips(index,context),
-                    )));
-          }),
-        ),
-        BlocBuilder<CoursesCubit, CoursesState>(
-          builder: (context, state) {
-            // TODO: Add Shimmer
-            if (state is CoursesLoading) {
-              return const Center(
-                child: CircularProgressIndicator(
-                  color: Colors.orange,
-                ),
-              );
-            }
-            if (state is CoursesCompleted) {
-              var courses = state.courses;
-              return Expanded(
-                child: ListView.builder(
-                    itemCount: courses.length,
-                    itemBuilder: (BuildContext context, int index) {
-                      Course course = courses[index];
-                      return CourseCard(
-                        course: Course(
-                            name: course.name,
-                            categoryName: course.categoryName,
-                            lessons: course.lessons,
-                            images: course.images,
-                            id: course.id,
-                            likes: course.likes),
-                      );
-                    }),
-              );
-            }
-
-            return Column(
-              children: const [
-                Icon(
-                  Icons.error_outline_rounded,
-                  size: 60,
-                  color: Colors.black38,
-                ),
-                Text(
-                  "Something get wrong",
-                  style: TextStyle(
-                    fontSize: 24,
-                    color: Colors.black38,
-                    fontWeight: FontWeight.w500,
+    return RefreshIndicator(
+      onRefresh: () async{
+        await Future.delayed(const Duration(seconds: 1));
+          BlocProvider.of<CoursesCubit>(context).fetchCourse(token);
+      },
+      child: Column(
+        children: [
+          Container(
+            //не изменять, потому что ломается кликние баджей
+            height: 40,
+            margin: const EdgeInsets.only(left: 17, bottom: 43),
+            child: BlocBuilder<CategoriesCubit, Cat>(builder: (context, state) {
+              categoryNames = state.categories.keys.toList();
+              return ListView.builder(
+                  scrollDirection: Axis.horizontal,
+                  itemCount: categoryNames.length - categoryNames.length + 1,
+                  itemBuilder: (BuildContext context, int index) => Padding(
+                      padding: const EdgeInsets.only(left: 10),
+                      child: Wrap(
+                        spacing: 10,
+                        children: techChips(index,context),
+                      )));
+            }),
+          ),
+          BlocBuilder<CoursesCubit, CoursesState>(
+            builder: (context, state) {
+              // TODO: Add Shimmer
+              if (state is CoursesLoading) {
+                return Expanded(
+                  child: ListView.builder(
+                      itemCount: 8,
+                      itemBuilder: (context,index){
+                        return const ShimmerLoadCardWidget();
+                      }
                   ),
-                ),
-              ],
-            );
-          },
-        ),
-      ],
+                );
+              }
+              if (state is CoursesCompleted) {
+                var courses = state.courses;
+                return Expanded(
+                  child: ListView.builder(
+                      scrollDirection: Axis.vertical,
+                      itemCount: courses.length,
+                      itemBuilder: (BuildContext context, int index) {
+                        Course course = courses[index];
+                        return CourseCard(
+                          course: Course(
+                              name: course.name,
+                              categoryName: course.categoryName,
+                              lessons: course.lessons,
+                              images: course.images,
+                              id: course.id,
+                              likes: course.likes),
+                        );
+                      }),
+                );
+              }
+
+              return Column(
+                children: const [
+                  Icon(
+                    Icons.error_outline_rounded,
+                    size: 60,
+                    color: Colors.black38,
+                  ),
+                  Text(
+                    "Something get wrong",
+                    style: TextStyle(
+                      fontSize: 24,
+                      color: Colors.black38,
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
+                ],
+              );
+            },
+          ),
+        ],
+      ),
     );
   }
 
@@ -129,8 +141,8 @@ class _HomePageState extends State<HomePage> {
               BlocProvider.of<CoursesCubit>(context)
                   .fetchCourseFromCategory(categoryNames[choiceIndex!],token);
             } else {
-              choiceIndex = null;
               BlocProvider.of<CoursesCubit>(context).fetchCourse(token);
+              choiceIndex = null;
             }
           });
         },
