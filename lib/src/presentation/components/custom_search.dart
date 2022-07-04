@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tutor_app/src/logic/blocs/authetication/authentication_bloc.dart';
 import 'package:tutor_app/src/logic/cubit/search/search_cubit.dart';
-
+import 'package:sizer/sizer.dart';
 import '../../models/models.dart';
 import '../screens/home/pages/widgets/course_card.dart';
 
@@ -11,9 +11,10 @@ class CustomSearch extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var width = MediaQuery.of(context).size.width;
     return SizedBox(
-      height: 40,
-      width: double.infinity,
+      height: 4.5.h,
+      width: 65.w,
       child: TextFormField(
         onTap: () {
           showSearch(
@@ -26,8 +27,8 @@ class CustomSearch extends StatelessWidget {
         },
         cursorHeight: 16,
         autofocus: false,
-        style: const TextStyle(
-          fontSize: 10,
+        style: TextStyle(
+          fontSize: 10.sp,
           fontWeight: FontWeight.w500,
           letterSpacing: 1.04,
         ),
@@ -44,7 +45,7 @@ class CustomSearch extends StatelessWidget {
           filled: true,
           fillColor: Colors.grey.withOpacity(0.2),
           suffixIcon: Padding(
-            padding: const EdgeInsets.only(left: 6),
+            padding: const EdgeInsets.only(left: 10),
             child: CircleAvatar(
                 radius: 10,
                 backgroundColor: const Color(0xFFFE793D),
@@ -55,7 +56,7 @@ class CustomSearch extends StatelessWidget {
                 )),
           ),
           hintStyle: TextStyle(
-            fontSize: 10,
+            fontSize: 9.sp,
             fontWeight: FontWeight.w500,
             color: Colors.black.withOpacity(0.46),
             letterSpacing: 1.04,
@@ -134,8 +135,8 @@ class CustomSearchDelegate extends SearchDelegate {
                 padding: const EdgeInsets.only(left: 25),
                 child: Text(
                   "Результаты для “$queryString”",
-                  style: const TextStyle(
-                      fontSize: 16,
+                  style: TextStyle(
+                      fontSize: 16.sp,
                       fontWeight: FontWeight.w700,
                       letterSpacing: 1.03),
                 ),
@@ -168,8 +169,9 @@ class CustomSearchDelegate extends SearchDelegate {
             padding: const EdgeInsets.all(20),
             child: Text(
               "Результаты для “$queryString” не найдены",
-              style: const TextStyle(
-                  fontSize: 16,
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                  fontSize: 14.sp,
                   fontWeight: FontWeight.w700,
                   letterSpacing: 1.03),
             ),
@@ -177,16 +179,16 @@ class CustomSearchDelegate extends SearchDelegate {
         }
 
         return Column(
-          children: const [
+          children: [
             Icon(
               Icons.error_outline_rounded,
-              size: 60,
+              size: 60.sp,
               color: Colors.black38,
             ),
             Text(
               "Something get wrong",
               style: TextStyle(
-                fontSize: 24,
+                fontSize: 24.sp,
                 color: Colors.black38,
                 fontWeight: FontWeight.w500,
               ),
