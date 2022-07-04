@@ -13,7 +13,8 @@ class TransparentAppBar extends StatelessWidget implements PreferredSizeWidget {
       elevation: 0,
       centerTitle: true,
       title: title,
-      leading: leading,
+      leading: leading ?? SizedBox(),
+      automaticallyImplyLeading: false,
       actions: [
         action ?? SizedBox(),
       ],

@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:like_button/like_button.dart';
+import 'package:sizer/sizer.dart';
 import 'package:tutor_app/src/models/models.dart';
 import 'package:tutor_app/src/presentation/screens/course/course_screen.dart';
 
@@ -31,7 +32,7 @@ class _CourseCardState extends State<CourseCard> {
         );
       },
       child: Container(
-        height: 105,
+        height: 13.h,
         margin: const EdgeInsets.symmetric(
           vertical: 14,
           horizontal: 30,
@@ -55,8 +56,8 @@ class _CourseCardState extends State<CourseCard> {
             Row(
               children: [
                 Container(
-                  height: 105,
-                  width: 130,
+                  height: 12.h,
+                  width: 34.w,
                   clipBehavior: Clip.antiAliasWithSaveLayer,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(20),
@@ -66,8 +67,8 @@ class _CourseCardState extends State<CourseCard> {
                     fit: BoxFit.cover,
                   ),
                 ),
-                const SizedBox(
-                  width: 20,
+                SizedBox(
+                  width: 3.w,
                 ),
                 Padding(
                   padding: const EdgeInsets.only(
@@ -80,8 +81,8 @@ class _CourseCardState extends State<CourseCard> {
                       Text(
                         widget.course.name ?? "",
                         overflow: TextOverflow.ellipsis,
-                        style: const TextStyle(
-                          fontSize: 17,
+                        style: TextStyle(
+                          fontSize: 14.sp,
                           fontWeight: FontWeight.w700,
                           letterSpacing: 1.04,
                         ),
@@ -99,8 +100,8 @@ class _CourseCardState extends State<CourseCard> {
                         "${widget.course.lessons?.length} " +
                             rightLessonsCountName(
                                 widget.course.lessons?.length ?? 0),
-                        style: const TextStyle(
-                          fontSize: 10,
+                        style: TextStyle(
+                          fontSize: 9.sp,
                           fontWeight: FontWeight.w500,
                           letterSpacing: 1.04,
                         ),
@@ -149,15 +150,15 @@ class _CourseCardState extends State<CourseCard> {
         children: [
           Icon(
             icon,
-            size: 15,
+            size: 7.sp,
             color: Colors.black,
           ),
           const SizedBox(width: 5),
           Text(
             text,
-            style: const TextStyle(
-              color: Color(0xFF878787),
-              fontSize: 7,
+            style: TextStyle(
+              color: const  Color(0xFF878787),
+              fontSize: 7.sp,
               fontWeight: FontWeight.w400,
               letterSpacing: 1.04,
             ),
