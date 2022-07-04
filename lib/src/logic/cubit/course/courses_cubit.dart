@@ -10,11 +10,11 @@ part 'courses_state.dart';
 class CoursesCubit extends Cubit<CoursesState> {
   CoursesCubit() : super(CoursesInitial());
 
-  fetchCourseFromCategory(String categoryName) async {
+  fetchCourseFromCategory(String categoryName,String token) async {
     emit(CoursesLoading());
 
     try {
-      List<Course> courses = await getCourse();
+      List<Course> courses = await getCourse(token);
 
       List<Course> filtered = courses
           .where((courses) => courses.categoryName == categoryName)
@@ -27,13 +27,14 @@ class CoursesCubit extends Cubit<CoursesState> {
     }
   }
 
-  fetchCourse() async {
+  fetchCourse(String token) async {
     emit(CoursesLoading());
     try {
-      List<Course> courses = await getCourse();
+      List<Course> courses = await getCourse(token);
       emit(CoursesCompleted(courses: courses));
-    } catch (e) {
+    } catch (e,s) {
       print(e);
+      print(s);
       emit(CoursesError());
     }
   }

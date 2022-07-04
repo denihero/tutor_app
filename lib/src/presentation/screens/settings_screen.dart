@@ -61,33 +61,33 @@ class SettingsScreen extends StatelessWidget {
               titleWithDetailes(
                   "Email", BlocProvider.of<AuthBloc>(context).state.email),
               const Spacer(),
-              Row(
-                children: [
-                  IconButton(
-                    padding: EdgeInsets.zero,
-                    icon: const Icon(
-                      Icons.exit_to_app_rounded,
-                      color: Colors.black,
-                      size: 30,
-                    ),
-                    onPressed: () {
-                      BlocProvider.of<AuthBloc>(context).add(AuthLogout());
-                      Navigator.of(context).pushAndRemoveUntil(
-                          MaterialPageRoute(
-                              builder: (_) => const LoginScreen()),
-                          (route) => false);
-                    },
-                    splashRadius: 20,
+              Material(
+                child: GestureDetector(
+                  onTap: () {
+                    BlocProvider.of<AuthBloc>(context).add(AuthLogout());
+                    Navigator.of(context).pushAndRemoveUntil(
+                        MaterialPageRoute(
+                            builder: (_) => const LoginScreen()),
+                            (route) => false);
+                  },
+                  child: Row(
+                    children:const[
+                      Icon(
+                          Icons.exit_to_app_rounded,
+                          color: Colors.black,
+                          size: 30,
+                        ),
+                       SizedBox(width: 6),
+                       Text(
+                        "Выход",
+                        style: TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                    ],
                   ),
-                  const SizedBox(width: 6),
-                  const Text(
-                    "Выход",
-                    style: TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.w600,
-                    ),
-                  ),
-                ],
+                ),
               ),
               const SizedBox(height: 12),
             ],
