@@ -66,7 +66,9 @@ class _CourseCardState extends State<CourseCard> {
                     fit: BoxFit.cover,
                   ),
                 ),
-                const Spacer(),
+                const SizedBox(
+                  width: 20,
+                ),
                 Padding(
                   padding: const EdgeInsets.only(
                     top: 10,

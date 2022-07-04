@@ -47,12 +47,10 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
     return true;
   }
 
-  TextEditingController _codeController = TextEditingController();
   TextEditingController _nameController = TextEditingController();
   TextEditingController _surnameController = TextEditingController();
 
   bool _isShowNameSurname = false;
-  bool _isShowCodeConfirm = false;
 
   final ImagePicker _picker = ImagePicker();
   File? imageFile;
@@ -70,7 +68,6 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
 
   @override
   void dispose() {
-    _codeController.dispose();
     passwordController.dispose();
     usernameController.dispose();
     super.dispose();
@@ -103,7 +100,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
               MaterialPageRoute(builder: (context) => const LoginScreen()),
               ModalRoute.withName('/'),
             );
-          } else if (state is AuthConfirmPasswordSucces) {
+          } else if (state is AuthRegisterSuccess) {
             setState(() {
               _isShowNameSurname = true;
               // _isShowCodeConfirm = false;
@@ -116,28 +113,6 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                 builder: (context) {
                   return AlertDialog(
                     content: const Text("Please enter Your name and surname"),
-                    actions: [
-                      TextButton(
-                        onPressed: () {
-                          // Navigator.of(context).pushNamed("/login");
-                          Navigator.of(context, rootNavigator: true).pop();
-                        },
-                        child: const Center(child: Text("OK")),
-                      ),
-                    ],
-                  );
-                });
-          } else if (state is AuthRegisterSuccess) {
-            setState(() {
-              _isShowCodeConfirm = true;
-            });
-            _codeController = TextEditingController();
-            showDialog(
-                context: context,
-                builder: (context) {
-                  return AlertDialog(
-                    content:
-                        const Text("Check your email for confirmation code"),
                     actions: [
                       TextButton(
                         onPressed: () {
@@ -173,9 +148,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                       Align(
                         alignment: Alignment.topLeft,
                         child: Text(
-                          _isShowCodeConfirm && _isShowNameSurname == false
-                              ? 'Enter Code'
-                              : _isShowNameSurname
+                         _isShowNameSurname
                                   ? "Enter name and surname"
                                   : "Create account",
                           style: const TextStyle(
@@ -185,7 +158,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                       SizedBox(
                         height: _isShowNameSurname ? 2.h : 7.h,
                       ),
-                      !_isShowCodeConfirm
+                      !_isShowNameSurname
                           ? Column(
                               mainAxisAlignment: MainAxisAlignment.center,
                               crossAxisAlignment: CrossAxisAlignment.center,
@@ -247,39 +220,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                                   ],
                                 ),
                               ],
-                            )
-                          : const Text(''),
-                      _isShowCodeConfirm && !_isShowNameSurname
-                          ? Column(
-                              children: [
-                                const SizedBox(
-                                  height: 20,
-                                ),
-                                TextFormWithBoxShadow(
-                                  icon: Icons.email_outlined,
-                                  hintText: "Confirmation Code",
-                                  textEditingController: _codeController,
-                                  focusNode: _focusNodes[3],
-                                ),
-                                SizedBox(
-                                  height: 1.8.h,
-                                ),
-                                ButtonWithTextAndArrow(
-                                  text: 'Send code',
-                                  onTap: () {
-                                    SchedulerBinding.instance
-                                        .addPostFrameCallback((_) {
-                                      final code = _codeController.text;
-
-                                      final email = usernameController.text;
-                                      BlocProvider.of<AuthBloc>(context).add(
-                                          AuthConfirmPassword(email, "", code));
-                                    });
-                                  },
-                                )
-                              ],
-                            )
-                          : const Text(""),
+                            ):Container(),
                       _isShowNameSurname
                           ? Column(
                               children: [
@@ -336,6 +277,10 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                                         ButtonWithTextAndArrow(
                                           text: 'Confirm',
                                           onTap: () {
+                                            print(_nameController.text);
+                                            print(_surnameController.text);
+                                            print(passwordController.text);
+                                            print(usernameController.text);
                                             final email =
                                                 usernameController.text;
                                             BlocProvider.of<AuthBloc>(context)

@@ -98,15 +98,10 @@ putImage(File? file, int id, String token, String name, String surname) async {
   Dio dio = Dio();
   dio.options.headers['Authorization'] = "Token $token";
   dio.options.headers['Content-Type'] = "multipart/form-data";
-  // dio.options.contentType = Headers.formUrlEncodedContentType;
   var response =
       await dio.put("${Api.tutorApi}/account/info_users/$id/", data: formData);
-  // if (response.statusCode! >= 400) {
-  //   throw UnimplementedError();
-  // }
   print(response.data);
   return response.data["image"];
-  // return jsonDecode(response.data)["image"];
 }
 
 getNameSurname(String email) async {
@@ -148,9 +143,6 @@ Future<List<SavedList>> getSavedCourse(String token) async {
   return sl;
 }
 
-
-
-
 Future<void> saveCourses(String token,int id) async {
   var response =
       await http.post(Uri.parse("${Api.tutorApi}/course/$id/saved/"), headers: {
@@ -161,10 +153,6 @@ Future<void> saveCourses(String token,int id) async {
     return jsonDecode(response.body.toString());
   }
 }
-
-
-
-
 
 Future<Course> getCourseById(String token,int id) async{
   var response = await http.get(Uri.parse('${Api.tutorApi}/course/$id/'),headers: {

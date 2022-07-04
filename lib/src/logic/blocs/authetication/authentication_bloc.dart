@@ -115,7 +115,14 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> with HydratedMixin {
     on<AuthRegisterSendNameSurname>((event, emit) async {
       try {
         emit(const AuthLoading(""));
-
+        var token = await login(event.username, event.password);
+        var r = await sendNameSurname(event.name, event.surname, token, event.file);
+        AuthRegisterSendNameSurname(
+            password: event.password,
+            username: event.username,
+            surname: event.surname,
+            name: event.name,
+        );
         print("Send name Username:");
         emit(const AuthInitial());
       } catch (r) {
