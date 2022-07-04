@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tutor_app/src/logic/cubit/saved/favorite_cubit.dart';
-import 'package:tutor_app/src/presentation/screens/home/pages/widgets/saved_course_card.dart';
+import 'package:tutor_app/src/models/models.dart';
+import 'package:tutor_app/src/presentation/screens/home/pages/widgets/course_card.dart';
 
 class FavoritePage extends StatefulWidget {
   const FavoritePage({Key? key}) : super(key: key);
@@ -34,7 +35,10 @@ class _FavoritePageState extends State<FavoritePage> {
                 child: ListView.builder(
                     itemCount: courses.length,
                     itemBuilder: (BuildContext context, int index) {
-                      return SavedCourseCard(course: courses[index]);
+                      return CourseCard(
+                        course: courses[index].course!,
+                        isForFavoritePage: courses[index].saved!,
+                      );
                     }),
               ),
             ],

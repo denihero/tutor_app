@@ -100,22 +100,23 @@ class _CoursePresentationState extends State<CoursePresentation> {
               child: Center(
                 child: BlocBuilder<FavoritesCubit, FavoritesState>(
                   builder: (context, state) {
-                    if(state is FavoritesCompleted){
+                    if (state is FavoritesCompleted) {
                       //TODO: ADD BloC to save properly
-                      final isLiked = state.favoritesList[0].saved;
                       return LikeButton(
-                        isLiked: isLiked,
+                        isLiked: isLiked(state.favoritesList, widget.course),
                         onTap: (value) async {
                           await saveCourses(token, widget.course.id);
                           return value = !value;
                         },
                         likeBuilder: (bool isLiked) {
                           return Padding(
-                            padding: const EdgeInsets.only(top: 1.3, left: 2.75),
+                            padding:
+                                const EdgeInsets.only(top: 1.3, left: 2.75),
                             child: Icon(
                               Icons.favorite_rounded,
-                              color:
-                              isLiked ? const Color(0xFFFE793D) : Colors.grey,
+                              color: isLiked
+                                  ? const Color(0xFFFE793D)
+                                  : Colors.grey,
                               size: 28,
                             ),
                           );
@@ -175,4 +176,14 @@ class _CoursePresentationState extends State<CoursePresentation> {
           )
         ],
       );
+
+  bool isLiked(List<SavedList> favoritesList, Course course) {
+    try {
+      favoritesList
+          .firstWhere((favorite) => favorite.course!.id == widget.course.id);
+      return true;
+    } catch (_) {
+      return false;
+    }
+  }
 }

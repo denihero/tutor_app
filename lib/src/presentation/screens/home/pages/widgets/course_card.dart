@@ -117,6 +117,9 @@ class _CourseCardState extends State<CourseCard> {
                     right: 10,
                     child: LikeButton(
                       isLiked: true,
+                      onTap: (value) async {
+                        return !value;
+                      },
                       likeBuilder: (bool isLiked) {
                         return Icon(
                           Icons.favorite_rounded,
