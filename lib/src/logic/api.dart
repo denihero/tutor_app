@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
+import 'dart:math';
 import 'package:dio/dio.dart';
 import 'package:http/http.dart' as http;
 
@@ -97,15 +98,10 @@ putImage(File? file, int id, String token, String name, String surname) async {
   Dio dio = Dio();
   dio.options.headers['Authorization'] = "Token $token";
   dio.options.headers['Content-Type'] = "multipart/form-data";
-  // dio.options.contentType = Headers.formUrlEncodedContentType;
   var response =
       await dio.put("${Api.tutorApi}/account/info_users/$id/", data: formData);
-  // if (response.statusCode! >= 400) {
-  //   throw UnimplementedError();
-  // }
   print(response.data);
   return response.data["image"];
-  // return jsonDecode(response.data)["image"];
 }
 
 getNameSurname(String email) async {
@@ -118,8 +114,10 @@ getNameSurname(String email) async {
   }
 }
 
-Future<List<Course>> getCourse() async {
-  var response = await http.get(Uri.parse("${Api.tutorApi}/course/"));
+Future<List<Course>> getCourse(String token) async {
+  var response = await http.get(Uri.parse("${Api.tutorApi}/course/"),headers: {
+    "Authorization": "Token $token",
+  });
   if (response.statusCode >= 400) throw UnimplementedError("Status code");
   final data = jsonDecode(utf8.decode(response.bodyBytes));
   List<Course> ls = [];
@@ -145,9 +143,6 @@ Future<List<SavedList>> getSavedCourse(String token) async {
   return sl;
 }
 
-
-
-
 Future<void> saveCourses(String token,int id) async {
   var response =
       await http.post(Uri.parse("${Api.tutorApi}/course/$id/saved/"), headers: {
@@ -158,10 +153,6 @@ Future<void> saveCourses(String token,int id) async {
     return jsonDecode(response.body.toString());
   }
 }
-
-
-
-
 
 Future<Course> getCourseById(String token,int id) async{
   var response = await http.get(Uri.parse('${Api.tutorApi}/course/$id/'),headers: {

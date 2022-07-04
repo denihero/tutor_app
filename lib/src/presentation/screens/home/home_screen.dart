@@ -45,7 +45,7 @@ class _HomeScreenState extends State<HomeScreen> {
       appBar: [
         TransparentAppBar(
           title: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 20),
+            padding: const EdgeInsets.symmetric(horizontal: 20),
             child: Column(
               children: const [
                 SizedBox(
@@ -66,8 +66,7 @@ class _HomeScreenState extends State<HomeScreen> {
               letterSpacing: 1.04,
             ),
           ),
-        ),
-        TransparentAppBar(
+        ), TransparentAppBar(
           title: const Text(
             "Профиль",
             style: TextStyle(
@@ -77,24 +76,14 @@ class _HomeScreenState extends State<HomeScreen> {
               letterSpacing: 1.04,
             ),
           ),
-          action: Padding(
-            padding: const EdgeInsets.only(right: 22),
-            child: IconButton(
-              icon: const Icon(
-                Icons.settings,
-                color: Color(0xFFFE793D),
-                size: 30,
-              ),
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => const SettingsScreen(),
-                  ),
-                );
-              },
-            ),
-          ),
+         action: Padding(
+           padding: const EdgeInsets.only(right: 5),
+           child: IconButton(
+               onPressed: ( ) {
+                 Navigator.push(context, MaterialPageRoute(builder: (context) => const SettingsScreen()));
+               },
+               icon: const Icon(Icons.settings,color: Color(0xFFFE793D),size: 35,)),
+         ),
         ),
       ][_currentIndex],
       body: SafeArea(

@@ -26,7 +26,7 @@ class _SavedCourseCardState extends State<SavedCourseCard> {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => CourseScreen(course: widget.course.course![0]),
+            builder: (context) => CourseScreen(course: widget.course.course!),
           ),
         );
       },
@@ -58,7 +58,7 @@ class _SavedCourseCardState extends State<SavedCourseCard> {
                     borderRadius: BorderRadius.circular(20),
                   ),
                   child: CachedNetworkImage(
-                    imageUrl: widget.course.course![0].images![0].image!,
+                    imageUrl: widget.course.course!.images![0].image!,
                     fit: BoxFit.cover,
                   ),
                 ),
@@ -72,7 +72,7 @@ class _SavedCourseCardState extends State<SavedCourseCard> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        widget.course.course![0].name ?? "",
+                        widget.course.course!.name ?? "",
                         // widget.course.title!,
                         style: const TextStyle(
                           fontSize: 18,
@@ -85,14 +85,14 @@ class _SavedCourseCardState extends State<SavedCourseCard> {
                         child: Row(
                           children: [
                             iconWithCountText(Icons.star_rounded,
-                                "${widget.course.course![0].likes} лайков"),
+                                "${widget.course.course!.likes} лайков"),
                           ],
                         ),
                       ),
                       Text(
-                        "${widget.course.course![0].lessons!.length} " +
+                        "${widget.course.course!.lessons!.length} " +
                             rightLessonsCountName(
-                                widget.course.course![0].lessons!.length),
+                                widget.course.course!.lessons!.length),
                         style: const TextStyle(
                           fontSize: 10,
                           fontWeight: FontWeight.w500,
