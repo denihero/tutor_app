@@ -2,7 +2,6 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:like_button/like_button.dart';
-import 'package:tutor_app/src/logic/cubit/save_course/save_course_cubit.dart';
 import 'package:tutor_app/src/logic/cubit/saved/favorite_cubit.dart';
 import 'package:tutor_app/src/models/models.dart';
 
@@ -102,7 +101,7 @@ class _CoursePresentationState extends State<CoursePresentation> {
                 child: BlocBuilder<FavoritesCubit, FavoritesState>(
                   builder: (context, state) {
                     if(state is FavoritesCompleted){
-                      //TODO check if saved work correctly
+                      //TODO: ADD BloC to save properly
                       final isLiked = state.favoritesList[1].saved;
                       return LikeButton(
                         isLiked: isLiked,
