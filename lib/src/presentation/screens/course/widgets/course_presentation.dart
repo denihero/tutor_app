@@ -16,7 +16,7 @@ class CoursePresentation extends StatefulWidget {
 
   final Course course;
   final bool isLiked;
-  final Function(bool) onLikeTapped;
+  final Function onLikeTapped;
 
   @override
   State<CoursePresentation> createState() => _CoursePresentationState();
@@ -106,7 +106,7 @@ class _CoursePresentationState extends State<CoursePresentation> {
                 child: LikeButton(
                   isLiked: widget.isLiked,
                   onTap: (value) async {
-                    widget.onLikeTapped(!value);
+                    widget.onLikeTapped();
                     
                     return value = !value;
                   },
