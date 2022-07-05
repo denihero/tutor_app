@@ -5,9 +5,9 @@ import 'package:tutor_app/src/logic/blocs/authetication/authentication_bloc.dart
 import 'package:tutor_app/src/logic/cubit/categories/categories_cubit.dart';
 import 'package:tutor_app/src/logic/cubit/course/courses_cubit.dart';
 import 'package:tutor_app/src/models/models.dart';
+import 'package:tutor_app/src/presentation/components/shimmer_load_coure_card.dart';
 import 'package:tutor_app/src/presentation/screens/home/pages/widgets/course_card.dart';
-import 'package:tutor_app/src/presentation/screens/home/pages/widgets/shimmer_load_categories_badges_widget.dart';
-import 'package:tutor_app/src/presentation/screens/home/pages/widgets/shimmer_load_coure_card.dart';
+import 'package:tutor_app/src/presentation/components/shimmer_load_categories_badges_widget.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);

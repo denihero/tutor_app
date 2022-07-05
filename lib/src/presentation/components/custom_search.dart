@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tutor_app/src/logic/blocs/authetication/authentication_bloc.dart';
 import 'package:tutor_app/src/logic/cubit/search/search_cubit.dart';
 import 'package:sizer/sizer.dart';
-import 'package:tutor_app/src/presentation/screens/home/pages/widgets/shimmer_load_coure_card.dart';
+import 'package:tutor_app/src/presentation/components/shimmer_load_coure_card.dart';
 import '../../models/models.dart';
 import '../screens/home/pages/widgets/course_card.dart';
 
