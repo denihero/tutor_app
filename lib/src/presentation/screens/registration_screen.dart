@@ -277,19 +277,15 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                                         ButtonWithTextAndArrow(
                                           text: 'Confirm',
                                           onTap: () {
-                                            print(_nameController.text);
-                                            print(_surnameController.text);
-                                            print(passwordController.text);
-                                            print(usernameController.text);
                                             final email =
                                                 usernameController.text;
                                             BlocProvider.of<AuthBloc>(context)
                                                 .add(
                                               AuthRegisterSendNameSurname(
-                                                name: _nameController.text ?? '',
+                                                name: _nameController.text ,
                                                 file: imageFile,
                                                 surname:
-                                                    _surnameController.text?? '' ,
+                                                    _surnameController.text,
                                                 username: email,
                                                 password:
                                                     passwordController.text,
