@@ -1,7 +1,7 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:like_button/like_button.dart';
 import 'package:sizer/sizer.dart';
+import 'package:like_button/like_button.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:tutor_app/src/models/models.dart';
 import 'package:tutor_app/src/presentation/screens/course/course_screen.dart';
 
@@ -119,7 +119,7 @@ class _CourseCardState extends State<CourseCard> {
                     child: LikeButton(
                       isLiked: true,
                       onTap: (value) async {
-                        return !value;
+                        return true;
                       },
                       likeBuilder: (bool isLiked) {
                         return Icon(
@@ -160,7 +160,7 @@ class _CourseCardState extends State<CourseCard> {
           Text(
             text,
             style: TextStyle(
-              color: const  Color(0xFF878787),
+              color: const Color(0xFF878787),
               fontSize: 7.sp,
               fontWeight: FontWeight.w400,
               letterSpacing: 1.04,
