@@ -20,7 +20,7 @@ class _HomePageState extends State<HomePage> {
   int? choiceIndex;
   List<String> categoryNames = [];
   late String token;
-  
+
   @override
   void initState() {
     super.initState();
