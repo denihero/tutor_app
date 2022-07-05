@@ -2,16 +2,21 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:like_button/like_button.dart';
-import 'package:tutor_app/src/logic/cubit/save_course/save_course_cubit.dart';
-import 'package:tutor_app/src/logic/cubit/saved/favorite_cubit.dart';
 import 'package:tutor_app/src/models/models.dart';
 
 import '../../../../logic/blocs/authetication/authentication_bloc.dart';
 
 class CoursePresentation extends StatefulWidget {
-  const CoursePresentation({Key? key, required this.course}) : super(key: key);
+  const CoursePresentation({
+    Key? key,
+    required this.course,
+    required this.isLiked,
+    required this.onLikeTapped,
+  }) : super(key: key);
 
   final Course course;
+  final bool isLiked;
+  final Function(bool) onLikeTapped;
 
   @override
   State<CoursePresentation> createState() => _CoursePresentationState();
@@ -98,45 +103,23 @@ class _CoursePresentationState extends State<CoursePresentation> {
                 ],
               ),
               child: Center(
-                child: BlocProvider<SaveCourseCubit>(
-                  create: (context) => SaveCourseCubit(),
-                  child: BlocBuilder<FavoritesCubit, FavoritesState>(
-                    builder: (context, favoritesState) {
-                      if (favoritesState is FavoritesCompleted) {
-                        return BlocBuilder<SaveCourseCubit, SaveCourseState>(
-                            builder: (context, saveState) {
-                          if (saveState is ProcessingSaveCourseState) {
-                            return const CircularProgressIndicator();
-                          }
-                          return LikeButton(
-                            isLiked: isLiked(
-                                favoritesState.favoritesList, widget.course),
-                            onTap: (value) async {
-                              context
-                                  .read<SaveCourseCubit>()
-                                  .controlSaveCourse(token, widget.course.id);
-                              setState(() {});
-                              return value = !value;
-                            },
-                            likeBuilder: (bool isLiked) {
-                              return Padding(
-                                padding:
-                                    const EdgeInsets.only(top: 1.3, left: 2.75),
-                                child: Icon(
-                                  Icons.favorite_rounded,
-                                  color: isLiked
-                                      ? const Color(0xFFFE793D)
-                                      : Colors.grey,
-                                  size: 28,
-                                ),
-                              );
-                            },
-                          );
-                        });
-                      }
-                      return const SizedBox();
-                    },
-                  ),
+                child: LikeButton(
+                  isLiked: widget.isLiked,
+                  onTap: (value) async {
+                    widget.onLikeTapped(!value);
+                    
+                    return value = !value;
+                  },
+                  likeBuilder: (bool isLiked) {
+                    return Padding(
+                      padding: const EdgeInsets.only(top: 1.3, left: 2.75),
+                      child: Icon(
+                        Icons.favorite_rounded,
+                        color: isLiked ? const Color(0xFFFE793D) : Colors.grey,
+                        size: 28,
+                      ),
+                    );
+                  },
                 ),
               ),
             ),
@@ -188,14 +171,4 @@ class _CoursePresentationState extends State<CoursePresentation> {
           )
         ],
       );
-
-  bool isLiked(List<SavedList> favoritesList, Course course) {
-    try {
-      favoritesList
-          .firstWhere((favorite) => favorite.course!.id == widget.course.id);
-      return true;
-    } catch (_) {
-      return false;
-    }
-  }
 }
