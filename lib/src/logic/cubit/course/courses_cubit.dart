@@ -22,7 +22,6 @@ class CoursesCubit extends Cubit<CoursesState> {
 
       emit(CoursesCompleted(courses: filtered));
     } catch (e) {
-      print(e);
       emit(CoursesError());
     }
   }
@@ -32,16 +31,13 @@ class CoursesCubit extends Cubit<CoursesState> {
     try {
       List<Course> courses = await getCourse(token);
       emit(CoursesCompleted(courses: courses));
-    } catch (e,s) {
-      print(e);
-      print(s);
+    } catch (e) {
       emit(CoursesError());
     }
   }
 
   @override
   void onChange(Change<CoursesState> change) {
-    print(change);
     super.onChange(change);
   }
 }

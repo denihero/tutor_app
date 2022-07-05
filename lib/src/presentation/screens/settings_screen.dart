@@ -64,7 +64,7 @@ class SettingsScreen extends StatelessWidget {
               Material(
                 child: GestureDetector(
                   onTap: () {
-                    BlocProvider.of<AuthBloc>(context).add(AuthLogout());
+                    BlocProvider.of<AuthBloc>(context).add(const AuthLogout());
                     Navigator.of(context).pushAndRemoveUntil(
                         MaterialPageRoute(
                             builder: (_) => const LoginScreen()),

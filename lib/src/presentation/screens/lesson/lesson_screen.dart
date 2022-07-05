@@ -6,7 +6,6 @@ import 'package:tutor_app/src/logic/cubit/video/video_cubit.dart';
 import 'package:tutor_app/src/models/models.dart';
 import 'package:video_player/video_player.dart';
 import 'package:flutter_highlight/flutter_highlight.dart';
-import 'package:flutter_highlight/themes/github.dart';
 import '../../components/appbars/transparent_appbar.dart';
 
 class LessonScreen extends StatefulWidget {
@@ -24,7 +23,7 @@ class _LessonScreenState extends State<LessonScreen> {
   @override
   Widget build(BuildContext context) {
     String videoUrl = widget.lesson.videos![1].url;
-    print(videoUrl);
+
     return BlocProvider<VideoCubit>(
       create: (context) => VideoCubit()..loadVideoFromNetwork(videoUrl),
       child: Scaffold(

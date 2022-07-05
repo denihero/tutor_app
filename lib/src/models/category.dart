@@ -5,12 +5,12 @@ class Categories extends Equatable {
 
   factory Categories.fromJson(List<dynamic> json) {
     Map<String, String> x = {};
-    var c = json.forEach((element) {
+    for (var element in json) {
       x[element["title"]] = element["title"];
-    });
+    }
     return Categories(x);
   }
-  Categories(this.categories);
+  const Categories(this.categories);
 
   @override
   List<Object?> get props => [categories];

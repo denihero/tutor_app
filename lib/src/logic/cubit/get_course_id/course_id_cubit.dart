@@ -13,9 +13,7 @@ class CourseIdCubit extends Cubit<CourseIdState> {
     try{
       Course course = await getCourseById(token, id);
       emit(CoursesIdLoaded(course: course));
-    }catch(e,s){
-      print(e);
-      print(s);
+    }catch(e){
       emit(CoursesIdError());
     }
   }

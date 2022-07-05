@@ -41,7 +41,7 @@ class _ProfileEditIconState extends State<ProfileEditIcon> {
                         Navigator.of(context).push(MaterialPageRoute(
                             builder: (_) => const ChangeImage()));
                       },
-                      child: ProfileIcon(
+                      child: const ProfileIcon(
                         isSettings: true,
                       ),
                     )

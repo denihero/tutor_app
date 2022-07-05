@@ -13,14 +13,14 @@ class TransparentAppBar extends StatelessWidget implements PreferredSizeWidget {
       elevation: 0,
       centerTitle: true,
       title: title,
-      leading: leading ?? SizedBox(),
+      leading: leading ?? const SizedBox(),
       automaticallyImplyLeading: false,
       actions: [
-        action ?? SizedBox(),
+        action ?? const SizedBox(),
       ],
     );
   }
 
   @override
-  Size get preferredSize => Size.fromHeight(80);
+  Size get preferredSize => const Size.fromHeight(80);
 }

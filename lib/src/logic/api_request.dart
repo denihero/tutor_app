@@ -4,7 +4,6 @@ import 'package:dio/dio.dart';
 import 'package:http/http.dart' as http;
 
 import '../constant/api.dart';
-import '../models/category.dart';
 import '../models/models.dart';
 
 
@@ -16,7 +15,7 @@ Future<String> login(String username, String password) async {
       "password": password,
     },
   );
-  print(response.body.toString());
+
   if (response.statusCode >= 400) throw UnimplementedError();
   if (response.statusCode == 201 || response.statusCode == 200) {
     return jsonDecode(response.body.toString())["token"];
@@ -87,7 +86,6 @@ putImage(File? file, int id, String token, String name, String surname) async {
   // if (response.statusCode! >= 400) {
   //   throw UnimplementedError();
   // }
-  print(response.data);
   return response.data["image"];
   // return jsonDecode(response.data)["image"];
 }

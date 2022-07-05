@@ -13,7 +13,6 @@ class HistoryCubit extends Cubit<HistoryState> {
       List<Course> course = await getViewedCourses(token);
       emit(HistorySuccess(historyCourses: course));
     }catch(e){
-      print(e);
       emit(HistoryError());
     }
 
