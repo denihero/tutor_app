@@ -3,20 +3,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_highlight/themes/a11y-dark.dart';
-import 'package:flutter_highlight/themes/atom-one-dark.dart';
-import 'package:flutter_highlight/themes/atom-one-light.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
-import 'package:highlight/languages/dart.dart';
-import 'package:highlight/languages/python.dart';
 import 'package:tutor_app/src/logic/cubit/video/video_cubit.dart';
 import 'package:tutor_app/src/models/models.dart';
 import 'package:video_player/video_player.dart';
 import 'package:markdown/markdown.dart' as md;
 import '../../components/appbars/transparent_appbar.dart';
 import 'package:flutter_highlight/flutter_highlight.dart';
-import 'package:flutter_markdown/flutter_markdown.dart';
-import 'package:markdown/markdown.dart' as md;
-import 'package:google_fonts/google_fonts.dart';
 
 class LessonScreen extends StatefulWidget {
   const LessonScreen({Key? key, required this.id, required this.lesson})

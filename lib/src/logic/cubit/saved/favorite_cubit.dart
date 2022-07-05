@@ -9,10 +9,17 @@ part 'favorutes_state.dart';
 
 class FavoritesCubit extends Cubit<FavoritesState> {
   FavoritesCubit() : super(FavoritesInitial());
-  getSavedList(String token) async {
+
+  List<Course> savedCourses = [];
+
+  loadSavedList(String token) async {
     try {
       emit(FavoritesLoading());
+
       List<SavedList> data = await getSavedCourse(token);
+
+      savedCourses = data.map((savedCourse) => savedCourse.course!).toList();
+
       log('$data');
       if (data.isNotEmpty) {
         emit(FavoritesCompleted(favoritesList: data));

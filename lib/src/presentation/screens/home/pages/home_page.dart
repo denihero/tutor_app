@@ -1,5 +1,3 @@
-import 'dart:core';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sizer/sizer.dart';
@@ -22,18 +20,20 @@ class _HomePageState extends State<HomePage> {
   int? choiceIndex;
   List<String> categoryNames = [];
   late String token;
+  
   @override
   void initState() {
-    token = BlocProvider.of<AuthBloc>(context).state.token;
     super.initState();
+
+    token = BlocProvider.of<AuthBloc>(context).state.token;
   }
 
   @override
   Widget build(BuildContext context) {
     return RefreshIndicator(
-      onRefresh: () async{
+      onRefresh: () async {
         await Future.delayed(const Duration(seconds: 1));
-          BlocProvider.of<CoursesCubit>(context).fetchCourse(token);
+        BlocProvider.of<CoursesCubit>(context).fetchCourse(token);
       },
       child: Column(
         children: [
@@ -43,29 +43,28 @@ class _HomePageState extends State<HomePage> {
             margin: const EdgeInsets.only(left: 17, bottom: 43),
             child: BlocBuilder<CategoriesCubit, Cat>(
               builder: (context, state) {
-              if(state is CategoriesLoading){
-                return ListView.builder(
-                    itemCount: 5,
-                    scrollDirection: Axis.horizontal,
-                    itemBuilder: (context,index){
-                      return const ShimmerLoadCategoriesBadgesWidget();
-                    });
-              }else if(state is Categories){
-                categoryNames = state.categories.keys.toList();
-                return ListView.builder(
-                    scrollDirection: Axis.horizontal,
-                    itemCount: categoryNames.length - categoryNames.length + 1,
-                    itemBuilder: (BuildContext context, int index) => Padding(
-                        padding: const EdgeInsets.only(left: 10),
-                        child: Wrap(
-                          spacing: 10,
-                          children: techChips(index,context),
-                        )));
-              }
-              return Container();
-
-            },
-
+                if (state is CategoriesLoading) {
+                  return ListView.builder(
+                      itemCount: 5,
+                      scrollDirection: Axis.horizontal,
+                      itemBuilder: (context, index) {
+                        return const ShimmerLoadCategoriesBadgesWidget();
+                      });
+                } else if (state is Categories) {
+                  categoryNames = state.categories.keys.toList();
+                  return ListView.builder(
+                      scrollDirection: Axis.horizontal,
+                      itemCount:
+                          categoryNames.length - categoryNames.length + 1,
+                      itemBuilder: (BuildContext context, int index) => Padding(
+                          padding: const EdgeInsets.only(left: 10),
+                          child: Wrap(
+                            spacing: 10,
+                            children: techChips(index, context),
+                          )));
+                }
+                return Container();
+              },
             ),
           ),
           BlocBuilder<CoursesCubit, CoursesState>(
@@ -74,10 +73,9 @@ class _HomePageState extends State<HomePage> {
                 return Expanded(
                   child: ListView.builder(
                       itemCount: 8,
-                      itemBuilder: (context,index){
+                      itemBuilder: (context, index) {
                         return const ShimmerLoadCardWidget();
-                      }
-                  ),
+                      }),
                 );
               }
               if (state is CoursesCompleted) {
@@ -125,7 +123,7 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  List<Widget> techChips(int index,BuildContext context) {
+  List<Widget> techChips(int index, BuildContext context) {
     String token = BlocProvider.of<AuthBloc>(context).state.token;
     List<Widget> chips = [];
     for (int i = 0; i < categoryNames.length; i++) {
@@ -153,7 +151,7 @@ class _HomePageState extends State<HomePage> {
             if (isSelected) {
               choiceIndex = i;
               BlocProvider.of<CoursesCubit>(context)
-                  .fetchCourseFromCategory(categoryNames[choiceIndex!],token);
+                  .fetchCourseFromCategory(categoryNames[choiceIndex!], token);
             } else {
               BlocProvider.of<CoursesCubit>(context).fetchCourse(token);
               choiceIndex = null;

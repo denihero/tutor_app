@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tutor_app/src/logic/cubit/get_course_id/course_id_cubit.dart';
 import 'package:tutor_app/src/logic/cubit/history/history_cubit.dart';
+import 'package:tutor_app/src/logic/cubit/saved/favorite_cubit.dart';
 import 'package:tutor_app/src/models/models.dart';
 
 import 'package:tutor_app/src/presentation/screens/course/widgets/course_presentation.dart';
@@ -21,11 +22,20 @@ class CourseScreen extends StatefulWidget {
 
 class _CourseScreenState extends State<CourseScreen> {
   late String token;
+  late bool isLiked;
+
   @override
   void initState() {
     super.initState();
+
     token = BlocProvider.of<AuthBloc>(context).state.token;
-    BlocProvider.of<CourseIdCubit>(context).getCourseCubitById(token, widget.course.id);
+
+    BlocProvider.of<CourseIdCubit>(context)
+        .getCourseCubitById(token, widget.course.id);
+
+    isLiked = BlocProvider.of<FavoritesCubit>(context)
+        .savedCourses
+        .contains(widget.course);
   }
 
   @override
@@ -56,17 +66,22 @@ class _CourseScreenState extends State<CourseScreen> {
           ),
         ),
       ),
-      body: BlocBuilder<CourseIdCubit, CourseIdState>(
-        builder: (context, state) {
-          if(state is CoursesIdLoaded){
-            BlocProvider.of<HistoryCubit>(context).getCubitViewedCourses(token);
-            return SafeArea(
-              child: Padding(
+      body: SafeArea(
+        child: BlocBuilder<CourseIdCubit, CourseIdState>(
+          builder: (context, courseState) {
+            if (courseState is CoursesIdLoaded) {
+              BlocProvider.of<HistoryCubit>(context)
+                  .getCubitViewedCourses(token);
+              return Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 30),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    CoursePresentation(course: widget.course),
+                    CoursePresentation(
+                      course: widget.course,
+                      isLiked: isLiked,
+                      onLikeTapped: (value) {},
+                    ),
                     const Padding(
                       padding: EdgeInsets.only(top: 30, bottom: 6.5),
                       child: Text(
@@ -83,26 +98,28 @@ class _CourseScreenState extends State<CourseScreen> {
                         itemCount: widget.course.lessons?.length,
                         itemBuilder: (BuildContext context, int index) =>
                             LessonCard(
-                              id: index + 1,
-                              lesson: widget.course.lessons![index],
-                            ),
+                          id: index + 1,
+                          lesson: widget.course.lessons![index],
+                        ),
                       ),
                     ),
                   ],
                 ),
-              ),
-            );
-          }if(state is CoursesIdError){
-            return const Center(
-              child: Text('Something get wrong'),
-            );
-          }if(state is CoursesIdLoading){
-            return const Center(
-              child: CircularProgressIndicator(),
-            );
-          }
-          return Container();
-        },
+              );
+            }
+            if (courseState is CoursesIdError) {
+              return const Center(
+                child: Text('Something get wrong'),
+              );
+            }
+            if (courseState is CoursesIdLoading) {
+              return const Center(
+                child: CircularProgressIndicator(),
+              );
+            }
+            return Container();
+          },
+        ),
       ),
     );
   }
