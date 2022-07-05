@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:tutor_app/src/logic/api.dart';
 import 'package:tutor_app/src/logic/cubit/get_course_id/course_id_cubit.dart';
 import 'package:tutor_app/src/logic/cubit/history/history_cubit.dart';
 import 'package:tutor_app/src/logic/cubit/saved/favorite_cubit.dart';
@@ -24,6 +25,8 @@ class _CourseScreenState extends State<CourseScreen> {
   late String token;
   late bool isLiked;
 
+  bool isLikeTrigerred = false;
+
   @override
   void initState() {
     super.initState();
@@ -40,87 +43,106 @@ class _CourseScreenState extends State<CourseScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: TransparentAppBar(
-        title: const Text(
-          "Детали видео урока",
-          style: TextStyle(
-            color: Colors.black,
-            fontSize: 18,
-            fontWeight: FontWeight.w600,
-            letterSpacing: 1.04,
-          ),
-        ),
-        leading: Padding(
-          padding: const EdgeInsets.only(left: 22),
-          child: IconButton(
-            padding: EdgeInsets.zero,
-            onPressed: () {
-              Navigator.pop(context);
-            },
-            icon: const Icon(
-              Icons.home_rounded,
+    return WillPopScope(
+      onWillPop: () async {
+        await controlSaveCourse();
+
+        return true;
+      },
+      child: Scaffold(
+        appBar: TransparentAppBar(
+          title: const Text(
+            "Детали видео урока",
+            style: TextStyle(
               color: Colors.black,
-              size: 30,
+              fontSize: 18,
+              fontWeight: FontWeight.w600,
+              letterSpacing: 1.04,
+            ),
+          ),
+          leading: Padding(
+            padding: const EdgeInsets.only(left: 22),
+            child: IconButton(
+              padding: EdgeInsets.zero,
+              onPressed: () async {
+                await controlSaveCourse();
+
+                Navigator.pop(context);
+              },
+              icon: const Icon(
+                Icons.home_rounded,
+                color: Colors.black,
+                size: 30,
+              ),
             ),
           ),
         ),
-      ),
-      body: SafeArea(
-        child: BlocBuilder<CourseIdCubit, CourseIdState>(
-          builder: (context, courseState) {
-            if (courseState is CoursesIdLoaded) {
-              BlocProvider.of<HistoryCubit>(context)
-                  .getCubitViewedCourses(token);
-              return Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 30),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    CoursePresentation(
-                      course: widget.course,
-                      isLiked: isLiked,
-                      onLikeTapped: (value) {},
-                    ),
-                    const Padding(
-                      padding: EdgeInsets.only(top: 30, bottom: 6.5),
-                      child: Text(
-                        "Видео уроки",
-                        style: TextStyle(
-                          fontSize: 13,
-                          fontWeight: FontWeight.w600,
-                          letterSpacing: 1.04,
+        body: SafeArea(
+          child: BlocBuilder<CourseIdCubit, CourseIdState>(
+            builder: (context, courseState) {
+              if (courseState is CoursesIdLoaded) {
+                BlocProvider.of<HistoryCubit>(context)
+                    .getCubitViewedCourses(token);
+                return Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 30),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      CoursePresentation(
+                        course: widget.course,
+                        isLiked: isLiked,
+                        onLikeTapped: () {
+                          isLikeTrigerred = !isLikeTrigerred;
+                        },
+                      ),
+                      const Padding(
+                        padding: EdgeInsets.only(top: 30, bottom: 6.5),
+                        child: Text(
+                          "Видео уроки",
+                          style: TextStyle(
+                            fontSize: 13,
+                            fontWeight: FontWeight.w600,
+                            letterSpacing: 1.04,
+                          ),
                         ),
                       ),
-                    ),
-                    Expanded(
-                      child: ListView.builder(
-                        itemCount: widget.course.lessons?.length,
-                        itemBuilder: (BuildContext context, int index) =>
-                            LessonCard(
-                          id: index + 1,
-                          lesson: widget.course.lessons![index],
+                      Expanded(
+                        child: ListView.builder(
+                          itemCount: widget.course.lessons?.length,
+                          itemBuilder: (BuildContext context, int index) =>
+                              LessonCard(
+                            id: index + 1,
+                            lesson: widget.course.lessons![index],
+                          ),
                         ),
                       ),
-                    ),
-                  ],
-                ),
-              );
-            }
-            if (courseState is CoursesIdError) {
-              return const Center(
-                child: Text('Something get wrong'),
-              );
-            }
-            if (courseState is CoursesIdLoading) {
-              return const Center(
-                child: CircularProgressIndicator(),
-              );
-            }
-            return Container();
-          },
+                    ],
+                  ),
+                );
+              }
+              if (courseState is CoursesIdError) {
+                return const Center(
+                  child: Text('Something get wrong'),
+                );
+              }
+              if (courseState is CoursesIdLoading) {
+                return const Center(
+                  child: CircularProgressIndicator(),
+                );
+              }
+              return Container();
+            },
+          ),
         ),
       ),
     );
+  }
+
+  controlSaveCourse() async {
+    if (isLikeTrigerred) {
+      await saveCourses(token, widget.course.id);
+
+      BlocProvider.of<FavoritesCubit>(context).loadSavedList(token);
+    }
   }
 }

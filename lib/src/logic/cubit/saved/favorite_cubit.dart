@@ -26,9 +26,7 @@ class FavoritesCubit extends Cubit<FavoritesState> {
       } else {
         emit(FavoritesEmpty());
       }
-    } catch (e,s) {
-      print(e);
-      print(s);
+    } catch (e) {
       emit(FavoritesError());
     }
   }
