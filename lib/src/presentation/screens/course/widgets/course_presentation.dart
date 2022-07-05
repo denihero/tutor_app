@@ -2,10 +2,10 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:like_button/like_button.dart';
+import 'package:tutor_app/src/logic/cubit/save_course/save_course_cubit.dart';
 import 'package:tutor_app/src/logic/cubit/saved/favorite_cubit.dart';
 import 'package:tutor_app/src/models/models.dart';
 
-import '../../../../logic/api.dart';
 import '../../../../logic/blocs/authetication/authentication_bloc.dart';
 
 class CoursePresentation extends StatefulWidget {
@@ -98,33 +98,45 @@ class _CoursePresentationState extends State<CoursePresentation> {
                 ],
               ),
               child: Center(
-                child: BlocBuilder<FavoritesCubit, FavoritesState>(
-                  builder: (context, state) {
-                    if (state is FavoritesCompleted) {
-                      //TODO: ADD BloC to save properly
-                      return LikeButton(
-                        isLiked: isLiked(state.favoritesList, widget.course),
-                        onTap: (value) async {
-                          await saveCourses(token, widget.course.id);
-                          return value = !value;
-                        },
-                        likeBuilder: (bool isLiked) {
-                          return Padding(
-                            padding:
-                                const EdgeInsets.only(top: 1.3, left: 2.75),
-                            child: Icon(
-                              Icons.favorite_rounded,
-                              color: isLiked
-                                  ? const Color(0xFFFE793D)
-                                  : Colors.grey,
-                              size: 28,
-                            ),
+                child: BlocProvider<SaveCourseCubit>(
+                  create: (context) => SaveCourseCubit(),
+                  child: BlocBuilder<FavoritesCubit, FavoritesState>(
+                    builder: (context, favoritesState) {
+                      if (favoritesState is FavoritesCompleted) {
+                        return BlocBuilder<SaveCourseCubit, SaveCourseState>(
+                            builder: (context, saveState) {
+                          if (saveState is ProcessingSaveCourseState) {
+                            return const CircularProgressIndicator();
+                          }
+                          return LikeButton(
+                            isLiked: isLiked(
+                                favoritesState.favoritesList, widget.course),
+                            onTap: (value) async {
+                              context
+                                  .read<SaveCourseCubit>()
+                                  .controlSaveCourse(token, widget.course.id);
+                              setState(() {});
+                              return value = !value;
+                            },
+                            likeBuilder: (bool isLiked) {
+                              return Padding(
+                                padding:
+                                    const EdgeInsets.only(top: 1.3, left: 2.75),
+                                child: Icon(
+                                  Icons.favorite_rounded,
+                                  color: isLiked
+                                      ? const Color(0xFFFE793D)
+                                      : Colors.grey,
+                                  size: 28,
+                                ),
+                              );
+                            },
                           );
-                        },
-                      );
-                    }
-                    return Container();
-                  },
+                        });
+                      }
+                      return const SizedBox();
+                    },
+                  ),
                 ),
               ),
             ),
