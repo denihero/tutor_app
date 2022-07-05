@@ -125,16 +125,16 @@ class SavedList {
 
 class Video {
   Video({
-    required this.video,
+    required this.url,
   });
 
-  String video;
+  final String url;
 
   factory Video.fromJson(Map<String, dynamic> json) => Video(
-        video: json["video"],
+        url: json["video"],
       );
 
   Map<String, dynamic> toJson() => {
-        "video": video,
+        "video": url,
       };
 }

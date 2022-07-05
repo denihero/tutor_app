@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tutor_app/src/logic/cubit/saved/favorite_cubit.dart';
-import 'package:tutor_app/src/presentation/screens/home/pages/widgets/saved_course_card.dart';
+import 'package:tutor_app/src/presentation/screens/home/pages/widgets/course_card.dart';
 
 class FavoritePage extends StatefulWidget {
   const FavoritePage({Key? key}) : super(key: key);
@@ -13,39 +13,38 @@ class FavoritePage extends StatefulWidget {
 class _FavoritePageState extends State<FavoritePage> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: BlocBuilder<FavoritesCubit, FavoritesState>(
-        builder: (context, state) {
-          if (state is FavoritesLoading) {
-            return const Center(child: CircularProgressIndicator());
-          }
-          if (state is FavoritesError) {
-            return const Center(child: Text('There is error in saved list'));
-          }
-          if (state is FavoritesEmpty) {
-            return const Center(
-              child: Text('There is nothing'),
-            );
-          }
-          if (state is FavoritesCompleted) {
-            final courses = state.favoritesList;
-
-            return Column(
-              children: [
-                Expanded(
-                  child: ListView.builder(
-                      itemCount: courses.length,
-                      itemBuilder: (BuildContext context, int index) {
-                        return SavedCourseCard(
-                            course: courses[index]);
-                      }),
-                ),
-              ],
-            );
-          }
-          return Container();
-        },
-      ),
+    return BlocBuilder<FavoritesCubit, FavoritesState>(
+      builder: (context, state) {
+        if (state is FavoritesLoading) {
+          return const Center(child: CircularProgressIndicator());
+        }
+        if (state is FavoritesError) {
+          return const Center(child: Text('There is error in saved list'));
+        }
+        if (state is FavoritesEmpty) {
+          return const Center(
+            child: Text('There is nothing'),
+          );
+        }
+        if (state is FavoritesCompleted) {
+          final courses = state.favoritesList;
+          return Column(
+            children: [
+              Expanded(
+                child: ListView.builder(
+                    itemCount: courses.length,
+                    itemBuilder: (BuildContext context, int index) {
+                      return CourseCard(
+                        course: courses[index].course!,
+                        isForFavoritePage: courses[index].saved!,
+                      );
+                    }),
+              ),
+            ],
+          );
+        }
+        return Container();
+      },
     );
   }
 }

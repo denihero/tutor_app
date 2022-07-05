@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tutor_app/src/logic/blocs/authetication/authentication_bloc.dart';
 import 'package:tutor_app/src/logic/cubit/search/search_cubit.dart';
 import 'package:sizer/sizer.dart';
+import 'package:tutor_app/src/presentation/screens/home/pages/widgets/shimmer_load_coure_card.dart';
 import '../../models/models.dart';
 import '../screens/home/pages/widgets/course_card.dart';
 
@@ -15,6 +16,7 @@ class CustomSearch extends StatelessWidget {
       height: 4.5.h,
       width: 65.w,
       child: TextFormField(
+        readOnly: true,
         onTap: () {
           showSearch(
             context: context,
@@ -115,17 +117,16 @@ class CustomSearchDelegate extends SearchDelegate {
     queryString = query;
     searchCubit.fetchSearch(query,token);
 
-    return BlocBuilder<SearchCubit, SearchState>(
+   return BlocBuilder<SearchCubit, SearchState>(
       builder: (context, state) {
         if (state is SearchProcessing) {
-          return const Center(
-            child: CircularProgressIndicator(
-              color: Colors.orange,
-            ),
+          return ListView.builder(
+            itemCount: 5,
+            itemBuilder: (context,index){
+              return ShimmerLoadCardWidget();
+            },
           );
-        }
-
-        if (state is SearchCompleted) {
+        }if (state is SearchCompleted) {
           var courses = state.courses;
           return Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -200,8 +201,93 @@ class CustomSearchDelegate extends SearchDelegate {
 
   @override
   Widget buildSuggestions(BuildContext context) {
-    return Column(
-      children: const [],
-    );
+    String token = BlocProvider.of<AuthBloc>(context).state.token;
+    queryString = query;
+    searchCubit.fetchSearch(query,token);
+
+    if(queryString.length > 2)
+      {
+        return BlocBuilder<SearchCubit, SearchState>(
+          builder: (context, state) {
+            if (state is SearchProcessing) {
+              return ListView.builder(
+                itemCount: 5,
+                itemBuilder: (context,index){
+                  return ShimmerLoadCardWidget();
+                },
+              );
+            }if (state is SearchCompleted) {
+              var courses = state.courses;
+              return Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.only(left: 25),
+                    child: Text(
+                      "Результаты для “$queryString”",
+                      style: TextStyle(
+                          fontSize: 16.sp,
+                          fontWeight: FontWeight.w700,
+                          letterSpacing: 1.03),
+                    ),
+                  ),
+                  const Divider(
+                    thickness: 2,
+                  ),
+                  Expanded(
+                    child: ListView.builder(
+                        itemCount: courses.length,
+                        itemBuilder: (BuildContext context, int index) {
+                          Course course = courses[index];
+                          return CourseCard(
+                            course: Course(
+                                name: course.name,
+                                categoryName: course.categoryName,
+                                lessons: course.lessons,
+                                images: course.images,
+                                likes: course.likes,
+                                id: course.id),
+                          );
+                        }),
+                  ),
+                ],
+              );
+            }
+
+            if (state is SearchEmpty) {
+              return Padding(
+                padding: const EdgeInsets.all(20),
+                child: Text(
+                  "Результаты для “$queryString” не найдены",
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                      fontSize: 14.sp,
+                      fontWeight: FontWeight.w700,
+                      letterSpacing: 1.03),
+                ),
+              );
+            }
+
+            return Column(
+              children: [
+                Icon(
+                  Icons.error_outline_rounded,
+                  size: 60.sp,
+                  color: Colors.black38,
+                ),
+                Text(
+                  "Something get wrong",
+                  style: TextStyle(
+                    fontSize: 24.sp,
+                    color: Colors.black38,
+                    fontWeight: FontWeight.w500,
+                  ),
+                ),
+              ],
+            );
+          },
+        );
+      }
+    return Container();
   }
 }
