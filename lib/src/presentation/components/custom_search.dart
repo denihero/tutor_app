@@ -113,7 +113,90 @@ class CustomSearchDelegate extends SearchDelegate {
 
   @override
   Widget buildResults(BuildContext context) {
-   return Container();
+    String token = BlocProvider.of<AuthBloc>(context).state.token;
+    queryString = query;
+    searchCubit.fetchSearch(query,token);
+
+   return BlocBuilder<SearchCubit, SearchState>(
+      builder: (context, state) {
+        if (state is SearchProcessing) {
+          return ListView.builder(
+            itemCount: 5,
+            itemBuilder: (context,index){
+              return ShimmerLoadCardWidget();
+            },
+          );
+        }if (state is SearchCompleted) {
+          var courses = state.courses;
+          return Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(left: 25),
+                child: Text(
+                  "Результаты для “$queryString”",
+                  style: TextStyle(
+                      fontSize: 16.sp,
+                      fontWeight: FontWeight.w700,
+                      letterSpacing: 1.03),
+                ),
+              ),
+              const Divider(
+                thickness: 2,
+              ),
+              Expanded(
+                child: ListView.builder(
+                    itemCount: courses.length,
+                    itemBuilder: (BuildContext context, int index) {
+                      Course course = courses[index];
+                      return CourseCard(
+                        course: Course(
+                            name: course.name,
+                            categoryName: course.categoryName,
+                            lessons: course.lessons,
+                            images: course.images,
+                            likes: course.likes,
+                            id: course.id),
+                      );
+                    }),
+              ),
+            ],
+          );
+        }
+
+        if (state is SearchEmpty) {
+          return Padding(
+            padding: const EdgeInsets.all(20),
+            child: Text(
+              "Результаты для “$queryString” не найдены",
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                  fontSize: 14.sp,
+                  fontWeight: FontWeight.w700,
+                  letterSpacing: 1.03),
+            ),
+          );
+        }
+
+        return Column(
+          children: [
+            Icon(
+              Icons.error_outline_rounded,
+              size: 60.sp,
+              color: Colors.black38,
+            ),
+            Text(
+              "Something get wrong",
+              style: TextStyle(
+                fontSize: 24.sp,
+                color: Colors.black38,
+                fontWeight: FontWeight.w500,
+              ),
+            ),
+          ],
+        );
+      },
+    );
   }
 
   @override
