@@ -15,16 +15,16 @@ class LessonCard extends StatefulWidget {
 }
 
 class _LessonCardState extends State<LessonCard> {
-  late VideoPlayerController _controller;
+  // late VideoPlayerController _controller;
 
   @override
   void initState() {
     super.initState();
-    _controller = VideoPlayerController.network(
-        'http://leadev.club:8000/media/videos/butterfly.mp4')
-      ..initialize().then((_) {
-        setState(() {});
-      });
+    // _controller = VideoPlayerController.network(
+    //     'http://leadev.club:8000/media/videos/butterfly.mp4')
+    //   ..initialize().then((_) {
+    //     setState(() {});
+    //   });
   }
 
   @override
@@ -92,9 +92,10 @@ class _LessonCardState extends State<LessonCard> {
                 ),
                 const SizedBox(width: 4),
                 Text(
-                  _controller.value.isInitialized
-                      ? getProperTime(_controller.value.duration)
-                      : "00:00",
+                  "00:00",
+                  // _controller.value.isInitialized
+                  //     ? getProperTime(_controller.value.duration)
+                  //     : "00:00",
                   style: const TextStyle(
                     color: Color(0xFF878787),
                     fontSize: 7,
