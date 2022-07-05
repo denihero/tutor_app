@@ -152,7 +152,7 @@ class _LessonScreenState extends State<LessonScreen> {
                       padding: const EdgeInsets.only(top: 20),
                       child: ClipRRect(
                         borderRadius: BorderRadius.circular(12),
-                        child: Container(
+                        child: SizedBox(
                           width: double.infinity,
                           height: 300,
                           child: FutureBuilder(
@@ -213,7 +213,7 @@ class CodeElementBuilder extends MarkdownElementBuilder {
     var language = 'dart';
 
     if (element.attributes['class'] != null) {
-      String lg = element.attributes['class'] as String;
+      String lg = element.attributes['class'] as String; // FOR WHAT
       //language = lg.substring(9);
     }
     return SizedBox(
