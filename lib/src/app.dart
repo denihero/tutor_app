@@ -29,12 +29,18 @@ class App extends StatelessWidget {
         BlocProvider<CoursesCubit>(
           create: (context) => CoursesCubit(),
         ),
-        BlocProvider<FavoritesCubit>(create: (context) => FavoritesCubit()),
+        BlocProvider<FavoritesCubit>(
+          create: (context) => FavoritesCubit(),
+        ),
         BlocProvider<SearchCubit>(
           create: (context) => SearchCubit(),
         ),
-        BlocProvider<HistoryCubit>(create: (context) => HistoryCubit()),
-        BlocProvider<CourseIdCubit>(create: (context) => CourseIdCubit())
+        BlocProvider<HistoryCubit>(
+          create: (context) => HistoryCubit(),
+        ),
+        BlocProvider<CourseIdCubit>(
+          create: (context) => CourseIdCubit(),
+        )
       ],
       child: Sizer(
         builder: ((context, orientation, deviceType) {
