@@ -37,9 +37,9 @@ class _TextFormWithBoxShadowState extends State<TextFormWithBoxShadow> {
   @override
   Widget build(BuildContext context) {
     return AnimatedContainer(
-      duration: Duration(milliseconds: 300),
+      duration: const Duration(milliseconds: 300),
       curve: Curves.bounceInOut,
-      padding: EdgeInsets.symmetric(horizontal: 10),
+      padding: const EdgeInsets.symmetric(horizontal: 10),
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(20),
@@ -48,7 +48,7 @@ class _TextFormWithBoxShadowState extends State<TextFormWithBoxShadow> {
             color: widget.focusNode.hasFocus
                 ? Colors.black.withOpacity(0.3)
                 : Colors.transparent,
-            offset: Offset(0, 1),
+            offset: const Offset(0, 1),
             blurRadius: 5,
           )
         ],
@@ -57,7 +57,7 @@ class _TextFormWithBoxShadowState extends State<TextFormWithBoxShadow> {
         controller: widget.textEditingController,
         obscureText: widget.isPasswordField,
         focusNode: widget.focusNode,
-        style: TextStyle(
+        style: const TextStyle(
           fontSize: 15,
           fontWeight: FontWeight.w500,
         ),

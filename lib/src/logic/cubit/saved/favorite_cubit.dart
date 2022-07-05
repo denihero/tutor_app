@@ -9,7 +9,7 @@ part 'favorutes_state.dart';
 
 class FavoritesCubit extends Cubit<FavoritesState> {
   FavoritesCubit() : super(FavoritesInitial());
-  addSavedList(String token) async {
+  getSavedList(String token) async {
     try {
       emit(FavoritesLoading());
       List<SavedList> data = await getSavedCourse(token);

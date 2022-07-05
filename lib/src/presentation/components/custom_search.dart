@@ -213,7 +213,7 @@ class CustomSearchDelegate extends SearchDelegate {
               return ListView.builder(
                 itemCount: 5,
                 itemBuilder: (context,index){
-                  return ShimmerLoadCardWidget();
+                  return const ShimmerLoadCardWidget();
                 },
               );
             }if (state is SearchCompleted) {

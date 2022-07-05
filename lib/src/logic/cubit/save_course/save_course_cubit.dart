@@ -8,10 +8,10 @@ class SaveCourseCubit extends Cubit<SaveCourseState> {
   SaveCourseCubit() : super(SaveCourseInitial());
 
   controlSaveCourse(String token, int id) async {
-    emit(ProcessingSaveCourseState());
+    emit(SaveCourseStateProcessing());
 
     await saveCourses(token, id);
 
-    emit(ProccesedSaveCourseState());
+    emit(SaveCourseStateProccesed());
   }
 }

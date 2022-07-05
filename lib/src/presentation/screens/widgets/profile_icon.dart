@@ -4,11 +4,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../logic/blocs/authetication/authentication_bloc.dart';
 
 class ProfileIcon extends StatelessWidget {
-  ProfileIcon({
+  const ProfileIcon({
     Key? key,
     this.isSettings = false,
   }) : super(key: key);
-  bool isSettings;
+  final bool isSettings;
 
   @override
   Widget build(BuildContext context) {

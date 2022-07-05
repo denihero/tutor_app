@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:tutor_app/src/models/models.dart';
 import 'package:tutor_app/src/presentation/screens/lesson/lesson_screen.dart';
-import 'package:video_player/video_player.dart';
+// import 'package:video_player/video_player.dart';
 
 class LessonCard extends StatefulWidget {
   const LessonCard({Key? key, required this.id, required this.lesson})
@@ -15,16 +15,16 @@ class LessonCard extends StatefulWidget {
 }
 
 class _LessonCardState extends State<LessonCard> {
-  late VideoPlayerController _controller;
+  // late VideoPlayerController _controller;
 
   @override
   void initState() {
     super.initState();
-    _controller = VideoPlayerController.network(
-        'http://leadev.club:8000/media/videos/butterfly.mp4')
-      ..initialize().then((_) {
-        setState(() {});
-      });
+    // _controller = VideoPlayerController.network(
+    //     'http://leadev.club:8000/media/videos/butterfly.mp4')
+    //   ..initialize().then((_) {
+    //     setState(() {});
+    //   });
   }
 
   @override
@@ -83,19 +83,20 @@ class _LessonCardState extends State<LessonCard> {
             ),
             const SizedBox(height: 11),
             Row(
-              children: [
-                const SizedBox(width: 55),
-                const Icon(
+              children: const [
+                SizedBox(width: 55),
+                Icon(
                   Icons.access_time,
                   color: Color(0xFF878787),
                   size: 12,
                 ),
-                const SizedBox(width: 4),
+                SizedBox(width: 4),
                 Text(
-                  _controller.value.isInitialized
-                      ? getProperTime(_controller.value.duration)
-                      : "00:00",
-                  style: const TextStyle(
+                  "00:00",
+                  // _controller.value.isInitialized
+                  //     ? getProperTime(_controller.value.duration)
+                  //     : "00:00",
+                  style: TextStyle(
                     color: Color(0xFF878787),
                     fontSize: 7,
                     fontWeight: FontWeight.w400,

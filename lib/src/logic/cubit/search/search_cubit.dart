@@ -26,14 +26,12 @@ class SearchCubit extends Cubit<SearchState> {
         emit(SearchEmpty());
       }
     } catch (e) {
-      print(e);
       emit(SearchError());
     }
   }
 
   @override
   void onChange(Change<SearchState> change) {
-    print(change);
     super.onChange(change);
   }
 }

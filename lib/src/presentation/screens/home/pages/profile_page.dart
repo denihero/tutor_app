@@ -38,7 +38,7 @@ class _ProfilePageState extends State<ProfilePage> {
                   blurRadius: 11,
                 )
               ]),
-          child: ProfileIcon(),
+          child: const ProfileIcon(),
         ),
         const SizedBox(height: 44),
         Text(

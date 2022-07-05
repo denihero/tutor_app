@@ -12,7 +12,7 @@ class SearchInitial extends SearchState {}
 class SearchProcessing extends SearchState {}
 
 class SearchCompleted extends SearchState {
-  SearchCompleted({required this.courses});
+  const SearchCompleted({required this.courses});
 
   final List<Course> courses;
 

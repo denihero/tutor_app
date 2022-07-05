@@ -18,27 +18,27 @@ abstract class AuthEvent extends Equatable {
 }
 
 class AuthLogin extends AuthEvent {
-  AuthLogin(String username, String password) : super(username, password);
+  const AuthLogin(String username, String password) : super(username, password);
 }
 
 class AuthLogout extends AuthEvent {
-  AuthLogout() : super("", "");
+  const AuthLogout() : super("", "");
 }
 
 class AuthChangeInfo extends AuthEvent {
-  File? file;
-  AuthChangeInfo(this.file) : super("", "");
+  final File? file;
+  const AuthChangeInfo(this.file) : super("", "");
 }
 
 class AuthRegister extends AuthEvent {
-  AuthRegister(String username, String password) : super(username, password);
+  const AuthRegister(String username, String password) : super(username, password);
 }
 
 class AuthRegisterSendNameSurname extends AuthEvent {
   final File? file;
-  final name;
-  final surname;
-  AuthRegisterSendNameSurname(
+  final String name;
+  final String surname;
+  const AuthRegisterSendNameSurname(
       {required String username,
       required String password,
       required this.name,
@@ -48,8 +48,8 @@ class AuthRegisterSendNameSurname extends AuthEvent {
 }
 
 class AuthConfirmPassword extends AuthEvent {
-  final code;
-  AuthConfirmPassword(String username, String password, this.code)
+  final String code;
+  const AuthConfirmPassword(String username, String password, this.code)
       : super(username, password);
 }
 
@@ -64,24 +64,17 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> with HydratedMixin {
       emit(const AuthLoading(""));
       try {
         var r = await login(event.username, event.password);
-        print("info $r");
         if (r.isNotEmpty) {
-          print('R is not empty');
           var email = event.username;
           var nameSurname = await getNameSurname(event.username);
-          print("NAme and surna me:");
-          print(nameSurname);
           emit(
             AuthSuccess(email, r, nameSurname[0], nameSurname[1],
                 nameSurname[2], nameSurname[3]),
           );
         } else if (r.isEmpty) {
-          print("Empty");
           emit(const AuthError());
         }
-      } catch (r, s) {
-        print(r);
-        print(s);
+      } catch (r) {
         emit(const AuthError());
       }
     });
@@ -115,17 +108,15 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> with HydratedMixin {
       try {
         emit(const AuthLoading(""));
         var token = await login(event.username, event.password);
-        var r = await sendNameSurname(event.name, event.surname, token, event.file);
+        await sendNameSurname(event.name, event.surname, token, event.file);
         AuthRegisterSendNameSurname(
-            password: event.password,
-            username: event.username,
-            surname: event.surname,
-            name: event.name,
+          password: event.password,
+          username: event.username,
+          surname: event.surname,
+          name: event.name,
         );
-        print("Send name Username:");
         emit(const AuthInitial());
       } catch (r) {
-        print(r);
         emit(const AuthError());
       }
     });
@@ -141,7 +132,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> with HydratedMixin {
         String token = state.token;
         String name = state.name;
         String surname = state.surname;
-        int id = state.id_info;
+        int id = state.idInfo;
         emit(const AuthLoading(""));
         try {
           String imageLink =
@@ -152,17 +143,6 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> with HydratedMixin {
         }
       },
     );
-  }
-
-  @override
-  void onChange(Change<AuthState> change) {
-    print(change);
-    super.onChange(change);
-  }
-
-  @override
-  void onTransition(Transition<AuthEvent, AuthState> transition) {
-    print(transition);
   }
 
   @override
