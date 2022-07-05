@@ -31,108 +31,114 @@ class _CourseCardState extends State<CourseCard> {
           ),
         );
       },
-      child: Container(
-        height: 14.h,
-        margin: const EdgeInsets.symmetric(
+      child: Padding(
+        padding: const EdgeInsets.symmetric(
           vertical: 14,
-          horizontal: 30,
+          horizontal: 30
         ),
-        decoration: BoxDecoration(
+        child: Material(
           color: Colors.white,
+          elevation: 5,
           borderRadius: BorderRadius.circular(20),
-          boxShadow: const [
-            BoxShadow(
-              color: Color(0xFFC2D1E5),
-              offset: Offset(1, 1),
+          child: Container(
+            height: 14.h,
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(20)
             ),
-            BoxShadow(
-              color: Color(0xFFC2D1E5),
-              offset: Offset(1, 1),
-            ),
-          ],
-        ),
-        child: Stack(
-          children: [
-            Row(
+            child: Stack(
               children: [
-                Container(
-                  height: 13.h,
-                  width: 34.w,
-                  clipBehavior: Clip.antiAliasWithSaveLayer,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(20),
-                  ),
-                  child: CachedNetworkImage(
-                    imageUrl: widget.course.images![0].image!,
-                    fit: BoxFit.cover,
-                  ),
-                ),
-                SizedBox(
-                  width: 3.w,
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(
-                    top: 10,
-                    bottom: 12,
-                  ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        widget.course.name ?? "",
-                        overflow: TextOverflow.ellipsis,
-                        style: TextStyle(
-                          fontSize: 14.sp,
-                          fontWeight: FontWeight.w700,
-                          letterSpacing: 1.04,
-                        ),
+                Row(
+                  children: [
+                    Container(
+                      height: 14.h,
+                      width: 35.w,
+                      clipBehavior: Clip.hardEdge,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(20),
                       ),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 17),
-                        child: Row(
-                          children: [
-                            iconWithCountText(Icons.star_rounded,
-                                "${widget.course.likes} лайков"),
-                          ],
-                        ),
+                      child: CachedNetworkImage(
+                        imageUrl: widget.course.images![0].image!,
+                        fit: BoxFit.cover,
                       ),
-                      Text(
-                        "${widget.course.lessons?.length} " +
-                            rightLessonsCountName(
-                                widget.course.lessons?.length ?? 0),
-                        style: TextStyle(
-                          fontSize: 9.sp,
-                          fontWeight: FontWeight.w500,
-                          letterSpacing: 1.04,
-                        ),
+                    ),
+                    SizedBox(
+                      width: 3.w,
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(
+                        top: 10,
+                        bottom: 12,
                       ),
-                    ],
-                  ),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          SizedBox(
+                            width: 45.w,
+                            child: Text(
+                              widget.course.name ?? "",
+                              maxLines: 2,
+                              overflow: TextOverflow.ellipsis,
+                              style: TextStyle(
+                                fontSize: 13.sp,
+                                fontWeight: FontWeight.w700,
+                                letterSpacing: 1.04,
+                              ),
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.symmetric(vertical: 13),
+                            child: Row(
+                              children: [
+                                iconWithCountText(Icons.star_rounded,
+                                    "${widget.course.likes} лайков"),
+                              ],
+                            ),
+                          ),
+                          const Spacer(
+                            flex: 3,
+                          ),
+                          Text(
+                            "${widget.course.lessons?.length} " +
+                                rightLessonsCountName(
+                                    widget.course.lessons?.length ?? 0),
+                            style: TextStyle(
+                              fontSize: 9.sp,
+                              fontWeight: FontWeight.w500,
+                              letterSpacing: 1.04,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 10,
+                    )
+                  ],
                 ),
-                const Spacer(flex: 2),
+                widget.isForFavoritePage
+                    ? Positioned(
+                        bottom: 10,
+                        right: 10,
+                        child: LikeButton(
+                          isLiked: true,
+                          onTap: (value) async {
+                            return true;
+                          },
+                          likeBuilder: (bool isLiked) {
+                            return Icon(
+                              Icons.favorite_rounded,
+                              color:
+                                  isLiked ? const Color(0xFFFE793D) : Colors.grey,
+                              size: 28,
+                            );
+                          },
+                        ),
+                      )
+                    : const SizedBox(),
               ],
             ),
-            widget.isForFavoritePage
-                ? Positioned(
-                    bottom: 10,
-                    right: 10,
-                    child: LikeButton(
-                      isLiked: true,
-                      onTap: (value) async {
-                        return true;
-                      },
-                      likeBuilder: (bool isLiked) {
-                        return Icon(
-                          Icons.favorite_rounded,
-                          color:
-                              isLiked ? const Color(0xFFFE793D) : Colors.grey,
-                          size: 28,
-                        );
-                      },
-                    ),
-                  )
-                : const SizedBox(),
-          ],
+          ),
         ),
       ),
     );
