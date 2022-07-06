@@ -27,7 +27,8 @@ class _LessonScreenState extends State<LessonScreen> {
 
   @override
   Widget build(BuildContext context) {
-    String videoUrl = widget.lesson.videos![1].url;
+    String videoUrl = widget.lesson.videos![0].url;
+    // String videoUrl = widget.lesson.video!.url;
 
     return BlocProvider<VideoCubit>(
       create: (context) => VideoCubit()..loadVideoFromNetwork(videoUrl),
