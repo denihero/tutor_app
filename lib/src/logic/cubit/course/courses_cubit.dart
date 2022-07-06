@@ -10,7 +10,7 @@ part 'courses_state.dart';
 class CoursesCubit extends Cubit<CoursesState> {
   CoursesCubit() : super(CoursesInitial());
 
-  fetchCourseFromCategory(String categoryName,String token) async {
+  fetchCourseFromCategory(String categoryName, String token) async {
     emit(CoursesLoading());
 
     try {
