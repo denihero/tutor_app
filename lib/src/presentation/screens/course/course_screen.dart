@@ -37,9 +37,11 @@ class _CourseScreenState extends State<CourseScreen> {
     BlocProvider.of<CourseIdCubit>(context)
         .getCourseCubitById(token, widget.course.id);
 
-    isLiked = BlocProvider.of<FavoritesCubit>(context)
-        .savedCourses
-        .contains(widget.course);
+    isLiked = context.read<FavoritesCubit>().savedCourses.map(
+      (e) {
+        return e.id;
+      },
+    ).contains(widget.course.id);
   }
 
   @override
@@ -170,7 +172,7 @@ class _CourseScreenState extends State<CourseScreen> {
     if (isLikeTrigerred) {
       await saveCourses(token, widget.course.id);
 
-      BlocProvider.of<FavoritesCubit>(context).loadSavedList(token);
+      context.read<FavoritesCubit>().loadSavedList(token);
     }
   }
 }
