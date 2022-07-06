@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tutor_app/src/logic/cubit/saved/favorite_cubit.dart';
+import 'package:tutor_app/src/presentation/components/shimmer_load_coure_card.dart';
 import 'package:tutor_app/src/presentation/screens/home/pages/widgets/course_card.dart';
 
 class FavoritePage extends StatefulWidget {
@@ -16,7 +17,13 @@ class _FavoritePageState extends State<FavoritePage> {
     return BlocBuilder<FavoritesCubit, FavoritesState>(
       builder: (context, state) {
         if (state is FavoritesLoading) {
-          return const Center(child: CircularProgressIndicator());
+          return Expanded(
+            child: ListView.builder(
+                itemCount: 8,
+                itemBuilder: (context, index) {
+                  return const ShimmerLoadCardWidget();
+                }),
+          );
         }
         if (state is FavoritesError) {
           return const Center(child: Text('There is error in saved list'));
