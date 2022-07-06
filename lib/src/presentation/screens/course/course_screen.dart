@@ -5,6 +5,7 @@ import 'package:tutor_app/src/logic/cubit/get_course_id/course_id_cubit.dart';
 import 'package:tutor_app/src/logic/cubit/history/history_cubit.dart';
 import 'package:tutor_app/src/logic/cubit/saved/favorite_cubit.dart';
 import 'package:tutor_app/src/models/models.dart';
+import 'package:tutor_app/src/presentation/components/shimmer_load_course_screen.dart';
 
 import 'package:tutor_app/src/presentation/screens/course/widgets/course_presentation.dart';
 import 'package:tutor_app/src/presentation/screens/course/widgets/lesson_card.dart';
@@ -126,8 +127,35 @@ class _CourseScreenState extends State<CourseScreen> {
                 );
               }
               if (courseState is CoursesIdLoading) {
-                return const Center(
-                  child: CircularProgressIndicator(),
+                return Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 30),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      const ShimmerLoadCourseScreen(),
+                      const Align(
+                        alignment: Alignment.centerLeft,
+                        child: Padding(
+                          padding: EdgeInsets.only(top: 30, bottom: 6.5),
+                          child: Text(
+                            "Видео уроки",
+                            style: TextStyle(
+                              fontSize: 13,
+                              fontWeight: FontWeight.w600,
+                              letterSpacing: 1.04,
+                            ),
+                          ),
+                        ),
+                      ),
+                      Expanded(
+                        child: ListView.builder(
+                            itemCount: 5,
+                            itemBuilder: (context,index) {
+                              return const ShimmerLoadLesson();
+                            }),
+                      ),
+                    ],
+                  ),
                 );
               }
               return Container();
