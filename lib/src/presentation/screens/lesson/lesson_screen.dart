@@ -219,21 +219,24 @@ class CodeElementBuilder extends MarkdownElementBuilder {
     return SizedBox(
       width:
       MediaQueryData.fromWindow(WidgetsBinding.instance.window).size.width,
-      child: HighlightView(
-        // The original code to be highlighted
-        element.textContent,
-        // Specify language
-        // It is recommended to give it a value for performance
-        language: language,
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(12),
+        child: HighlightView(
+          // The original code to be highlighted
+          element.textContent,
+          // Specify language
+          // It is recommended to give it a value for performance
+          language: language,
 
-        // Specify highlight theme
-        // All available themes are listed in `themes` folder
-        theme:a11yDarkTheme,
-        // Specify padding
-        padding: const EdgeInsets.all(8),
+          // Specify highlight theme
+          // All available themes are listed in `themes` folder
+          theme:a11yDarkTheme,
+          // Specify padding
+          padding: const EdgeInsets.all(8),
 
-        // Specify text style
-        //textStyle: GoogleFonts.robotoMono(),
+          // Specify text style
+          //textStyle: GoogleFonts.robotoMono(),
+        ),
       ),
     );
   }
