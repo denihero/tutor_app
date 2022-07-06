@@ -26,8 +26,9 @@ class _CoursePresentationState extends State<CoursePresentation> {
   late String token;
   @override
   void initState() {
-    token = BlocProvider.of<AuthBloc>(context).state.token;
     super.initState();
+
+    token = BlocProvider.of<AuthBloc>(context).state.token;
   }
 
   @override
@@ -107,7 +108,7 @@ class _CoursePresentationState extends State<CoursePresentation> {
                   isLiked: widget.isLiked,
                   onTap: (value) async {
                     widget.onLikeTapped();
-                    
+
                     return value = !value;
                   },
                   likeBuilder: (bool isLiked) {
