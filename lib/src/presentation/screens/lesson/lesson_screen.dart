@@ -28,7 +28,6 @@ class _LessonScreenState extends State<LessonScreen> {
   @override
   Widget build(BuildContext context) {
     //String videoUrl = widget.lesson.videos![0].url;
-    print(widget.lesson.file);
     return BlocProvider<VideoCubit>(
       create: (context) => VideoCubit()..loadVideoFromNetwork('https://www.youtube.com/watch?v=B5pKw6flFZE'),
       child: Scaffold(

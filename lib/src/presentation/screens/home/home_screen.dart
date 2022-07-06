@@ -54,7 +54,6 @@ class _HomeScreenState extends State<HomeScreen> {
             ],
           ),
           action: Container(),
-
         ),
         TransparentAppBar(
           title: Text(
@@ -66,7 +65,8 @@ class _HomeScreenState extends State<HomeScreen> {
               letterSpacing: 1.04,
             ),
           ),
-        ), TransparentAppBar(
+        ),
+        TransparentAppBar(
           title: Text(
             "Профиль",
             style: TextStyle(
@@ -76,29 +76,26 @@ class _HomeScreenState extends State<HomeScreen> {
               letterSpacing: 1.04,
             ),
           ),
-         action: Padding(
-           padding: const EdgeInsets.only(right: 5),
-           child: IconButton(
-               onPressed: ( ) {
-                 Navigator.push(context, MaterialPageRoute(builder: (context) => const SettingsScreen()));
-               },
-               icon: const Icon(Icons.settings,color: Color(0xFFFE793D),size: 35,)),
-         ),
+          action: Padding(
+            padding: const EdgeInsets.only(right: 5),
+            child: IconButton(
+                onPressed: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const SettingsScreen()));
+                },
+                icon: const Icon(
+                  Icons.settings,
+                  color: Color(0xFFFE793D),
+                  size: 35,
+                )),
+          ),
         ),
       ][_currentIndex],
       body: SafeArea(
         child: PageView(
           controller: _pageController,
-          // onPageChanged: (usman) {
-          //   switch(usman){
-          //     case 1:
-          //       BlocProvider.of<FavoritesCubit>(context).addSavedList(token);
-          //       break;
-          //     case 2:
-          //       BlocProvider.of<HistoryCubit>(context).getCubitViewedCourses(token);
-          //       break;
-          //   }
-          // },
           physics: const NeverScrollableScrollPhysics(),
           children: const [
             HomePage(),
