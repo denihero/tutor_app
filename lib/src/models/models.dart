@@ -67,32 +67,32 @@ class Lesson {
   Lesson({
     this.id,
     this.name,
-    this.description,
+    required this.file,
     this.course,
     this.videos,
   });
 
   int? id;
   String? name;
-  String? description;
+  String file;
   int? course;
   List<Video>? videos;
 
   factory Lesson.fromJson(Map<String, dynamic> json) => Lesson(
-        id: json["id"],
-        name: json["name"],
-        description: json["description"],
-        course: json["course"],
-        videos: List<Video>.from(json["videos"].map((x) => Video.fromJson(x))),
-      );
+    id: json["id"],
+    name: json["name"],
+    file: json["file"],
+    course: json["course"],
+    videos: List<Video>.from(json["videos"].map((x) => Video.fromJson(x))),
+  );
 
   Map<String, dynamic> toJson() => {
-        "id": id,
-        "name": name,
-        "description": description,
-        "course": course,
-        "videos": List<Video>.from(videos!.map((x) => x)),
-      };
+    "id": id,
+    "name": name,
+    "file": file,
+    "course": course,
+    "videos": List<dynamic>.from(videos!.map((x) => x.toJson())),
+  };
 }
 
 class SavedList {
