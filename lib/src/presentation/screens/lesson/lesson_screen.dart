@@ -110,7 +110,7 @@ class _LessonScreenState extends State<LessonScreen> {
                   )),
               const SizedBox(height: 77),
               Padding(
-                padding: const EdgeInsets.only(left: 10,right: 10),
+                padding: const EdgeInsets.symmetric(horizontal: 20),
                 child: DraggableScrollableSheet(
                     initialChildSize: 0.7,
                     minChildSize: 0.7,
