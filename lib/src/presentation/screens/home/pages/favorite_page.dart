@@ -17,12 +17,11 @@ class _FavoritePageState extends State<FavoritePage> {
     return BlocBuilder<FavoritesCubit, FavoritesState>(
       builder: (context, state) {
         if (state is FavoritesLoading) {
-          return Expanded(
-            child: ListView.builder(
-                itemCount: 8,
-                itemBuilder: (context, index) {
-                  return const ShimmerLoadCardWidget();
-                }),
+          return ListView.builder(
+            itemCount: 8,
+            itemBuilder: (context, index) {
+              return const ShimmerLoadCardWidget();
+            },
           );
         }
         if (state is FavoritesError) {
