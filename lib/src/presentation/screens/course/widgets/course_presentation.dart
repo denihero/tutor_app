@@ -116,8 +116,8 @@ class _CoursePresentationState extends State<CoursePresentation> {
                 boxShadow: [
                   BoxShadow(
                     color: const Color(0xFFC2D1E5).withOpacity(0.7),
-                    offset: const Offset(0, -1),
-                    blurRadius: 11,
+                    offset: const Offset(0, -3),
+                    blurRadius: 5,
                   ),
                 ],
               ),
