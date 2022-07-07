@@ -7,6 +7,7 @@ import 'package:image_picker/image_picker.dart';
 
 import '../../logic/blocs/authetication/authentication_bloc.dart';
 
+// REFACTOR ALL THIS SHIT
 class ChangeImage extends StatefulWidget {
   const ChangeImage({Key? key}) : super(key: key);
 
