@@ -38,7 +38,7 @@ class _CourseCardState extends State<CourseCard> {
         ),
         child: Material(
           color: Colors.white,
-          elevation: 5,
+          elevation: 3,
           borderRadius: BorderRadius.circular(20),
           child: Container(
             height: 14.h,

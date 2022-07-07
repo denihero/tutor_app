@@ -23,7 +23,7 @@ class Course {
   int id;
   String? name;
   String? categoryName;
-  List<Image>? images;
+  List<CourseImage>? images;
   List<Lesson>? lessons;
   int likes;
 
@@ -31,7 +31,7 @@ class Course {
         id: json["id"],
         name: json["name_of_course"],
         categoryName: json["category"],
-        images: List<Image>.from(json["images"].map((x) => Image.fromJson(x))),
+        images: List<CourseImage>.from(json["images"].map((x) => CourseImage.fromJson(x))),
         lessons:
             List<Lesson>.from(json["lessons"].map((x) => Lesson.fromJson(x))),
         likes: json["likes"],
@@ -41,20 +41,20 @@ class Course {
         "id": id,
         "name_of_course": name,
         "category": categoryName,
-        "images": List<Image>.from(images!.map((x) => x.toJson())),
+        "images": List<CourseImage>.from(images!.map((x) => x.toJson())),
         "lessons": List<Lesson>.from(lessons!.map((x) => x.toJson())),
         "likes": likes,
       };
 }
 
-class Image {
-  Image({
+class CourseImage {
+  CourseImage({
     this.image,
   });
 
   String? image;
 
-  factory Image.fromJson(Map<String, dynamic> json) => Image(
+  factory CourseImage.fromJson(Map<String, dynamic> json) => CourseImage(
         image: json["image"],
       );
 
@@ -67,32 +67,32 @@ class Lesson {
   Lesson({
     this.id,
     this.name,
-    this.description,
+    required this.file,
     this.course,
     this.videos,
   });
 
   int? id;
   String? name;
-  String? description;
+  String file;
   int? course;
   List<Video>? videos;
 
   factory Lesson.fromJson(Map<String, dynamic> json) => Lesson(
-        id: json["id"],
-        name: json["name"],
-        description: json["description"],
-        course: json["course"],
-        videos: List<Video>.from(json["videos"].map((x) => Video.fromJson(x))),
-      );
+    id: json["id"],
+    name: json["name"],
+    file: json["file"],
+    course: json["course"],
+    videos: List<Video>.from(json["videos"].map((x) => Video.fromJson(x))),
+  );
 
   Map<String, dynamic> toJson() => {
-        "id": id,
-        "name": name,
-        "description": description,
-        "course": course,
-        "videos": List<Video>.from(videos!.map((x) => x)),
-      };
+    "id": id,
+    "name": name,
+    "file": file,
+    "course": course,
+    "videos": List<dynamic>.from(videos!.map((x) => x.toJson())),
+  };
 }
 
 class SavedList {

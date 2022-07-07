@@ -86,7 +86,7 @@ class _HomePageState extends State<HomePage> {
                       itemCount: courses.length,
                       itemBuilder: (BuildContext context, int index) {
                         Course course = courses[index];
-                        return CourseCard(
+                         return CourseCard(
                           course: Course(
                               name: course.name,
                               categoryName: course.categoryName,
