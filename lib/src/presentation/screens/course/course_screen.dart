@@ -109,16 +109,25 @@ class _CourseScreenState extends State<CourseScreen> {
                           ),
                         ),
                       ),
-                      Expanded(
-                        child: ListView.builder(
-                          itemCount: widget.course.lessons?.length,
-                          itemBuilder: (BuildContext context, int index) =>
-                              LessonCard(
-                            id: index + 1,
-                            lesson: widget.course.lessons![index],
-                          ),
-                        ),
-                      ),
+                      widget.course.lessons!.isEmpty
+                          ? const Padding(
+                              padding: EdgeInsets.only(top: 10),
+                              child: Text(
+                                "На этом курсе нет уроков",
+                                style: TextStyle(fontSize: 12),
+                              ),
+                            )
+                          : Expanded(
+                              child: ListView.builder(
+                                itemCount: widget.course.lessons?.length,
+                                itemBuilder:
+                                    (BuildContext context, int index) =>
+                                        LessonCard(
+                                  id: index + 1,
+                                  lesson: widget.course.lessons![index],
+                                ),
+                              ),
+                            ),
                     ],
                   ),
                 );
@@ -152,7 +161,7 @@ class _CourseScreenState extends State<CourseScreen> {
                       Expanded(
                         child: ListView.builder(
                             itemCount: 4,
-                            itemBuilder: (context,index) {
+                            itemBuilder: (context, index) {
                               return const ShimmerLoadLesson();
                             }),
                       ),
