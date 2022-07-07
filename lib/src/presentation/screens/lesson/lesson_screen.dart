@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:chewie/chewie.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -61,67 +62,13 @@ class _LessonScreenState extends State<LessonScreen> {
           // ),
         ),
         body: SafeArea(
-          child: SingleChildScrollView(
-            child: Column(
-              children: [
-                Container(
-                    margin: const EdgeInsets.symmetric(horizontal: 30),
-                    padding: const EdgeInsets.fromLTRB(0, 0, 0, 10),
-                    clipBehavior: Clip.antiAliasWithSaveLayer,
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(20),
-                      boxShadow: const [
-                        BoxShadow(
-                          color: Color(0xFFC2D1E5),
-                          offset: Offset(0, -1),
-                          blurRadius: 11,
-                        )
-                      ],
-                    ),
-                    child: BlocBuilder<VideoCubit, VideoState>(
-                      builder: ((context, state) {
-                        if (state is VideoLoadError) {
-                          return const SizedBox(
-                            height: 200,
-                            child: Center(
-                              child: Text(
-                                  "Loading video failed"),
-                            ),
-                          );
-                        }
-
-                        if (state is VideoLoading) {
-                          return const SizedBox(
-                            width: double.infinity,
-                            height: 204,
-                            child: Center(
-                              child: CircularProgressIndicator(),
-                            ),
-                          );
-                        }
-                        if (state is VideoLoaded) {
-                          VideoPlayerController controller = state.controller;
-                          return AspectRatio(
-                            aspectRatio: controller.value.aspectRatio,
-                            // TODO: SPECIFY VIDEO CONTROLLER
-                            child: Chewie(
-                                controller: ChewieController(
-                                  videoPlayerController: controller,
-                                  autoInitialize: true
-                            )),
-                          );
-                        }
-
-                        return const Center(
-                          child: Text("Something went wrong"),
-                        );
-                      }),
-                    )),
-                const SizedBox(height: 77),
-                Container(
-                  margin: const EdgeInsets.symmetric(horizontal: 10),
-                  height: 670,
+          child: Stack(
+            //fit:StackFit.expand,
+            children: [
+              Container(
+                  margin: const EdgeInsets.symmetric(horizontal: 30),
+                  padding: const EdgeInsets.fromLTRB(0, 0, 0, 10),
+                  clipBehavior: Clip.antiAliasWithSaveLayer,
                   decoration: BoxDecoration(
                     color: Colors.white,
                     borderRadius: BorderRadius.circular(20),
@@ -133,12 +80,75 @@ class _LessonScreenState extends State<LessonScreen> {
                       )
                     ],
                   ),
-                  child: CourseTheory(
-                    path: widget.lesson.file,
-                  ),
-                ),
-              ],
-            ),
+                  child: BlocBuilder<VideoCubit, VideoState>(
+                    builder: ((context, state) {
+                      if (state is VideoLoadError) {
+                        return SizedBox(
+                          height: 200,
+                          child: Image.asset('assets/image/error.png',fit: BoxFit.cover,)
+                        );
+                      }
+                      if (state is VideoLoading) {
+                        return const SizedBox(
+                          width: double.infinity,
+                          height: 204,
+                          child: Center(
+                            child: CircularProgressIndicator(),
+                          ),
+                        );
+                      }
+                      if (state is VideoLoaded) {
+                        VideoPlayerController controller = state.controller;
+                        return AspectRatio(
+                          aspectRatio: controller.value.aspectRatio,
+                          // TODO: SPECIFY VIDEO CONTROLLER
+                          child: Chewie(
+                              controller: ChewieController(
+                                videoPlayerController: controller,
+                                autoInitialize: true
+                          )),
+                        );
+                      }
+
+                      return const Center(
+                        child: Text("Something went wrong"),
+                      );
+                    }),
+                  )),
+              const SizedBox(height: 77),
+              DraggableScrollableSheet(
+                  initialChildSize: 0.7,
+                  minChildSize: 0.7,
+                  maxChildSize: 1,
+                  builder:(context, scrollController) {
+                    return Material(
+                      color: Colors.white,
+                      elevation: 10,
+                      borderRadius: const BorderRadius.only(
+                        topLeft: Radius.circular(20),
+                        topRight: Radius.circular(20),
+                      ),
+                      child: Container(
+                        decoration: const BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.only(
+                            topLeft: Radius.circular(20),
+                            topRight: Radius.circular(20),
+                          ),
+                        ),
+                        child: ListView(
+                          controller: scrollController,
+                            children: [
+                              CourseTheory(
+                                path: widget.lesson.file,
+                              )
+                            ],
+                        ),
+                      ),
+                    );
+                  }
+              )
+            ],
           ),
         ),
       ),

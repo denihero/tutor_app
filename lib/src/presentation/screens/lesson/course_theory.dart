@@ -4,6 +4,7 @@ import 'package:flutter_highlight/themes/a11y-dark.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:markdown/markdown.dart' as md;
 import 'package:flutter_highlight/flutter_highlight.dart';
+import 'package:tutor_app/src/presentation/components/shimmer_for_theory_text.dart';
 class CourseTheory extends StatelessWidget {
   const CourseTheory({Key? key, required this.path}) : super(key: key);
 
@@ -18,7 +19,7 @@ class CourseTheory extends StatelessWidget {
             return Markdown(
               data: snapshot.data!,
               shrinkWrap: true,
-              physics: const AlwaysScrollableScrollPhysics(),
+              physics: const NeverScrollableScrollPhysics(),
               builders: {
                 'code': CodeElementBuilder(),
               },
@@ -29,12 +30,9 @@ class CourseTheory extends StatelessWidget {
               ),
             );
           }else if(snapshot.hasError){
-            print(snapshot.data);
             return const Text('Some Error');
           }
-          return const Center(
-            child: CircularProgressIndicator(),
-          );
+          return const ShimmerForTheoryText();
         });
   }
 }
