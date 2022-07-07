@@ -116,37 +116,40 @@ class _LessonScreenState extends State<LessonScreen> {
                     }),
                   )),
               const SizedBox(height: 77),
-              DraggableScrollableSheet(
-                  initialChildSize: 0.7,
-                  minChildSize: 0.7,
-                  maxChildSize: 1,
-                  builder:(context, scrollController) {
-                    return Material(
-                      color: Colors.white,
-                      elevation: 10,
-                      borderRadius: const BorderRadius.only(
-                        topLeft: Radius.circular(20),
-                        topRight: Radius.circular(20),
-                      ),
-                      child: Container(
-                        decoration: const BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.only(
-                            topLeft: Radius.circular(20),
-                            topRight: Radius.circular(20),
+              Padding(
+                padding: const EdgeInsets.only(left: 10,right: 10),
+                child: DraggableScrollableSheet(
+                    initialChildSize: 0.7,
+                    minChildSize: 0.7,
+                    maxChildSize: 1,
+                    builder:(context, scrollController) {
+                      return Material(
+                        color: Colors.white,
+                        elevation: 10,
+                        borderRadius: const BorderRadius.only(
+                          topLeft: Radius.circular(20),
+                          topRight: Radius.circular(20),
+                        ),
+                        child: Container(
+                          decoration: const BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.only(
+                              topLeft: Radius.circular(20),
+                              topRight: Radius.circular(20),
+                            ),
+                          ),
+                          child: ListView(
+                            controller: scrollController,
+                              children: [
+                                CourseTheory(
+                                  path: widget.lesson.file,
+                                )
+                              ],
                           ),
                         ),
-                        child: ListView(
-                          controller: scrollController,
-                            children: [
-                              CourseTheory(
-                                path: widget.lesson.file,
-                              )
-                            ],
-                        ),
-                      ),
-                    );
-                  }
+                      );
+                    }
+                ),
               )
             ],
           ),
