@@ -35,7 +35,10 @@ class _CoursePresentationState extends State<CoursePresentation> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 37.h,
+      constraints: BoxConstraints(
+        minHeight: 33.h,
+        maxHeight: 37.h
+      ),
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(20),
@@ -68,8 +71,9 @@ class _CoursePresentationState extends State<CoursePresentation> {
                 padding: const EdgeInsets.only(left: 20),
                 child: Text(
                   widget.course.name!,
-                  style: const TextStyle(
-                    fontSize: 18,
+                  maxLines: 1,
+                  style: TextStyle(
+                    fontSize: 14.sp,
                     fontWeight: FontWeight.w700,
                     letterSpacing: 1.04,
                   ),
@@ -89,7 +93,7 @@ class _CoursePresentationState extends State<CoursePresentation> {
           ),
           Positioned(
             right: 15,
-            bottom: 69,
+            bottom: 75,
             child: Container(
               height: 50,
               width: 50,
