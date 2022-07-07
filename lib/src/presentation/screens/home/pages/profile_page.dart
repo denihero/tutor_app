@@ -31,13 +31,7 @@ class _ProfilePageState extends State<ProfilePage> {
           decoration: BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.circular(360),
-              boxShadow: const [
-                BoxShadow(
-                  color: Color(0xFFC2D1E5),
-                  offset: Offset(0, -1),
-                  blurRadius: 11,
-                )
-              ]),
+              ),
           child: const ProfileIcon(),
         ),
         const SizedBox(height: 44),
