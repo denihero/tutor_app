@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sizer/sizer.dart';
 import 'package:tutor_app/src/logic/cubit/history/history_cubit.dart';
 import 'package:tutor_app/src/models/models.dart';
+import 'package:tutor_app/src/presentation/components/shimmer_load_coure_card.dart';
 import 'package:tutor_app/src/presentation/screens/home/pages/widgets/course_card.dart';
 import 'package:tutor_app/src/presentation/screens/widgets/profile_icon.dart';
 
@@ -16,7 +17,6 @@ class ProfilePage extends StatefulWidget {
 }
 
 class _ProfilePageState extends State<ProfilePage> {
-
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -29,9 +29,9 @@ class _ProfilePageState extends State<ProfilePage> {
           width: 54.w,
           clipBehavior: Clip.antiAliasWithSaveLayer,
           decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(360),
-              ),
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(360),
+          ),
           child: const ProfileIcon(),
         ),
         const SizedBox(height: 44),
@@ -63,21 +63,22 @@ class _ProfilePageState extends State<ProfilePage> {
         Expanded(
           child: BlocBuilder<HistoryCubit, HistoryState>(
             builder: (context, state) {
-              if(state is HistoryLoading){
-                return const Center(
-                    child: CircularProgressIndicator()
+              if (state is HistoryLoading) {
+                ListView.builder(
+                  itemCount: 1,
+                  itemBuilder: (BuildContext context, int index) {
+                    return const ShimmerLoadCardWidget();
+                  },
                 );
               }
-              if(state is HistoryError){
-                return const Center(
-                    child: Text('Something get wrong')
-                );
+              if (state is HistoryError) {
+                return const Center(child: Text('Something get wrong'));
               }
-              if(state is HistorySuccess){
+              if (state is HistorySuccess) {
                 final historyCourse = state.historyCourses;
                 return ListView.builder(
                     itemCount: historyCourse.length,
-                    itemBuilder: (BuildContext context, int index){
+                    itemBuilder: (BuildContext context, int index) {
                       return CourseCard(
                         course: Course(
                             name: historyCourse[index].name,
@@ -85,14 +86,12 @@ class _ProfilePageState extends State<ProfilePage> {
                             lessons: historyCourse[index].lessons,
                             images: historyCourse[index].images,
                             likes: historyCourse[index].likes,
-                            id: historyCourse[index].id
-                        ),
+                            id: historyCourse[index].id),
                       );
                     });
               }
               return Container();
             },
-
           ),
         ),
       ],
