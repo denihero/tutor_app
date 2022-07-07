@@ -8,8 +8,11 @@ import 'package:video_player/video_player.dart';
 import 'course_theory.dart';
 
 class LessonScreen extends StatefulWidget {
-  const LessonScreen({Key? key, required this.id, required this.lesson})
-      : super(key: key);
+  const LessonScreen({
+    Key? key,
+    required this.id,
+    required this.lesson,
+  }) : super(key: key);
 
   final int id;
   final Lesson lesson;

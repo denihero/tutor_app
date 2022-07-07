@@ -4,8 +4,11 @@ import 'package:tutor_app/src/presentation/screens/lesson/lesson_screen.dart';
 // import 'package:video_player/video_player.dart';
 
 class LessonCard extends StatefulWidget {
-  const LessonCard({Key? key, required this.id, required this.lesson})
-      : super(key: key);
+  const LessonCard({
+    Key? key,
+    required this.id,
+    required this.lesson,
+  }) : super(key: key);
 
   final int id;
   final Lesson lesson;
@@ -15,18 +18,6 @@ class LessonCard extends StatefulWidget {
 }
 
 class _LessonCardState extends State<LessonCard> {
-  // late VideoPlayerController _controller;
-
-  @override
-  void initState() {
-    super.initState();
-    // _controller = VideoPlayerController.network(
-    //     'http://leadev.club:8000/media/videos/butterfly.mp4')
-    //   ..initialize().then((_) {
-    //     setState(() {});
-    //   });
-  }
-
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
