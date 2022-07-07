@@ -151,7 +151,7 @@ class _CourseScreenState extends State<CourseScreen> {
                       ),
                       Expanded(
                         child: ListView.builder(
-                            itemCount: 5,
+                            itemCount: 4,
                             itemBuilder: (context,index) {
                               return const ShimmerLoadLesson();
                             }),
