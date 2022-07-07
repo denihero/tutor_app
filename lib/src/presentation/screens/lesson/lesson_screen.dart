@@ -21,9 +21,12 @@ class LessonScreen extends StatefulWidget {
 class _LessonScreenState extends State<LessonScreen> {
   @override
   Widget build(BuildContext context) {
-    //String videoUrl = widget.lesson.videos![0].url;
+    String videoUrl = widget.lesson.videos![0].url;
+
     return BlocProvider<VideoCubit>(
-      create: (context) => VideoCubit()..loadVideoFromNetwork('https://www.youtube.com/watch?v=B5pKw6flFZE'),
+      create: ((context) => VideoCubit()..loadVideoFromNetwork(videoUrl)),
+      // create: (context) => VideoCubit()
+      // ..loadVideoFromNetwork('https://flutter.github.io/assets-for-api-docs/assets/videos/butterfly.mp4'),
       child: Scaffold(
         appBar: TransparentAppBar(
           title: Text(
@@ -60,7 +63,6 @@ class _LessonScreenState extends State<LessonScreen> {
             children: [
               Container(
                   margin: const EdgeInsets.symmetric(horizontal: 30),
-                  padding: const EdgeInsets.fromLTRB(0, 0, 0, 10),
                   clipBehavior: Clip.antiAliasWithSaveLayer,
                   decoration: BoxDecoration(
                     color: Colors.white,
@@ -77,9 +79,11 @@ class _LessonScreenState extends State<LessonScreen> {
                     builder: ((context, state) {
                       if (state is VideoLoadError) {
                         return SizedBox(
-                          height: 200,
-                          child: Image.asset('assets/image/error.png',fit: BoxFit.cover,)
-                        );
+                            height: 200,
+                            child: Image.asset(
+                              'assets/image/error.png',
+                              fit: BoxFit.cover,
+                            ));
                       }
                       if (state is VideoLoading) {
                         return const SizedBox(
@@ -92,14 +96,14 @@ class _LessonScreenState extends State<LessonScreen> {
                       }
                       if (state is VideoLoaded) {
                         VideoPlayerController controller = state.controller;
+
                         return AspectRatio(
                           aspectRatio: controller.value.aspectRatio,
                           // TODO: SPECIFY VIDEO CONTROLLER
                           child: Chewie(
                               controller: ChewieController(
-                                videoPlayerController: controller,
-                                autoInitialize: true
-                          )),
+                                  videoPlayerController: controller,
+                                  autoInitialize: true)),
                         );
                       }
 
@@ -110,12 +114,12 @@ class _LessonScreenState extends State<LessonScreen> {
                   )),
               const SizedBox(height: 77),
               Padding(
-                padding: const EdgeInsets.only(left: 10,right: 10),
+                padding: const EdgeInsets.symmetric(horizontal: 20),
                 child: DraggableScrollableSheet(
                     initialChildSize: 0.7,
                     minChildSize: 0.7,
                     maxChildSize: 1,
-                    builder:(context, scrollController) {
+                    builder: (context, scrollController) {
                       return Material(
                         color: Colors.white,
                         elevation: 10,
@@ -133,16 +137,15 @@ class _LessonScreenState extends State<LessonScreen> {
                           ),
                           child: ListView(
                             controller: scrollController,
-                              children: [
-                                CourseTheory(
-                                  path: widget.lesson.file,
-                                )
-                              ],
+                            children: [
+                              CourseTheory(
+                                path: widget.lesson.file,
+                              )
+                            ],
                           ),
                         ),
                       );
-                    }
-                ),
+                    }),
               )
             ],
           ),
@@ -158,14 +161,7 @@ class _LessonScreenState extends State<LessonScreen> {
     return id.toString();
   }
 
-  TextSpan textHighLighter(String text){
-    return TextSpan(
-      text: text,
-      style: const TextStyle(
-        color: Colors.black
-      )
-    );
+  TextSpan textHighLighter(String text) {
+    return TextSpan(text: text, style: const TextStyle(color: Colors.black));
   }
 }
-
-
