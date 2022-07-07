@@ -40,64 +40,65 @@ class _ChangeImageState extends State<ChangeImage> {
                   color: Colors.black,
                 ),
               )
-            : WillPopScope(
-                onWillPop: () async => false,
-                child: Scaffold(
-                    backgroundColor: Colors.white,
-                    appBar: AppBar(
-                      title: const Text("View Image"),
-                      backgroundColor: Colors.white,
-                      actions: [
-                        IconButton(
-                          onPressed: pickImage,
-                          icon: const Icon(
-                            Icons.edit,
-                            color: Colors.black,
-                          ),
-                        ),
-                      ],
-                      leading: IconButton(
-                        icon: const Icon(
-                          Icons.arrow_back_ios,
-                          color: Colors.black,
-                          size: 30,
-                        ),
-                        onPressed: () async {
-                          if (imageFile != null) {
-                            BlocProvider.of<AuthBloc>(context)
-                                .add(AuthChangeInfo(imageFile));
-                          }
-                          Navigator.of(context).pop();
-                        },
+            : Scaffold(
+                backgroundColor: Colors.white,
+                appBar: AppBar(
+                  title: const Text(
+                    "View Image",
+                    style: TextStyle(color: Colors.black),
+                  ),
+                  backgroundColor: Colors.white,
+                  actions: [
+                    IconButton(
+                      onPressed: pickImage,
+                      icon: const Icon(
+                        Icons.edit,
+                        color: Colors.black,
                       ),
-                      elevation: 0,
                     ),
-                    body: image == null || image.isEmpty && imageFile == null
-                        ? const Center(
-                            child: Text("None"),
-                          )
-                        : Center(
-                            child: imageFile == null
-                                ? image.isEmpty
-                                    ? const Center(child: Text("None"))
-                                    : Padding(
-                                        padding:
-                                            const EdgeInsets.only(bottom: 60),
-                                        child: CachedNetworkImage(
-                                          imageUrl: image,
-                                          width: double.infinity,
-                                          fit: BoxFit.fitWidth,
-                                        ),
-                                      )
+                  ],
+                  leading: IconButton(
+                    icon: const Icon(
+                      Icons.save,
+                      color: Colors.black,
+                      size: 30,
+                    ),
+                    onPressed: () async {
+                      if (imageFile != null) {
+                        BlocProvider.of<AuthBloc>(context)
+                            .add(AuthChangeInfo(imageFile));
+                      }
+                      Navigator.of(context).pop();
+                    },
+                  ),
+                  elevation: 0,
+                ),
+                body: image == null || image.isEmpty && imageFile == null
+                    ? const Center(
+                        child: Text("None"),
+                      )
+                    : Center(
+                        child: imageFile == null
+                            ? image.isEmpty
+                                ? const Center(child: Text("None"))
                                 : Padding(
                                     padding: const EdgeInsets.only(bottom: 60),
-                                    child: Image.file(
-                                      imageFile!,
+                                    child: CachedNetworkImage(
+                                      imageUrl: image,
                                       width: double.infinity,
                                       fit: BoxFit.fitWidth,
                                     ),
-                                  ),
-                          )));
+                                  )
+                            : Padding(
+                                padding: const EdgeInsets.only(bottom: 60),
+                                child: Image.file(
+                                  imageFile!,
+                                  width: double.infinity,
+                                  fit: BoxFit.fitWidth,
+                                ),
+                              ),
+                      ),
+              );
       },
     );
   }
