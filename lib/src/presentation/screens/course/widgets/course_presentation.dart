@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:like_button/like_button.dart';
+import 'package:sizer/sizer.dart';
 import 'package:tutor_app/src/models/models.dart';
 
 import '../../../../logic/blocs/authetication/authentication_bloc.dart';
@@ -34,7 +35,7 @@ class _CoursePresentationState extends State<CoursePresentation> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 310,
+      height: 37.h,
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(20),
@@ -52,7 +53,7 @@ class _CoursePresentationState extends State<CoursePresentation> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Container(
-                height: 220,
+                height: 26.h,
                 clipBehavior: Clip.antiAliasWithSaveLayer,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(20),
@@ -62,7 +63,7 @@ class _CoursePresentationState extends State<CoursePresentation> {
                   fit: BoxFit.cover,
                 ),
               ),
-              const SizedBox(height: 14),
+              SizedBox(height: 2.h),
               Padding(
                 padding: const EdgeInsets.only(left: 20),
                 child: Text(
@@ -74,7 +75,7 @@ class _CoursePresentationState extends State<CoursePresentation> {
                   ),
                 ),
               ),
-              const SizedBox(height: 23),
+              SizedBox(height: 3.h),
               Padding(
                 padding: const EdgeInsets.only(left: 23),
                 child: Row(
