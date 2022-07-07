@@ -84,6 +84,7 @@ class _LessonCardState extends State<LessonCard> {
                 SizedBox(width: 4),
                 Text(
                   "00:00",
+                  // TODO: Show length of lesson
                   // _controller.value.isInitialized
                   //     ? getProperTime(_controller.value.duration)
                   //     : "00:00",
