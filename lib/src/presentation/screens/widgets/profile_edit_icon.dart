@@ -70,8 +70,8 @@ class _ProfileEditIconState extends State<ProfileEditIcon> {
                       ),
                     ),
               Positioned(
-                  left: 50,
-                  top: 40,
+                  left: 55,
+                  top: 55,
                   child: Container(
                     padding: const EdgeInsets.all(7),
                     decoration: BoxDecoration(
@@ -86,7 +86,7 @@ class _ProfileEditIconState extends State<ProfileEditIcon> {
                         ]),
                     child: const Icon(
                       Icons.edit,
-                      size: 26,
+                      size: 19,
                     ),
                   )),
             ],
