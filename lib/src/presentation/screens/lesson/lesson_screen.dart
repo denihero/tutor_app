@@ -24,7 +24,11 @@ class LessonScreen extends StatefulWidget {
 class _LessonScreenState extends State<LessonScreen> {
   @override
   Widget build(BuildContext context) {
-    String videoUrl = widget.lesson.videos![0].url;
+    String videoUrl = "https://www.youtube.com/watch?v=NF3ftFjfACw";
+
+    if (widget.lesson.videos!.isNotEmpty) {
+      videoUrl = widget.lesson.videos![0].url;
+    }
 
     return BlocProvider<VideoCubit>(
       create: ((context) => VideoCubit()..loadVideoFromNetwork(videoUrl)),
