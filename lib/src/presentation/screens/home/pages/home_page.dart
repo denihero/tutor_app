@@ -72,7 +72,7 @@ class _HomePageState extends State<HomePage> {
               if (state is CoursesLoading) {
                 return Expanded(
                   child: ListView.builder(
-                      itemCount: 8,
+                      itemCount: 5,
                       itemBuilder: (context, index) {
                         return const ShimmerLoadCardWidget();
                       }),

@@ -20,7 +20,9 @@ class ShimmerForTheoryText extends StatelessWidget {
             width: 300,
             height: 15,
             decoration: BoxDecoration(
-                color: Colors.white, borderRadius: BorderRadius.circular(20)),
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(20)
+            ),
           ),
         ),
         const SizedBox(
@@ -33,7 +35,9 @@ class ShimmerForTheoryText extends StatelessWidget {
             width: 200,
             height: 10,
             decoration: BoxDecoration(
-                color: Colors.white, borderRadius: BorderRadius.circular(20)),
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(20)
+            ),
           ),
         ),
         const SizedBox(
@@ -46,7 +50,9 @@ class ShimmerForTheoryText extends StatelessWidget {
             width: 370,
             height: 60,
             decoration: BoxDecoration(
-                color: Colors.white, borderRadius: BorderRadius.circular(12)),
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(12)
+            ),
           ),
         ),
         const SizedBox(
@@ -59,7 +65,9 @@ class ShimmerForTheoryText extends StatelessWidget {
             width: 100,
             height: 10,
             decoration: BoxDecoration(
-                color: Colors.white, borderRadius: BorderRadius.circular(20)),
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(20)
+            ),
           ),
         ),
       ],

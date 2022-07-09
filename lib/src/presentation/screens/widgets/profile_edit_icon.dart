@@ -131,7 +131,10 @@ class _ChangeImageState extends State<ChangeImage> {
                 ),
               )
             : WillPopScope(
-                onWillPop: () async => false,
+                onWillPop: () async {
+                  // TODO: Apply changed profile image
+                  return true;
+                },
                 child: Scaffold(
                     backgroundColor: Colors.white,
                     appBar: AppBar(

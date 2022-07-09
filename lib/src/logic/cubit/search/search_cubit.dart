@@ -15,10 +15,12 @@ class SearchCubit extends Cubit<SearchState> {
     try {
       List<Course> courses = await getCourse(token);
 
-      List<Course> filtered = courses
-          .where((survey) =>
-              survey.name!.toLowerCase().contains(toFind.toLowerCase()))
-          .toList();
+      List<Course> filtered = courses.where(
+        (survey) {
+          return survey.name!.toLowerCase().contains(toFind.toLowerCase()) ||
+              survey.categoryName!.toLowerCase().contains(toFind.toLowerCase());
+        },
+      ).toList();
 
       if (filtered.isNotEmpty) {
         emit(SearchCompleted(courses: filtered));

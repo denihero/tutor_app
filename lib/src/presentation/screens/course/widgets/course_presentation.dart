@@ -35,7 +35,9 @@ class _CoursePresentationState extends State<CoursePresentation> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      constraints: BoxConstraints(minHeight: 33.h, maxHeight: 37.h),
+      constraints: BoxConstraints(
+        minHeight: 33.h,
+      ),
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(20),
@@ -68,7 +70,6 @@ class _CoursePresentationState extends State<CoursePresentation> {
                 padding: const EdgeInsets.only(left: 20),
                 child: Text(
                   widget.course.name!,
-                  maxLines: 1,
                   style: TextStyle(
                     fontSize: 14.sp,
                     fontWeight: FontWeight.w700,
@@ -78,11 +79,26 @@ class _CoursePresentationState extends State<CoursePresentation> {
               ),
               SizedBox(height: 3.h),
               Padding(
-                padding: const EdgeInsets.only(left: 23),
+                padding: const EdgeInsets.only(
+                  left: 23,
+                  right: 23,
+                  bottom: 20,
+                ),
                 child: Row(
                   children: [
                     iconWithText(
                         Icons.star_rounded, widget.course.likes.toString()),
+                    const Spacer(),
+                    Text(
+                      "${widget.course.lessons?.length} " +
+                          rightLessonsCountName(
+                              widget.course.lessons?.length ?? 1),
+                      style: const TextStyle(
+                        fontSize: 10,
+                        fontWeight: FontWeight.w500,
+                        letterSpacing: 1.04,
+                      ),
+                    ),
                   ],
                 ),
               ),
@@ -100,8 +116,8 @@ class _CoursePresentationState extends State<CoursePresentation> {
                 boxShadow: [
                   BoxShadow(
                     color: const Color(0xFFC2D1E5).withOpacity(0.7),
-                    offset: const Offset(0, -1),
-                    blurRadius: 11,
+                    offset: const Offset(0, -3),
+                    blurRadius: 5,
                   ),
                 ],
               ),
@@ -124,19 +140,6 @@ class _CoursePresentationState extends State<CoursePresentation> {
                     );
                   },
                 ),
-              ),
-            ),
-          ),
-          Positioned(
-            right: 30,
-            bottom: 24,
-            child: Text(
-              "${widget.course.lessons?.length} " +
-                  rightLessonsCountName(widget.course.lessons?.length ?? 1),
-              style: const TextStyle(
-                fontSize: 10,
-                fontWeight: FontWeight.w500,
-                letterSpacing: 1.04,
               ),
             ),
           ),

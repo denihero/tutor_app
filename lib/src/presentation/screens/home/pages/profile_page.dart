@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sizer/sizer.dart';
 import 'package:tutor_app/src/logic/cubit/history/history_cubit.dart';
 import 'package:tutor_app/src/models/models.dart';
+import 'package:tutor_app/src/presentation/components/shimmer_load_coure_card.dart';
 import 'package:tutor_app/src/presentation/screens/home/pages/widgets/course_card.dart';
 import 'package:tutor_app/src/presentation/screens/widgets/profile_icon.dart';
 
@@ -63,7 +64,12 @@ class _ProfilePageState extends State<ProfilePage> {
           child: BlocBuilder<HistoryCubit, HistoryState>(
             builder: (context, state) {
               if (state is HistoryLoading) {
-                return const Center(child: CircularProgressIndicator());
+                ListView.builder(
+                  itemCount: 1,
+                  itemBuilder: (BuildContext context, int index) {
+                    return const ShimmerLoadCardWidget();
+                  },
+                );
               }
               if (state is HistoryError) {
                 return const Center(child: Text('Something get wrong'));

@@ -1,19 +1,18 @@
-import 'package:cached_network_image/cached_network_image.dart';
-import 'package:chewie/chewie.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_markdown/flutter_markdown.dart';
+import 'package:chewie/chewie.dart';
 import 'package:tutor_app/src/logic/cubit/video/video_cubit.dart';
 import 'package:tutor_app/src/models/models.dart';
+import 'package:tutor_app/src/presentation/components/appbars/transparent_appbar.dart';
 import 'package:video_player/video_player.dart';
-import 'package:markdown/markdown.dart' as md;
-import '../../components/appbars/transparent_appbar.dart';
 import 'course_theory.dart';
 
 class LessonScreen extends StatefulWidget {
-  const LessonScreen({Key? key, required this.id, required this.lesson})
-      : super(key: key);
+  const LessonScreen({
+    Key? key,
+    required this.id,
+    required this.lesson,
+  }) : super(key: key);
 
   final int id;
   final Lesson lesson;
@@ -25,10 +24,16 @@ class LessonScreen extends StatefulWidget {
 class _LessonScreenState extends State<LessonScreen> {
   @override
   Widget build(BuildContext context) {
-    //String videoUrl = widget.lesson.videos![0].url;
+    String videoUrl = "https://www.youtube.com/watch?v=NF3ftFjfACw";
+
+    if (widget.lesson.videos!.isNotEmpty) {
+      videoUrl = widget.lesson.videos![0].url;
+    }
+
     return BlocProvider<VideoCubit>(
-      create: (context) => VideoCubit()
-        ..loadVideoFromNetwork('https://www.youtube.com/watch?v=B5pKw6flFZE'),
+      create: ((context) => VideoCubit()..loadVideoFromNetwork(videoUrl)),
+      // create: (context) => VideoCubit()
+      // ..loadVideoFromNetwork('https://flutter.github.io/assets-for-api-docs/assets/videos/butterfly.mp4'),
       child: Scaffold(
         appBar: TransparentAppBar(
           title: Text(
@@ -61,11 +66,10 @@ class _LessonScreenState extends State<LessonScreen> {
         ),
         body: SafeArea(
           child: Stack(
-            //fit:StackFit.expand,
+            // fit:StackFit.expand,
             children: [
               Container(
                   margin: const EdgeInsets.symmetric(horizontal: 30),
-                  padding: const EdgeInsets.fromLTRB(0, 0, 0, 10),
                   clipBehavior: Clip.antiAliasWithSaveLayer,
                   decoration: BoxDecoration(
                     color: Colors.white,
@@ -99,6 +103,7 @@ class _LessonScreenState extends State<LessonScreen> {
                       }
                       if (state is VideoLoaded) {
                         VideoPlayerController controller = state.controller;
+
                         return AspectRatio(
                           aspectRatio: controller.value.aspectRatio,
                           // TODO: SPECIFY VIDEO CONTROLLER
@@ -116,7 +121,7 @@ class _LessonScreenState extends State<LessonScreen> {
                   )),
               const SizedBox(height: 77),
               Padding(
-                padding: const EdgeInsets.only(left: 10, right: 10),
+                padding: const EdgeInsets.symmetric(horizontal: 20),
                 child: DraggableScrollableSheet(
                     initialChildSize: 0.7,
                     minChildSize: 0.7,
