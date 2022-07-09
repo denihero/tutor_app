@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:sizer/sizer.dart';
 
-
 class ShimmerLoadCardWidget extends StatelessWidget {
   const ShimmerLoadCardWidget({Key? key}) : super(key: key);
 
@@ -28,7 +27,7 @@ class ShimmerLoadCardWidget extends StatelessWidget {
           ),
         ],
       ),
-      child:Stack(
+      child: Stack(
         children: [
           Row(
             children: [
@@ -66,7 +65,6 @@ class ShimmerLoadCardWidget extends StatelessWidget {
                           borderRadius: BorderRadius.circular(12),
                           color: Colors.white,
                         ),
-
                       ),
                     ),
                     Padding(
@@ -103,7 +101,7 @@ class ShimmerLoadCardWidget extends StatelessWidget {
             ],
           ),
         ],
-      ) ,
+      ),
     );
   }
 }

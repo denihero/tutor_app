@@ -13,9 +13,7 @@ class ShimmerLoadCategoriesBadgesWidget extends StatelessWidget {
         width: 100,
         height: 30,
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(30),
-          color: Colors.white
-        ),
+            borderRadius: BorderRadius.circular(30), color: Colors.white),
       ),
     );
   }

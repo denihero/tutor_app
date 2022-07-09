@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:shimmer/shimmer.dart';
 
-
 class ShimmerForTheoryText extends StatelessWidget {
   const ShimmerForTheoryText({Key? key}) : super(key: key);
 

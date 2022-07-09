@@ -25,8 +25,8 @@ class _ProfilePageState extends State<ProfilePage> {
           height: 10,
         ),
         Container(
-          height: 26.h,
-          width: 54.w,
+          height: 16.h,
+          width: 34.w,
           clipBehavior: Clip.antiAliasWithSaveLayer,
           decoration: BoxDecoration(
             color: Colors.white,
@@ -43,7 +43,7 @@ class _ProfilePageState extends State<ProfilePage> {
             letterSpacing: 1.04,
           ),
         ),
-        const SizedBox(height: 67),
+        SizedBox(height: 5.h),
         Padding(
           padding: const EdgeInsets.only(left: 30, bottom: 7),
           child: Row(
@@ -90,7 +90,7 @@ class _ProfilePageState extends State<ProfilePage> {
                       );
                     });
               }
-              return Container();
+              return const SizedBox();
             },
           ),
         ),

@@ -32,10 +32,7 @@ class _CourseCardState extends State<CourseCard> {
         );
       },
       child: Padding(
-        padding: const EdgeInsets.symmetric(
-          vertical: 14,
-          horizontal: 30
-        ),
+        padding: const EdgeInsets.symmetric(vertical: 14, horizontal: 30),
         child: Material(
           color: Colors.white,
           elevation: 3,
@@ -43,9 +40,7 @@ class _CourseCardState extends State<CourseCard> {
           child: Container(
             height: 14.h,
             decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(20)
-            ),
+                color: Colors.white, borderRadius: BorderRadius.circular(20)),
             child: Stack(
               children: [
                 Row(
@@ -128,8 +123,9 @@ class _CourseCardState extends State<CourseCard> {
                           likeBuilder: (bool isLiked) {
                             return Icon(
                               Icons.favorite_rounded,
-                              color:
-                                  isLiked ? const Color(0xFFFE793D) : Colors.grey,
+                              color: isLiked
+                                  ? const Color(0xFFFE793D)
+                                  : Colors.grey,
                               size: 28,
                             );
                           },

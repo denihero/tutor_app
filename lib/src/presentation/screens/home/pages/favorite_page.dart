@@ -49,7 +49,7 @@ class _FavoritePageState extends State<FavoritePage> {
             ],
           );
         }
-        return Container();
+        return const SizedBox();
       },
     );
   }

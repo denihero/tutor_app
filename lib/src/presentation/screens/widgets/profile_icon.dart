@@ -63,9 +63,7 @@ class ProfileIcon extends StatelessWidget {
                     child: ClipOval(
                       child: CachedNetworkImage(
                         progressIndicatorBuilder: (context, url, progress) {
-                          return const Center(
-                            child: ShimmerProfileAvatar()
-                          );
+                          return const Center(child: ShimmerProfileAvatar());
                         },
                         imageUrl: image,
                         fit: BoxFit.cover,

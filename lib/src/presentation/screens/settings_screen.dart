@@ -50,7 +50,7 @@ class SettingsScreen extends StatelessWidget {
                 ],
               ),
               const SizedBox(height: 43),
-              titleWithDetailes(
+              titleWithDetails(
                   "Меня зовут", BlocProvider.of<AuthBloc>(context).state.name),
 
               const SizedBox(height: 33),
@@ -58,7 +58,7 @@ class SettingsScreen extends StatelessWidget {
               //   padding: const EdgeInsets.symmetric(vertical: 49),
               //   child: titleWithDetailes("Обо мне", "Расскажите что нибудь"),
               // ),
-              titleWithDetailes(
+              titleWithDetails(
                   "Email", BlocProvider.of<AuthBloc>(context).state.email),
               const Spacer(),
               Material(
@@ -66,19 +66,18 @@ class SettingsScreen extends StatelessWidget {
                   onTap: () {
                     BlocProvider.of<AuthBloc>(context).add(const AuthLogout());
                     Navigator.of(context).pushAndRemoveUntil(
-                        MaterialPageRoute(
-                            builder: (_) => const LoginScreen()),
-                            (route) => false);
+                        MaterialPageRoute(builder: (_) => const LoginScreen()),
+                        (route) => false);
                   },
                   child: Row(
-                    children:const[
+                    children: const [
                       Icon(
-                          Icons.exit_to_app_rounded,
-                          color: Colors.black,
-                          size: 30,
-                        ),
-                       SizedBox(width: 6),
-                       Text(
+                        Icons.exit_to_app_rounded,
+                        color: Colors.black,
+                        size: 30,
+                      ),
+                      SizedBox(width: 6),
+                      Text(
                         "Выход",
                         style: TextStyle(
                           fontSize: 18,
@@ -97,7 +96,7 @@ class SettingsScreen extends StatelessWidget {
     );
   }
 
-  Widget titleWithDetailes(String title, String details) => Column(
+  Widget titleWithDetails(String title, String details) => Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(

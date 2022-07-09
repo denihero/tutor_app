@@ -6,10 +6,12 @@ abstract class HistoryState extends Equatable {
 }
 
 class HistoryInitial extends HistoryState {}
-class HistoryLoading extends HistoryState{}
-class HistorySuccess extends HistoryState{
 
+class HistoryLoading extends HistoryState {}
+
+class HistorySuccess extends HistoryState {
   HistorySuccess({required this.historyCourses});
   final List<Course> historyCourses;
 }
-class HistoryError extends HistoryState{}
+
+class HistoryError extends HistoryState {}
