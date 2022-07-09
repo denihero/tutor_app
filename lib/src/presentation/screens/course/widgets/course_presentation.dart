@@ -35,10 +35,7 @@ class _CoursePresentationState extends State<CoursePresentation> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      constraints: BoxConstraints(
-        minHeight: 33.h,
-        maxHeight: 37.h
-      ),
+      constraints: BoxConstraints(minHeight: 33.h, maxHeight: 37.h),
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(20),

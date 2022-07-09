@@ -5,6 +5,7 @@ import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:markdown/markdown.dart' as md;
 import 'package:flutter_highlight/flutter_highlight.dart';
 import 'package:tutor_app/src/presentation/components/shimmer_for_theory_text.dart';
+
 class CourseTheory extends StatelessWidget {
   const CourseTheory({Key? key, required this.path}) : super(key: key);
 
@@ -23,13 +24,16 @@ class CourseTheory extends StatelessWidget {
               builders: {
                 'code': CodeElementBuilder(),
               },
-              styleSheetTheme:MarkdownStyleSheetBaseTheme.cupertino,
+              styleSheetTheme: MarkdownStyleSheetBaseTheme.cupertino,
               extensionSet: md.ExtensionSet(
                 md.ExtensionSet.gitHubFlavored.blockSyntaxes,
-                [md.EmojiSyntax(), ...md.ExtensionSet.gitHubFlavored.inlineSyntaxes],
+                [
+                  md.EmojiSyntax(),
+                  ...md.ExtensionSet.gitHubFlavored.inlineSyntaxes
+                ],
               ),
             );
-          }else if(snapshot.hasError){
+          } else if (snapshot.hasError) {
             return const Text('Some Error');
           }
           return const ShimmerForTheoryText();
@@ -48,7 +52,7 @@ class CodeElementBuilder extends MarkdownElementBuilder {
     }
     return SizedBox(
       width:
-      MediaQueryData.fromWindow(WidgetsBinding.instance.window).size.width,
+          MediaQueryData.fromWindow(WidgetsBinding.instance.window).size.width,
       child: ClipRRect(
         borderRadius: BorderRadius.circular(12),
         child: HighlightView(
@@ -60,7 +64,7 @@ class CodeElementBuilder extends MarkdownElementBuilder {
 
           // Specify highlight theme
           // All available themes are listed in `themes` folder
-          theme:a11yDarkTheme,
+          theme: a11yDarkTheme,
           // Specify padding
           padding: const EdgeInsets.all(8),
 

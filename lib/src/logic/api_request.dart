@@ -6,7 +6,6 @@ import 'package:http/http.dart' as http;
 import '../constant/api.dart';
 import '../models/models.dart';
 
-
 Future<String> login(String username, String password) async {
   var response = await http.post(
     Uri.parse("${Api.tutorApi}/account/login/"),
@@ -68,7 +67,6 @@ Future<bool> confirmPassword(String username, String code) async {
   }
   return false;
 }
-
 
 putImage(File? file, int id, String token, String name, String surname) async {
   FormData formData = FormData.fromMap({

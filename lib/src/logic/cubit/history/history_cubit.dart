@@ -7,15 +7,13 @@ part 'history_state.dart';
 class HistoryCubit extends Cubit<HistoryState> {
   HistoryCubit() : super(HistoryInitial());
 
-   getCubitViewedCourses(String token) async {
-    try{
+  getCubitViewedCourses(String token) async {
+    try {
       emit(HistoryLoading());
       List<Course> course = await getViewedCourses(token);
       emit(HistorySuccess(historyCourses: course));
-    }catch(e){
+    } catch (e) {
       emit(HistoryError());
     }
-
   }
-
 }

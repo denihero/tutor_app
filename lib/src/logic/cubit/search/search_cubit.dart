@@ -9,7 +9,7 @@ part 'search_state.dart';
 class SearchCubit extends Cubit<SearchState> {
   SearchCubit() : super(SearchInitial());
 
-  fetchSearch(String toFind,String token) async {
+  fetchSearch(String toFind, String token) async {
     emit(SearchProcessing());
 
     try {

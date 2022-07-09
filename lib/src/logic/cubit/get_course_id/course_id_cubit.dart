@@ -8,12 +8,12 @@ part 'course_id_state.dart';
 class CourseIdCubit extends Cubit<CourseIdState> {
   CourseIdCubit() : super(CoursesIdInitial());
 
-  getCourseCubitById(String token,int id) async{
+  getCourseCubitById(String token, int id) async {
     emit(CoursesIdLoading());
-    try{
+    try {
       Course course = await getCourseById(token, id);
       emit(CoursesIdLoaded(course: course));
-    }catch(e){
+    } catch (e) {
       emit(CoursesIdError());
     }
   }

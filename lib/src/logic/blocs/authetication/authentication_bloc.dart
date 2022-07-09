@@ -31,7 +31,8 @@ class AuthChangeInfo extends AuthEvent {
 }
 
 class AuthRegister extends AuthEvent {
-  const AuthRegister(String username, String password) : super(username, password);
+  const AuthRegister(String username, String password)
+      : super(username, password);
 }
 
 class AuthRegisterSendNameSurname extends AuthEvent {

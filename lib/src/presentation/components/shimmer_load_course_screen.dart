@@ -13,9 +13,7 @@ class ShimmerLoadCourseScreen extends StatelessWidget {
         height: 310,
         //width: 310,
         decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(20)
-        ),
+            color: Colors.white, borderRadius: BorderRadius.circular(20)),
       ),
     );
   }
@@ -58,9 +56,8 @@ class ShimmerLoadLesson extends StatelessWidget {
                   width: 140,
                   height: 15,
                   decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(20)
-                  ),
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(20)),
                 ),
               ),
               Shimmer.fromColors(
@@ -71,8 +68,7 @@ class ShimmerLoadLesson extends StatelessWidget {
                   height: 15,
                   decoration: BoxDecoration(
                       color: Colors.white,
-                      borderRadius: BorderRadius.circular(20)
-                  ),
+                      borderRadius: BorderRadius.circular(20)),
                 ),
               ),
             ],
@@ -82,4 +78,3 @@ class ShimmerLoadLesson extends StatelessWidget {
     );
   }
 }
-

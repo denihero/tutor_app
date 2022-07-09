@@ -23,14 +23,12 @@ class LessonScreen extends StatefulWidget {
 }
 
 class _LessonScreenState extends State<LessonScreen> {
-
-
-
   @override
   Widget build(BuildContext context) {
     //String videoUrl = widget.lesson.videos![0].url;
     return BlocProvider<VideoCubit>(
-      create: (context) => VideoCubit()..loadVideoFromNetwork('https://www.youtube.com/watch?v=B5pKw6flFZE'),
+      create: (context) => VideoCubit()
+        ..loadVideoFromNetwork('https://www.youtube.com/watch?v=B5pKw6flFZE'),
       child: Scaffold(
         appBar: TransparentAppBar(
           title: Text(
@@ -84,9 +82,11 @@ class _LessonScreenState extends State<LessonScreen> {
                     builder: ((context, state) {
                       if (state is VideoLoadError) {
                         return SizedBox(
-                          height: 200,
-                          child: Image.asset('assets/image/error.png',fit: BoxFit.cover,)
-                        );
+                            height: 200,
+                            child: Image.asset(
+                              'assets/image/error.png',
+                              fit: BoxFit.cover,
+                            ));
                       }
                       if (state is VideoLoading) {
                         return const SizedBox(
@@ -104,9 +104,8 @@ class _LessonScreenState extends State<LessonScreen> {
                           // TODO: SPECIFY VIDEO CONTROLLER
                           child: Chewie(
                               controller: ChewieController(
-                                videoPlayerController: controller,
-                                autoInitialize: true
-                          )),
+                                  videoPlayerController: controller,
+                                  autoInitialize: true)),
                         );
                       }
 
@@ -117,12 +116,12 @@ class _LessonScreenState extends State<LessonScreen> {
                   )),
               const SizedBox(height: 77),
               Padding(
-                padding: const EdgeInsets.only(left: 10,right: 10),
+                padding: const EdgeInsets.only(left: 10, right: 10),
                 child: DraggableScrollableSheet(
                     initialChildSize: 0.7,
                     minChildSize: 0.7,
                     maxChildSize: 1,
-                    builder:(context, scrollController) {
+                    builder: (context, scrollController) {
                       return Material(
                         color: Colors.white,
                         elevation: 10,
@@ -140,16 +139,15 @@ class _LessonScreenState extends State<LessonScreen> {
                           ),
                           child: ListView(
                             controller: scrollController,
-                              children: [
-                                CourseTheory(
-                                  path: widget.lesson.file,
-                                )
-                              ],
+                            children: [
+                              CourseTheory(
+                                path: widget.lesson.file,
+                              )
+                            ],
                           ),
                         ),
                       );
-                    }
-                ),
+                    }),
               )
             ],
           ),
@@ -165,14 +163,7 @@ class _LessonScreenState extends State<LessonScreen> {
     return id.toString();
   }
 
-  TextSpan textHighLighter(String text){
-    return TextSpan(
-      text: text,
-      style: const TextStyle(
-        color: Colors.black
-      )
-    );
+  TextSpan textHighLighter(String text) {
+    return TextSpan(text: text, style: const TextStyle(color: Colors.black));
   }
 }
-
-

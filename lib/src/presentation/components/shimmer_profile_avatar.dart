@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:shimmer/shimmer.dart';
 
-
 class ShimmerProfileAvatar extends StatelessWidget {
   const ShimmerProfileAvatar({Key? key}) : super(key: key);
 

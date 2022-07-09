@@ -16,7 +16,6 @@ class ProfilePage extends StatefulWidget {
 }
 
 class _ProfilePageState extends State<ProfilePage> {
-
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -25,13 +24,13 @@ class _ProfilePageState extends State<ProfilePage> {
           height: 10,
         ),
         Container(
-          height: 26.h,
-          width: 54.w,
+          height: 16.h,
+          width: 34.w,
           clipBehavior: Clip.antiAliasWithSaveLayer,
           decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(360),
-              ),
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(360),
+          ),
           child: const ProfileIcon(),
         ),
         const SizedBox(height: 44),
@@ -43,7 +42,7 @@ class _ProfilePageState extends State<ProfilePage> {
             letterSpacing: 1.04,
           ),
         ),
-        const SizedBox(height: 67),
+        SizedBox(height: 5.h),
         Padding(
           padding: const EdgeInsets.only(left: 30, bottom: 7),
           child: Row(
@@ -63,21 +62,17 @@ class _ProfilePageState extends State<ProfilePage> {
         Expanded(
           child: BlocBuilder<HistoryCubit, HistoryState>(
             builder: (context, state) {
-              if(state is HistoryLoading){
-                return const Center(
-                    child: CircularProgressIndicator()
-                );
+              if (state is HistoryLoading) {
+                return const Center(child: CircularProgressIndicator());
               }
-              if(state is HistoryError){
-                return const Center(
-                    child: Text('Something get wrong')
-                );
+              if (state is HistoryError) {
+                return const Center(child: Text('Something get wrong'));
               }
-              if(state is HistorySuccess){
+              if (state is HistorySuccess) {
                 final historyCourse = state.historyCourses;
                 return ListView.builder(
                     itemCount: historyCourse.length,
-                    itemBuilder: (BuildContext context, int index){
+                    itemBuilder: (BuildContext context, int index) {
                       return CourseCard(
                         course: Course(
                             name: historyCourse[index].name,
@@ -85,14 +80,12 @@ class _ProfilePageState extends State<ProfilePage> {
                             lessons: historyCourse[index].lessons,
                             images: historyCourse[index].images,
                             likes: historyCourse[index].likes,
-                            id: historyCourse[index].id
-                        ),
+                            id: historyCourse[index].id),
                       );
                     });
               }
-              return Container();
+              return const SizedBox();
             },
-
           ),
         ),
       ],

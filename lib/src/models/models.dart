@@ -31,7 +31,8 @@ class Course {
         id: json["id"],
         name: json["name_of_course"],
         categoryName: json["category"],
-        images: List<CourseImage>.from(json["images"].map((x) => CourseImage.fromJson(x))),
+        images: List<CourseImage>.from(
+            json["images"].map((x) => CourseImage.fromJson(x))),
         lessons:
             List<Lesson>.from(json["lessons"].map((x) => Lesson.fromJson(x))),
         likes: json["likes"],
@@ -79,20 +80,20 @@ class Lesson {
   List<Video>? videos;
 
   factory Lesson.fromJson(Map<String, dynamic> json) => Lesson(
-    id: json["id"],
-    name: json["name"],
-    file: json["file"],
-    course: json["course"],
-    videos: List<Video>.from(json["videos"].map((x) => Video.fromJson(x))),
-  );
+        id: json["id"],
+        name: json["name"],
+        file: json["file"],
+        course: json["course"],
+        videos: List<Video>.from(json["videos"].map((x) => Video.fromJson(x))),
+      );
 
   Map<String, dynamic> toJson() => {
-    "id": id,
-    "name": name,
-    "file": file,
-    "course": course,
-    "videos": List<dynamic>.from(videos!.map((x) => x.toJson())),
-  };
+        "id": id,
+        "name": name,
+        "file": file,
+        "course": course,
+        "videos": List<dynamic>.from(videos!.map((x) => x.toJson())),
+      };
 }
 
 class SavedList {

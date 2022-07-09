@@ -148,9 +148,9 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                       Align(
                         alignment: Alignment.topLeft,
                         child: Text(
-                         _isShowNameSurname
-                                  ? "Enter name and surname"
-                                  : "Create account",
+                          _isShowNameSurname
+                              ? "Enter name and surname"
+                              : "Create account",
                           style: const TextStyle(
                               fontSize: 28, fontWeight: FontWeight.bold),
                         ),
@@ -220,7 +220,8 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                                   ],
                                 ),
                               ],
-                            ):Container(),
+                            )
+                          : Container(),
                       _isShowNameSurname
                           ? Column(
                               children: [
