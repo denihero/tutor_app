@@ -99,22 +99,26 @@ class _HomePageState extends State<HomePage> {
                 );
               }
 
-              return Column(
-                children: const [
-                  Icon(
-                    Icons.error_outline_rounded,
-                    size: 60,
-                    color: Colors.black38,
-                  ),
-                  Text(
-                    "Something get wrong",
-                    style: TextStyle(
-                      fontSize: 24,
+              return Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: const [
+                    Icon(
+                      Icons.error_outline_rounded,
+                      size: 60,
                       color: Colors.black38,
-                      fontWeight: FontWeight.w500,
                     ),
-                  ),
-                ],
+                    Text(
+                      "Something get wrong",
+                      style: TextStyle(
+                        fontSize: 24,
+                        color: Colors.black38,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                  ],
+                ),
               );
             },
           ),
